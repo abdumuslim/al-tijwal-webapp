@@ -1,0 +1,48 @@
+
+/* Target everything with very high specificity */
+html body #root *,
+html body #root *::before,
+html body #root *::after {
+  font-family: 'Al-Jazeera', sans-serif !important;
+}
+
+/* Target shadcn/ui component elements specifically */
+button, 
+[role="button"],
+[type="button"],
+[type="submit"],
+[type="reset"],
+[role="dialog"],
+[role="tooltip"],
+[data-state],
+[data-radix-popper-content-wrapper],
+.shadcn-button,
+.shadcn-dialog,
+.shadcn-tooltip,
+.shadcn-popover,
+.shadcn-menu,
+.shadcn-dropdown {
+  font-family: 'Al-Jazeera', sans-serif !important;
+}
+
+/* Target all inputs and form elements */
+input,
+select,
+textarea,
+label,
+.form-input,
+.form-select,
+.form-checkbox,
+.form-radio {
+  font-family: 'Al-Jazeera', sans-serif !important;
+}
+
+/* Target specific shadcn components by their common class patterns */
+[class*="radix-"],
+[class*="dialog-content"],
+[class*="popover-content"],
+[class*="dropdown-menu"],
+[class*="button-"],
+[class*="tooltip-"] {
+  font-family: 'Al-Jazeera', sans-serif !important;
+}
