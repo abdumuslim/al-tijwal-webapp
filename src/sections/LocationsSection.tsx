@@ -161,7 +161,7 @@ const LocationsSection = () => {
             <div className="glass-card p-1 rounded-2xl shadow-xl mb-8">
               <div className="relative rounded-xl overflow-hidden">
                 <iframe 
-                  src="https://www.google.com/maps/d/u/0/embed?mid=1ktBrIpaMmmRgekTrYzKKfAQhdZPMv8o&ehbc=2E312F&ui=0" 
+                  src="https://www.google.com/maps/d/u/0/embed?mid=1ktBrIpaMmmRgekTrYzKKfAQhdZPMv8o&ehbc=2E312F&noprof=1" 
                   width="100%" 
                   height="450"
                   title="مواقع خدمات التجوال في بغداد"
