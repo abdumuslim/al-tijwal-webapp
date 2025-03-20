@@ -78,7 +78,6 @@ export default {
 			},
 			fontFamily: {
 				cairo: ['Cairo', 'sans-serif'],
-				aljazeera: ['Al-Jazeera', 'Arial', 'sans-serif'],
 			},
 			keyframes: {
 				'accordion-down': {
