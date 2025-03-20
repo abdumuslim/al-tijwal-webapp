@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react';
+import LoadingAnimation from './LoadingAnimation';
 
 interface FontPreloaderProps {
   children: React.ReactNode;
@@ -17,16 +18,19 @@ const FontPreloader: React.FC<FontPreloaderProps> = ({ children }) => {
     ]).then(fonts => {
       // Add fonts to document
       fonts.forEach(font => document.fonts.add(font));
-      setFontsLoaded(true);
+      // Set a slight delay to ensure a smooth transition
+      setTimeout(() => {
+        setFontsLoaded(true);
+      }, 500);
     }).catch(err => {
       console.error('Failed to load fonts:', err);
       setFontsLoaded(true); // Continue anyway to avoid blank screen
     });
   }, []);
 
-  // Optional: Show a loading indicator while fonts are loading
+  // Show the loading animation while fonts are loading
   if (!fontsLoaded) {
-    return <div className="flex items-center justify-center h-screen">جاري تحميل الخطوط...</div>;
+    return <LoadingAnimation />;
   }
 
   return <>{children}</>;
