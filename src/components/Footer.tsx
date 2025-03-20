@@ -3,7 +3,7 @@ import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react'
 
 const Footer = () => {
   return (
-    <footer id="contact" className="bg-tijwal-dark text-white pt-16 pb-8">
+    <footer className="bg-tijwal-dark text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
@@ -13,32 +13,22 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4 rtl:space-x-reverse">
               <a 
-                href="https://www.facebook.com/Altijwal" 
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#" 
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-orange transition-colors duration-300"
               >
                 <Facebook className="h-5 w-5" />
               </a>
               <a 
-                href="https://www.instagram.com/al.tijwal/" 
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#" 
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-orange transition-colors duration-300"
               >
                 <Instagram className="h-5 w-5" />
               </a>
               <a 
-                href="http://wa.me/9647849567837" 
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#" 
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-orange transition-colors duration-300"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
-                  <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Zm0 0a5 5 0 0 0 5 5" />
-                  <path d="M9.5 13.5h.01" />
-                </svg>
+                <Twitter className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -59,7 +49,7 @@ const Footer = () => {
                 <a href="#locations" className="text-gray-300 hover:text-white transition-colors duration-300">مناطق الخدمة</a>
               </li>
               <li>
-                <a href="#pricing" className="text-gray-300 hover:text-white transition-colors duration-300">باقات العروض</a>
+                <a href="#pricing" className="text-gray-300 hover:text-white transition-colors duration-300">باقات الأسعار</a>
               </li>
             </ul>
           </div>
@@ -74,43 +64,16 @@ const Footer = () => {
                 <span className="text-gray-300">بغداد - المنصور</span>
               </li>
               <li className="flex items-center gap-3">
-                <a 
-                  href="tel:+9647849567837" 
-                  className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors duration-300"
-                >
-                  <div className="bg-tijwal-orange/20 p-2 rounded-full">
-                    <Phone className="h-5 w-5 text-tijwal-orange" />
-                  </div>
-                  <span>07849567837</span>
-                </a>
+                <div className="bg-tijwal-orange/20 p-2 rounded-full">
+                  <Phone className="h-5 w-5 text-tijwal-orange" />
+                </div>
+                <span className="text-gray-300">هاتف: 07849567837</span>
               </li>
               <li className="flex items-center gap-3">
-                <a 
-                  href="http://wa.me/9647849567837" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors duration-300"
-                >
-                  <div className="bg-tijwal-orange/20 p-2 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-tijwal-orange">
-                      <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
-                      <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Zm0 0a5 5 0 0 0 5 5" />
-                      <path d="M9.5 13.5h.01" />
-                    </svg>
-                  </div>
-                  <span>تواصل عبر واتساب</span>
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <a 
-                  href="mailto:contact@al-tijwal.com" 
-                  className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors duration-300"
-                >
-                  <div className="bg-tijwal-orange/20 p-2 rounded-full">
-                    <Mail className="h-5 w-5 text-tijwal-orange" />
-                  </div>
-                  <span>contact@al-tijwal.com</span>
-                </a>
+                <div className="bg-tijwal-orange/20 p-2 rounded-full">
+                  <Mail className="h-5 w-5 text-tijwal-orange" />
+                </div>
+                <span className="text-gray-300">contact@al-tijwal.com</span>
               </li>
             </ul>
           </div>
@@ -118,15 +81,13 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-6">ساعات العمل</h3>
             <ul className="space-y-3">
-              <li className="text-gray-300">الأحد - الخميس: 9:00 ص - 9:00 م</li>
-              <li className="text-gray-300">الجمعة: 9:00 ص - 9:00 م</li>
-              <li className="text-gray-300">السبت: 9:00 ص - 9:00 م</li>
+              <li className="text-gray-300">الأحد - الخميس: 9:00 ص - 5:00 م</li>
+              <li className="text-gray-300">الجمعة: 9:00 ص - 1:00 م</li>
+              <li className="text-gray-300">السبت: مغلق</li>
             </ul>
             <div className="mt-6">
               <a 
-                href="http://wa.me/9647849567837" 
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#contact" 
                 className="inline-block bg-tijwal-orange text-white px-6 py-2 rounded-lg font-medium hover:bg-tijwal-orange/90 transition-colors duration-300"
               >
                 تواصل معنا
