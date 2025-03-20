@@ -1,5 +1,5 @@
 
-import { MapPin, Navigation } from 'lucide-react';
+import { MapPin, Navigation, Check } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
 
 const LocationsSection = () => {
@@ -42,6 +42,47 @@ const LocationsSection = () => {
           <div className="col-span-1">
             <div className="bg-white rounded-xl shadow-lg p-6 sticky top-20">
               <h3 className="text-xl font-bold mb-6 text-tijwal-dark">تصفية المواقع</h3>
+
+              <div className="glass-card p-6 mb-8">
+                <h3 className="text-xl font-bold mb-4 text-tijwal-dark">استراتيجية اختيار المواقع</h3>
+                <p className="text-tijwal-gray mb-4">
+                  نختار مواقعنا بعناية بناءً على معايير محددة لضمان أقصى تأثير للحملات الإعلانية:
+                </p>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="mt-1 ml-2 flex-shrink-0">
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-tijwal-orange/20">
+                        <Check className="h-3 w-3 text-tijwal-orange" />
+                      </span>
+                    </div>
+                    <span>المناطق التجارية: المنصور، الكرادة، وشوارع التسوق الرئيسية</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mt-1 ml-2 flex-shrink-0">
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-tijwal-orange/20">
+                        <Check className="h-3 w-3 text-tijwal-orange" />
+                      </span>
+                    </div>
+                    <span>أماكن التجمعات: بالقرب من مراكز التسوق والمطاعم والمقاهي الشهيرة</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mt-1 ml-2 flex-shrink-0">
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-tijwal-orange/20">
+                        <Check className="h-3 w-3 text-tijwal-orange" />
+                      </span>
+                    </div>
+                    <span>مراكز النقل: بالقرب من محطات الباصات ومواقف سيارات الأجرة</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mt-1 ml-2 flex-shrink-0">
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-tijwal-orange/20">
+                        <Check className="h-3 w-3 text-tijwal-orange" />
+                      </span>
+                    </div>
+                    <span>المناسبات الخاصة: بالقرب من الفعاليات والمهرجانات والحفلات</span>
+                  </li>
+                </ul>
+              </div>
               
               <div className="space-y-4 mb-8">
                 {filters.map((filter, index) => (

@@ -37,7 +37,7 @@ const CoreBenefitsSection = () => {
           <span className="inline-block bg-tijwal-orange/10 text-tijwal-orange px-4 py-1 rounded-full text-sm font-medium mb-4">
             لماذا تختار التجوال؟
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">مميزات فريدة لإعلانات متميزة</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">مزايا التجوال التنافسية</h2>
           <p className="text-tijwal-gray max-w-2xl mx-auto">
             تجمع خدماتنا بين الانتشار الواسع والاستهداف الدقيق مع إمكانية قياس الأداء لتحقيق أقصى عائد على استثمارك الإعلاني
           </p>
@@ -61,10 +61,9 @@ const CoreBenefitsSection = () => {
         {/* Vision Section */}
         <div className="mt-16 glass-card p-8 bg-gradient-to-r from-tijwal-orange/5 to-tijwal-blue/5 border border-tijwal-orange/20">
           <div className="text-center">
-            <h3 className="text-2xl font-bold mb-4 text-tijwal-dark">رؤيتنا</h3>
+            <h3 className="text-2xl font-bold mb-4 text-tijwal-dark">رؤيتنا لعام 2029</h3>
             <p className="text-tijwal-gray max-w-3xl mx-auto">
-              نسعى ألى أن نصبح الشركة الرائدة في مجال الإبتكار في الإعلان الداخلي والخارجي في العراق بحلول عام 2029، 
-              وأن نصبح المعيار الجديد لفعالية الإعلان وشفافية البيانات في المنطقة، وأن يرتبط اسم التجوال في أذهان الناس بالابتكار والجودة العالية في مجال الإعلان في العراق.
+              أن نصبح الشركة الرائدة في مجال الإعلانات الداخلية والخارجية المبتكرة في العراق، محدثين ثورة في طريقة تواصل العلامات التجارية مع جماهيرها من خلال شاشاتنا المتنقلة المتطورة. نريد أن يرتبط اسم التجوال في أذهان الناس بالابتكار والجودة العالية في الإعلان في العراق وأن نكون الخيار الأول الذي يفكرون فيه.
             </p>
           </div>
         </div>

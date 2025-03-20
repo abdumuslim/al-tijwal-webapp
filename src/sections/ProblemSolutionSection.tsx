@@ -30,6 +30,19 @@ const ProblemSolutionSection = () => {
                   </span>
                 </div>
                 <div className="mr-4">
+                  <h4 className="text-lg font-semibold mb-1">ضعف جذب الانتباه</h4>
+                  <p className="text-tijwal-gray">
+                    اللوحات الإعلانية الثابتة هي الطريقة الأقل فعالية لجذب انتباه المشاهدين، حيث تندمج مع الخلفية وغالباً ما يتجاهلها المارة.
+                  </p>
+                </div>
+              </li>
+              <li className="flex items-start">
+                <div className="mt-1 flex-shrink-0">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-100">
+                    <X className="h-4 w-4 text-red-500" />
+                  </span>
+                </div>
+                <div className="mr-4">
                   <h4 className="text-lg font-semibold mb-1">انعدام قياس الأداء الفعلي</h4>
                   <p className="text-tijwal-gray">
                     الإعلانات التقليدية لا توفر بيانات دقيقة عن عدد المشاهدات أو تأثير الحملة الإعلانية.
@@ -88,6 +101,19 @@ const ProblemSolutionSection = () => {
             </div>
 
             <ul className="space-y-6">
+              <li className="flex items-start">
+                <div className="mt-1 flex-shrink-0">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-tijwal-blue/20">
+                    <Check className="h-4 w-4 text-tijwal-blue" />
+                  </span>
+                </div>
+                <div className="mr-4">
+                  <h4 className="text-lg font-semibold mb-1">جذب انتباه طبيعي</h4>
+                  <p className="text-tijwal-gray">
+                    العين البشرية مبرمجة على ملاحظة الحركة وتجاهل الأشياء الثابتة، لذا فإن شاشاتنا المتحركة تجذب الانتباه بشكل طبيعي وتلقائي.
+                  </p>
+                </div>
+              </li>
               <li className="flex items-start">
                 <div className="mt-1 flex-shrink-0">
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-tijwal-blue/20">

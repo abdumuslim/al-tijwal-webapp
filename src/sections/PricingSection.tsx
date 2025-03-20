@@ -6,10 +6,11 @@ const PricingSection = () => {
   const pricingPlans = [
     {
       name: "الباقة الأساسية",
-      price: "250",
-      duration: "يومياً",
+      price: "17,000",
+      unit: "للشاشة/للساعة",
+      duration: "الحد الأدنى ساعتان",
       features: [
-        "ساعتان من العرض المتنقل",
+        "شاشة إعلانية متنقلة واحدة",
         "موقع واحد استراتيجي في بغداد",
         "تقارير يومية عن الأداء",
         "الوصول إلى منصة عين التجوال",
@@ -20,10 +21,11 @@ const PricingSection = () => {
     },
     {
       name: "الباقة المميزة",
-      price: "600",
-      duration: "يومياً",
+      price: "16,000",
+      unit: "للشاشة/للساعة",
+      duration: "عند حجز 5 ساعات",
       features: [
-        "4 ساعات من العرض المتنقل",
+        "شاشات متعددة حسب الطلب",
         "موقعين استراتيجيين في بغداد",
         "تقارير مفصلة عن الأداء والجمهور",
         "الوصول الكامل إلى منصة عين التجوال",
@@ -35,10 +37,11 @@ const PricingSection = () => {
     },
     {
       name: "الباقة الاحترافية",
-      price: "1000",
-      duration: "يومياً",
+      price: "15,000",
+      unit: "للشاشة/للساعة",
+      duration: "عند حجز 10+ ساعات",
       features: [
-        "8 ساعات من العرض المتنقل",
+        "شاشات متعددة حسب الطلب",
         "ثلاثة مواقع استراتيجية في بغداد",
         "تقارير متقدمة مع تحليلات الجمهور",
         "الوصول الكامل إلى منصة عين التجوال",
@@ -91,9 +94,10 @@ const PricingSection = () => {
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-2 text-center">{plan.name}</h3>
                 <div className="flex justify-center items-baseline my-6">
-                  <span className="text-4xl font-bold">{plan.price}$</span>
-                  <span className="text-tijwal-gray mr-2 text-sm">/{plan.duration}</span>
+                  <span className="text-4xl font-bold">{plan.price}</span>
+                  <span className="text-tijwal-gray mr-2 text-sm">د.ع/{plan.unit}</span>
                 </div>
+                <p className="text-center text-tijwal-gray text-sm mb-6">{plan.duration}</p>
                 <ul className="space-y-4 mb-8">
                   {plan.features.map((feature, fIndex) => (
                     <li key={fIndex} className="flex items-start">
@@ -117,6 +121,28 @@ const PricingSection = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Special Discounts Section */}
+        <div className="mt-12 max-w-6xl mx-auto bg-tijwal-blue/5 rounded-xl p-6 border border-tijwal-blue/20">
+          <h3 className="text-xl font-bold mb-4 text-center">خصومات خاصة</h3>
+          <p className="text-center mb-6">نقدم خصومات خاصة للحملات الكبيرة والعملاء المستمرين:</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex items-start p-4 bg-white rounded-lg shadow-sm">
+              <div className="mr-3 h-10 w-10 flex items-center justify-center bg-tijwal-orange/10 rounded-full text-tijwal-orange font-bold">5%</div>
+              <div>
+                <h4 className="font-bold mb-1">خصم الحملات الكبيرة</h4>
+                <p className="text-sm text-tijwal-gray">خصم 5-7% على الحملات التي تستخدم 10 شاشات أو أكثر</p>
+              </div>
+            </div>
+            <div className="flex items-start p-4 bg-white rounded-lg shadow-sm">
+              <div className="mr-3 h-10 w-10 flex items-center justify-center bg-tijwal-blue/10 rounded-full text-tijwal-blue font-bold">+</div>
+              <div>
+                <h4 className="font-bold mb-1">خصومات العقود طويلة المدى</h4>
+                <p className="text-sm text-tijwal-gray">تواصل معنا للحصول على أفضل الأسعار للعقود الشهرية والسنوية</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Enterprise Plan */}

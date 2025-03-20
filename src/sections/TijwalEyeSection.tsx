@@ -28,7 +28,7 @@ const TijwalEyeSection = () => {
                 <div>
                   <h4 className="font-bold text-xl mb-2">تحليل المشاهدات</h4>
                   <p className="text-tijwal-gray">
-                    تستخدم كاميرات متطورة مع تقنية التعرف على الوجه لإحصاء عدد المشاهدين بدقة (مع الحفاظ التام على خصوصية الأفراد).
+                    تستخدم نظام داشكام متطور مع خوارزميات الذكاء الاصطناعي لتحديد عدد الأشخاص الذين ينظرون إلى الإعلان مع الحفاظ التام على خصوصية الأفراد.
                   </p>
                 </div>
               </div>
@@ -50,9 +50,9 @@ const TijwalEyeSection = () => {
                   <Users className="h-6 w-6 text-tijwal-orange" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-xl mb-2">تحليل الديموغرافيا</h4>
+                  <h4 className="font-bold text-xl mb-2">تحسين الاستهداف <span className="text-xs text-tijwal-orange">(قريباً)</span></h4>
                   <p className="text-tijwal-gray">
-                    تقدم تحليلاً تقريبياً للفئات العمرية والجنس، مما يساعد في تحسين استهداف الحملات المستقبلية.
+                    نعمل على تطوير إمكانيات تحليلية إضافية لفهم أفضل للجمهور، مما سيساعد في تحسين استهداف الحملات المستقبلية.
                   </p>
                 </div>
               </div>

@@ -33,7 +33,7 @@ const HeroSection = () => {
         </h1>
 
         <p className="max-w-2xl mx-auto text-lg md:text-xl text-tijwal-gray mb-10 animate-fade-in">
-          نبتكر في عالم الإعلان بدمج أحدث التقنيات في شاشاتنا المتنقلة لتحقيق نتائج استثنائية وقياس دقيق للأداء
+          نبتكر في عالم الإعلان بدمج أحدث التقنيات في شاشاتنا المتنقلة مع التواجد الذكي والتواصل المباشر، لتصل إلى جمهورك في كل مكان وبأنسب الأسعار
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in">
@@ -41,7 +41,7 @@ const HeroSection = () => {
             احصل على استشارة مجانية
           </TijwalButton>
           <TijwalButton variant="secondary" size="lg">
-            اكتشف خدماتنا
+            تعرف على عين التجوال
           </TijwalButton>
         </div>
 
