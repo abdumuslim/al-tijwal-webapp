@@ -1,3 +1,4 @@
+
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
@@ -8,7 +9,7 @@ const Footer = () => {
           <div>
             <div className="mb-6">
               <img 
-                src="/icon-logo.png" 
+                src="/lovable-uploads/c7ecb791-6f0b-49db-baf0-2f7610d5a376.png" 
                 alt="التجوال" 
                 className="h-16 w-16"
               />

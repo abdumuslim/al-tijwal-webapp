@@ -34,7 +34,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <a href="#hero">
             <img 
-              src="/full-logo.png" 
+              src="/lovable-uploads/f5296d76-7e51-4c9f-8151-7e8785243d39.png" 
               alt="التجوال" 
               className="h-12 md:h-14"
             />
