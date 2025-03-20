@@ -1,4 +1,3 @@
-
 import { ChevronDown } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
 
@@ -72,9 +71,6 @@ const HeroSection = () => {
               className="w-full h-auto rounded-xl"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-            <div className="absolute bottom-4 right-4 left-4 text-white text-sm md:text-base font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg">
-              فريق التجوال يحمل شاشات الإعلان المتنقلة في أسواق العراق
-            </div>
           </div>
         </div>
 
