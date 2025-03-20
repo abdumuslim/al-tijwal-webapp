@@ -4,7 +4,7 @@ import TijwalButton from '@/components/TijwalButton';
 
 const TijwalEyeSection = () => {
   return (
-    <section id="technology" className="py-20 bg-gradient-to-b from-white to-tijwal-light">
+    <section id="tijwal-eye" className="py-20 bg-gradient-to-b from-white to-tijwal-light">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <span className="inline-block bg-tijwal-orange/10 text-tijwal-orange px-4 py-1 rounded-full text-sm font-medium mb-4">
@@ -78,15 +78,12 @@ const TijwalEyeSection = () => {
           <div className="order-1 lg:order-2">
             <div className="relative">
               <div className="relative glass-card p-1 rounded-2xl shadow-xl transform transition-all duration-500 hover:scale-[1.02]">
-                {/* Simple Rectangle Image Placeholder */}
-                <div className="image-placeholder aspect-video md:aspect-[4/3] rounded-xl overflow-hidden flex items-center justify-center relative">
-                  <span className="text-center">
-                    صورة توضيحية لتقنية عين التجوال
-                  </span>
-                  <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-tijwal-orange rounded-full animate-ping opacity-75"></div>
-                  <div className="absolute top-3/4 right-1/3 w-2 h-2 bg-tijwal-blue rounded-full animate-ping opacity-75"></div>
-                  <div className="absolute bottom-1/4 right-1/4 w-4 h-4 bg-tijwal-orange rounded-full animate-ping opacity-75"></div>
-                </div>
+                <img 
+                  src="/lovable-uploads/51fb4261-5cde-4486-a976-0b3ec174ce35.png" 
+                  alt="تقنية عين التجوال في العمل" 
+                  className="w-full h-auto rounded-xl"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl"></div>
               </div>
               
               {/* Stats overlay */}

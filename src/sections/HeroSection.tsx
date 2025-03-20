@@ -1,3 +1,4 @@
+
 import { ChevronDown } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
 
@@ -9,13 +10,13 @@ const HeroSection = () => {
     }
   };
 
-  const handleConsultation = () => {
-    // For now, we'll just scroll to the contact section
-    const contactSection = document.getElementById('pricing');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+  const handleFooterRedirect = () => {
+    // Scroll to footer section
+    const footerSection = document.getElementById('contact');
+    if (footerSection) {
+      footerSection.scrollIntoView({ behavior: 'smooth' });
     }
-    console.log('Consultation button clicked');
+    console.log('Contact button clicked - redirecting to footer');
   };
 
   const handleTijwalEye = () => {
@@ -54,7 +55,7 @@ const HeroSection = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in">
-          <TijwalButton variant="primary" size="lg" onClick={handleConsultation}>
+          <TijwalButton variant="primary" size="lg" onClick={handleFooterRedirect}>
             احصل على استشارة مجانية
           </TijwalButton>
           <TijwalButton variant="secondary" size="lg" onClick={handleTijwalEye}>
