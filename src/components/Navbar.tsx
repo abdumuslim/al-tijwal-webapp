@@ -36,13 +36,13 @@ const Navbar = () => {
           <a href="#hero" className="nav-link">الرئيسية</a>
           <a href="#about" className="nav-link">من نحن</a>
           <a href="#services" className="nav-link">خدماتنا</a>
-          <a href="#technology" className="nav-link">التقنية</a>
+          <a href="#technology" className="nav-link">عين التجوال</a>
           <a href="#locations" className="nav-link">المواقع</a>
           <a href="#pricing" className="nav-link">الأسعار</a>
         </div>
 
         <div className="hidden md:block">
-          <TijwalButton variant="gradient">
+          <TijwalButton variant="primary">
             احصل على استشارة
           </TijwalButton>
         </div>
@@ -63,11 +63,11 @@ const Navbar = () => {
           <a href="#hero" className="nav-link" onClick={toggleMenu}>الرئيسية</a>
           <a href="#about" className="nav-link" onClick={toggleMenu}>من نحن</a>
           <a href="#services" className="nav-link" onClick={toggleMenu}>خدماتنا</a>
-          <a href="#technology" className="nav-link" onClick={toggleMenu}>التقنية</a>
+          <a href="#technology" className="nav-link" onClick={toggleMenu}>عين التجوال</a>
           <a href="#locations" className="nav-link" onClick={toggleMenu}>المواقع</a>
           <a href="#pricing" className="nav-link" onClick={toggleMenu}>الأسعار</a>
           <div className="mt-6">
-            <TijwalButton variant="gradient" onClick={toggleMenu}>
+            <TijwalButton variant="primary" onClick={toggleMenu}>
               احصل على استشارة
             </TijwalButton>
           </div>

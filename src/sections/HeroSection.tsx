@@ -16,7 +16,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/3 -right-20 w-80 h-80 bg-tijwal-orange/10 rounded-full blur-3xl animate-pulse-soft"></div>
         <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-tijwal-blue/10 rounded-full blur-3xl animate-pulse-soft"></div>
-        <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-tijwal-teal/10 rounded-full blur-3xl animate-pulse-soft"></div>
+        <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-tijwal-blue/10 rounded-full blur-3xl animate-pulse-soft"></div>
       </div>
 
       {/* Content */}
@@ -37,7 +37,7 @@ const HeroSection = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in">
-          <TijwalButton variant="gradient" size="lg">
+          <TijwalButton variant="primary" size="lg">
             احصل على استشارة مجانية
           </TijwalButton>
           <TijwalButton variant="secondary" size="lg">
@@ -46,27 +46,13 @@ const HeroSection = () => {
         </div>
 
         {/* Image Placeholder */}
-        <div className="max-w-md mx-auto mb-10 relative animate-fade-in">
+        <div className="max-w-5xl mx-auto mb-10 relative animate-fade-in">
           <div className="image-placeholder aspect-video rounded-xl">
-            <div className="text-center p-4">
-              <span className="text-sm">صورة ترويجية للشاشات المتنقلة</span>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center p-4">
+                <span className="text-sm font-medium text-gray-600 bg-white/70 px-4 py-2 rounded-full">صورة للشاشات المتنقلة المحمولة بواسطة الوكلاء</span>
+              </div>
             </div>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-12 animate-fade-in">
-          <div className="glass-card p-6">
-            <h3 className="text-tijwal-orange text-3xl font-bold mb-2">+5000</h3>
-            <p className="text-tijwal-gray">مشاهدة يومية</p>
-          </div>
-          <div className="glass-card p-6">
-            <h3 className="text-tijwal-orange text-3xl font-bold mb-2">+40</h3>
-            <p className="text-tijwal-gray">موقع استراتيجي</p>
-          </div>
-          <div className="glass-card p-6">
-            <h3 className="text-tijwal-orange text-3xl font-bold mb-2">+95%</h3>
-            <p className="text-tijwal-gray">معدل رضا العملاء</p>
           </div>
         </div>
 

@@ -15,7 +15,7 @@ const CoreBenefitsSection = () => {
     },
     {
       title: "قياس الأداء",
-      description: "تقارير مفصلة عن أداء حملتك الإعلانية بما في ذلك عدد المشاهدات ومعدلات التفاعل ومستوى الوصول",
+      description: "تقارير مفصلة عن أداء حملتك الإعلانية باستخدام تقنية عين التجوال التي تقيس عدد المشاهدات ومدة المشاهدة",
       icon: <BarChart3 className="h-8 w-8" />
     },
     {
@@ -58,21 +58,14 @@ const CoreBenefitsSection = () => {
           ))}
         </div>
 
-        {/* Animated Stats Banner */}
-        <div className="mt-16 glass-card p-8 bg-gradient-to-r from-tijwal-orange/5 to-tijwal-orange/10 border-tijwal-orange/20">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <h4 className="text-tijwal-orange text-4xl font-bold mb-2">+40</h4>
-              <p className="text-tijwal-gray">موقع استراتيجي</p>
-            </div>
-            <div className="text-center">
-              <h4 className="text-tijwal-orange text-4xl font-bold mb-2">+100</h4>
-              <p className="text-tijwal-gray">عميل راضٍ</p>
-            </div>
-            <div className="text-center">
-              <h4 className="text-tijwal-orange text-4xl font-bold mb-2">+1000</h4>
-              <p className="text-tijwal-gray">حملة إعلانية ناجحة</p>
-            </div>
+        {/* Vision Section */}
+        <div className="mt-16 glass-card p-8 bg-gradient-to-r from-tijwal-orange/5 to-tijwal-blue/5 border border-tijwal-orange/20">
+          <div className="text-center">
+            <h3 className="text-2xl font-bold mb-4 text-tijwal-dark">رؤيتنا</h3>
+            <p className="text-tijwal-gray max-w-3xl mx-auto">
+              نسعى ألى أن نصبح الشركة الرائدة في مجال الإبتكار في الإعلان الداخلي والخارجي في العراق بحلول عام 2029، 
+              وأن نصبح المعيار الجديد لفعالية الإعلان وشفافية البيانات في المنطقة، وأن يرتبط اسم التجوال في أذهان الناس بالابتكار والجودة العالية في مجال الإعلان في العراق.
+            </p>
           </div>
         </div>
       </div>

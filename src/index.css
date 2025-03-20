@@ -25,7 +25,7 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 160 77% 45%;
+    --accent: 214 100% 50%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -57,7 +57,7 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 160 77% 45%;
+    --accent: 214 100% 48%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -113,7 +113,7 @@
   }
 
   .tijwal-btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-white text-tijwal-orange border border-tijwal-orange font-semibold px-6 py-3 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-tijwal-orange/50;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-white text-tijwal-blue border border-tijwal-blue font-semibold px-6 py-3 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-tijwal-blue/50;
   }
 
   .tijwal-btn-accent {
@@ -133,11 +133,7 @@
   }
 
   .animated-gradient-btn {
-    @apply relative inline-flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-tijwal-orange via-tijwal-teal to-tijwal-orange bg-[length:400%_100%] p-0.5 text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-tijwal-orange;
-  }
-
-  .animated-gradient-btn:hover {
-    @apply animate-background-shine;
+    @apply relative inline-flex items-center justify-center overflow-hidden rounded-xl bg-tijwal-orange text-white p-0.5 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-tijwal-orange;
   }
 
   .benefit-icon-container {

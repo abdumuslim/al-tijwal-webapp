@@ -141,10 +141,10 @@ const PricingSection = () => {
               </div>
               <div className="text-center">
                 <div className="image-placeholder aspect-square h-40 w-40 rounded-full mx-auto mb-6">
-                  <span className="text-xs">شعار للشركات</span>
+                  <span className="text-xs font-medium">شعار حلول الشركات</span>
                 </div>
                 <p className="text-tijwal-gray mb-6">أسعار تنافسية للعقود الشهرية والسنوية</p>
-                <TijwalButton variant="gradient" size="lg">
+                <TijwalButton variant="primary" size="lg">
                   تواصل معنا للحصول على عرض سعر
                 </TijwalButton>
               </div>

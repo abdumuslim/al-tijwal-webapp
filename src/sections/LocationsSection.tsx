@@ -32,9 +32,9 @@ const LocationsSection = () => {
           <span className="inline-block bg-tijwal-orange/10 text-tijwal-orange px-4 py-1 rounded-full text-sm font-medium mb-4">
             مناطق خدماتنا
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">تغطية واسعة في مواقع استراتيجية</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">استهداف استراتيجي في بغداد</h2>
           <p className="text-tijwal-gray max-w-2xl mx-auto">
-            نقدم خدماتنا في أكثر من 40 موقعاً استراتيجياً في بغداد، تشمل المناطق التجارية والترفيهية والأسواق المزدحمة
+            نوفر خدمة الإعلان المتنقل في مناطق مختارة بعناية في بغداد، مع التركيز على المناطق ذات الكثافة السكانية العالية والمراكز التجارية والترفيهية
           </p>
         </div>
 
@@ -74,7 +74,7 @@ const LocationsSection = () => {
               <div className="image-placeholder aspect-[16/9] rounded-xl relative overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center flex-col">
                   <Navigation className="h-12 w-12 text-tijwal-orange mb-4 opacity-70" />
-                  <span className="text-sm">خريطة مواقع التجوال في بغداد</span>
+                  <span className="text-sm font-medium bg-white/70 px-4 py-2 rounded-full">خريطة مواقع التجوال في بغداد</span>
                 </div>
                 {/* Animated dots for locations */}
                 {[...Array(12)].map((_, i) => (
@@ -110,7 +110,7 @@ const LocationsSection = () => {
                       location.popularity === "عالية جداً" 
                         ? "bg-tijwal-orange/10 text-tijwal-orange" 
                         : location.popularity === "عالية"
-                        ? "bg-tijwal-teal/10 text-tijwal-teal" 
+                        ? "bg-tijwal-blue/10 text-tijwal-blue" 
                         : "bg-tijwal-blue/10 text-tijwal-blue"
                     }`}>
                       {location.popularity}
@@ -121,9 +121,9 @@ const LocationsSection = () => {
             </div>
             
             <div className="mt-8 text-center">
-              <p className="text-tijwal-gray mb-4">هذه مجرد عينة من المواقع المتاحة. نمتلك أكثر من 40 موقعاً استراتيجياً في بغداد.</p>
+              <p className="text-tijwal-gray mb-4">هذه قائمة بالمواقع المتاحة في بغداد. يمكننا أيضًا تخصيص مسارات محددة وفقًا لاحتياجات عملك.</p>
               <TijwalButton variant="secondary">
-                الحصول على قائمة كاملة بالمواقع
+                الحصول على تفاصيل أكثر عن المواقع
               </TijwalButton>
             </div>
           </div>

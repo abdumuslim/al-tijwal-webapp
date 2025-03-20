@@ -64,9 +64,8 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				tijwal: {
-					blue: '#0070F3',
-					orange: '#FF7F00', // Main color (was previously secondary)
-					teal: '#20C997',
+					blue: '#007BFF',
+					orange: '#FF7F00',
 					light: '#F8F9FA',
 					dark: '#212529',
 					gray: '#6C757D'
