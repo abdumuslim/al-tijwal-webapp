@@ -45,10 +45,13 @@ const HeroSection = () => {
           </span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-tijwal-dark animate-fade-in">
-          مرحباً بك في
-          <span className="text-tijwal-orange block mt-2">التجوال</span>
-        </h1>
+        <div className="max-w-md mx-auto mb-6 animate-fade-in">
+          <img 
+            src="/lovable-uploads/4c549c51-c0d7-45d3-863d-9c214c527b99.png" 
+            alt="التجوال للدعاية والاعلان" 
+            className="w-full h-auto"
+          />
+        </div>
 
         <p className="max-w-2xl mx-auto text-lg md:text-xl text-tijwal-gray mb-10 animate-fade-in">
           نبتكر في عالم الإعلان بدمج أحدث التقنيات في شاشاتنا المتنقلة مع التواجد الذكي والتواصل المباشر، لتصل إلى جمهورك في كل مكان وبأنسب الأسعار
@@ -63,13 +66,20 @@ const HeroSection = () => {
           </TijwalButton>
         </div>
 
-        {/* Simple Rectangle Image Placeholder */}
+        {/* Image Placeholder with Logo Watermark */}
         <div className="max-w-5xl mx-auto mb-10 relative animate-fade-in">
           <div className="image-placeholder aspect-video rounded-xl relative">
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="text-sm font-medium text-gray-600 bg-white/70 px-4 py-2 rounded-full">
                 صورة للشاشات المتنقلة المحمولة بواسطة الوكلاء
               </span>
+            </div>
+            <div className="absolute bottom-4 right-4 w-16 h-16 opacity-50">
+              <img 
+                src="/lovable-uploads/4c549c51-c0d7-45d3-863d-9c214c527b99.png" 
+                alt="شعار التجوال" 
+                className="w-full h-full"
+              />
             </div>
           </div>
         </div>
