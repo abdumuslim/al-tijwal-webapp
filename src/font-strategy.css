@@ -1,25 +1,17 @@
 
-/* Define the font */
+/* Define the Cairo font */
 @font-face {
-  font-family: 'Al-Jazeera';
-  src: url('https://cdn.jsdelivr.net/gh/Aljazeera-Site/fontsArabic@main/AlJazeera-Arabic-Regular.woff2') format('woff2');
+  font-family: 'Cairo';
+  src: url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
   font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Al-Jazeera';
-  src: url('https://cdn.jsdelivr.net/gh/Aljazeera-Site/fontsArabic@main/AlJazeera-Arabic-Bold.woff2') format('woff2');
-  font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
 /* Apply to root and override shadcn variables */
 :root {
-  --font-sans: 'Al-Jazeera', sans-serif;
-  font-family: 'Al-Jazeera', sans-serif !important;
+  --font-sans: 'Cairo', sans-serif;
+  font-family: 'Cairo', sans-serif !important;
 }
 
 /* Override Shadcn UI component styles */
@@ -27,7 +19,7 @@
 [role="dialog"] *,
 [role="tooltip"] *,
 [data-state] * {
-  font-family: 'Al-Jazeera', sans-serif !important;
+  font-family: 'Cairo', sans-serif !important;
 }
 
 /* Target specific shadcn components */
@@ -44,7 +36,7 @@ button, .button,
 .card,
 .card-title,
 .card-description {
-  font-family: 'Al-Jazeera', sans-serif !important;
+  font-family: 'Cairo', sans-serif !important;
 }
 
 /* Target all inputs and form elements */
@@ -56,7 +48,7 @@ label,
 .form-select,
 .form-checkbox,
 .form-radio {
-  font-family: 'Al-Jazeera', sans-serif !important;
+  font-family: 'Cairo', sans-serif !important;
 }
 
 /* Additional specificity for shadcn components */
@@ -66,5 +58,5 @@ label,
 [class*="dropdown-menu"],
 [class*="button-"],
 [class*="tooltip-"] {
-  font-family: 'Al-Jazeera', sans-serif !important;
+  font-family: 'Cairo', sans-serif !important;
 }

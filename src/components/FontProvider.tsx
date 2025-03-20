@@ -7,7 +7,7 @@ interface FontProviderProps {
 
 const FontProvider: React.FC<FontProviderProps> = ({ children }) => {
   return (
-    <div style={{ fontFamily: 'Al-Jazeera, sans-serif' }} className="font-aljazeera">
+    <div style={{ fontFamily: 'Cairo, sans-serif' }} className="font-cairo">
       {children}
     </div>
   );

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -19,8 +20,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Al-Jazeera', 'sans-serif'],
-				aljazeera: ['Al-Jazeera', 'sans-serif'],
+				sans: ['Cairo', 'sans-serif'],
+				cairo: ['Cairo', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
