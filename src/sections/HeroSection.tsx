@@ -63,13 +63,17 @@ const HeroSection = () => {
           </TijwalButton>
         </div>
 
-        {/* Simple Rectangle Image Placeholder */}
+        {/* Hero Image */}
         <div className="max-w-5xl mx-auto mb-10 relative animate-fade-in">
-          <div className="image-placeholder aspect-video rounded-xl relative">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-sm font-medium text-gray-600 bg-white/70 px-4 py-2 rounded-full">
-                صورة للشاشات المتنقلة المحمولة بواسطة الوكلاء
-              </span>
+          <div className="relative rounded-xl overflow-hidden shadow-xl">
+            <img 
+              src="/lovable-uploads/54847be8-3e6a-44a9-aca6-3337e7204f12.png" 
+              alt="فريق التجوال مع شاشات الإعلان المتنقلة" 
+              className="w-full h-auto rounded-xl"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+            <div className="absolute bottom-4 right-4 left-4 text-white text-sm md:text-base font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg">
+              فريق التجوال يحمل شاشات الإعلان المتنقلة في أسواق العراق
             </div>
           </div>
         </div>
