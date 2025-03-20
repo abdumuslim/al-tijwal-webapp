@@ -1,9 +1,12 @@
 
+import { useState } from 'react';
 import { MapPin, Navigation, Check } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
 
 const LocationsSection = () => {
-  const locations = [
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  
+  const allLocations = [
     { name: "المنصور", type: "منطقة تجارية", popularity: "عالية جداً" },
     { name: "الكرادة", type: "منطقة تجارية", popularity: "عالية جداً" },
     { name: "شارع فلسطين", type: "شارع رئيسي", popularity: "عالية" },
@@ -19,11 +22,28 @@ const LocationsSection = () => {
   ];
 
   const filters = [
-    "المناطق التجارية",
-    "المناطق السكنية",
-    "أماكن التسوق",
-    "الشوارع الرئيسية"
+    { id: "commercial", name: "المناطق التجارية", types: ["منطقة تجارية", "منطقة مكاتب/تجارية", "منطقة راقية", "منطقة دينية/تجارية"] },
+    { id: "residential", name: "المناطق السكنية", types: ["منطقة سكنية", "منطقة سكنية/تجارية"] },
+    { id: "shopping", name: "أماكن التسوق", types: ["منطقة تسوق"] },
+    { id: "main-streets", name: "الشوارع الرئيسية", types: ["شارع رئيسي"] }
   ];
+
+  const handleFilterChange = (filterId: string) => {
+    setSelectedFilters(prev => {
+      if (prev.includes(filterId)) {
+        return prev.filter(id => id !== filterId);
+      } else {
+        return [...prev, filterId];
+      }
+    });
+  };
+
+  const filteredLocations = selectedFilters.length === 0 
+    ? allLocations 
+    : allLocations.filter(location => {
+        const relevantFilters = filters.filter(filter => selectedFilters.includes(filter.id));
+        return relevantFilters.some(filter => filter.types.includes(location.type));
+      });
 
   return (
     <section id="locations" className="py-20 bg-white">
@@ -89,11 +109,13 @@ const LocationsSection = () => {
                   <div key={index} className="flex items-center">
                     <input
                       type="checkbox"
-                      id={`filter-${index}`}
+                      id={`filter-${filter.id}`}
                       className="h-5 w-5 rounded border-gray-300 text-tijwal-orange focus:ring-tijwal-orange/25"
+                      checked={selectedFilters.includes(filter.id)}
+                      onChange={() => handleFilterChange(filter.id)}
                     />
-                    <label htmlFor={`filter-${index}`} className="mr-3 text-tijwal-gray">
-                      {filter}
+                    <label htmlFor={`filter-${filter.id}`} className="mr-3 text-tijwal-gray">
+                      {filter.name}
                     </label>
                   </div>
                 ))}
@@ -103,7 +125,16 @@ const LocationsSection = () => {
               <p className="text-tijwal-gray mb-6 text-sm">
                 فريقنا المتخصص يساعدك في اختيار المواقع المناسبة لنشاطك التجاري وجمهورك المستهدف
               </p>
-              <TijwalButton variant="primary" className="w-full">
+              <TijwalButton 
+                variant="primary" 
+                className="w-full"
+                onClick={() => {
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
                 تواصل مع فريق المبيعات
               </TijwalButton>
             </div>
@@ -124,8 +155,11 @@ const LocationsSection = () => {
 
             <h3 className="text-xl font-bold mb-6 text-tijwal-dark">المواقع المتاحة</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {locations.map((location, index) => (
-                <div key={index} className="bg-white rounded-lg border border-gray-100 p-4 shadow-sm hover:shadow-md transition-shadow">
+              {filteredLocations.map((location, index) => (
+                <div 
+                  key={index} 
+                  className="bg-white rounded-lg border border-gray-100 p-4 shadow-sm hover:shadow-md transition-shadow transition-all duration-300"
+                >
                   <div className="flex items-start mb-2">
                     <MapPin className="h-5 w-5 text-tijwal-orange mt-1 ml-2" />
                     <div>
@@ -151,8 +185,16 @@ const LocationsSection = () => {
             
             <div className="mt-8 text-center">
               <p className="text-tijwal-gray mb-4">هذه قائمة بالمواقع المتاحة في بغداد. يمكننا أيضًا تخصيص مسارات محددة وفقًا لاحتياجات عملك.</p>
-              <TijwalButton variant="secondary">
-                الحصول على تفاصيل أكثر عن المواقع
+              <TijwalButton 
+                variant="secondary"
+                onClick={() => {
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                استفسر عن مواقع محددة
               </TijwalButton>
             </div>
           </div>
