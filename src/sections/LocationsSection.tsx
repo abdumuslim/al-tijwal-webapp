@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { MapPin, Navigation, Check } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
@@ -30,7 +29,6 @@ const LocationsSection = () => {
   ];
 
   useEffect(() => {
-    // Initialize all locations as visible
     setAnimatingItems(allLocations.map(loc => loc.id));
   }, []);
 
@@ -52,13 +50,10 @@ const LocationsSection = () => {
       });
       
   useEffect(() => {
-    // When filters change, update animating items
     const newVisibleIds = filteredLocations.map(loc => loc.id);
     
-    // Clear animations first
     setAnimatingItems([]);
     
-    // Then add them back with a small delay to trigger animations
     setTimeout(() => {
       setAnimatingItems(newVisibleIds);
     }, 50);
@@ -162,15 +157,17 @@ const LocationsSection = () => {
           </div>
           
           <div className="col-span-1 md:col-span-2">
-            {/* Simple Rectangle Map Placeholder */}
             <div className="glass-card p-1 rounded-2xl shadow-xl mb-8">
-              <div className="image-placeholder aspect-[16/9] rounded-xl relative overflow-hidden flex items-center justify-center">
-                <div className="flex flex-col items-center justify-center">
-                  <Navigation className="h-12 w-12 text-tijwal-orange mb-4" />
-                  <span className="text-sm font-medium bg-white/70 px-4 py-2 rounded-full">
-                    خريطة مواقع التجوال في بغداد
-                  </span>
-                </div>
+              <div className="relative rounded-xl overflow-hidden">
+                <iframe 
+                  src="https://www.google.com/maps/d/u/0/embed?mid=1ktBrIpaMmmRgekTrYzKKfAQhdZPMv8o&ehbc=2E312F" 
+                  width="100%" 
+                  height="450"
+                  title="مواقع خدمات التجوال في بغداد"
+                  className="border-0 w-full"
+                  loading="lazy"
+                  allowFullScreen
+                ></iframe>
               </div>
             </div>
 
