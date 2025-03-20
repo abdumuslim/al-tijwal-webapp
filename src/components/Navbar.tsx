@@ -32,7 +32,13 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <span className="font-bold text-2xl text-tijwal-orange">التجوال</span>
+          <a href="#hero">
+            <img 
+              src="/full-logo.png" 
+              alt="التجوال" 
+              className="h-12 md:h-14"
+            />
+          </a>
         </div>
 
         {/* Desktop Navigation */}
