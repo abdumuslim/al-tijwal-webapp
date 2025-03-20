@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { MapPin, Navigation, Check } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
@@ -160,7 +161,7 @@ const LocationsSection = () => {
             <div className="glass-card p-1 rounded-2xl shadow-xl mb-8">
               <div className="relative rounded-xl overflow-hidden">
                 <iframe 
-                  src="https://www.google.com/maps/d/u/0/embed?mid=1ktBrIpaMmmRgekTrYzKKfAQhdZPMv8o&ehbc=2E312F" 
+                  src="https://www.google.com/maps/d/u/0/embed?mid=1ktBrIpaMmmRgekTrYzKKfAQhdZPMv8o&ehbc=2E312F&ui=0" 
                   width="100%" 
                   height="450"
                   title="مواقع خدمات التجوال في بغداد"
