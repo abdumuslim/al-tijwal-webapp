@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -77,8 +76,7 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			fontFamily: {
-				cairo: ['Cairo', 'sans-serif'],
-				aljazeera: ['Al-Jazeera', 'Arial', 'sans-serif'],
+				aljazeera: ['Al-Jazeera', 'sans-serif'],
 			},
 			keyframes: {
 				'accordion-down': {
