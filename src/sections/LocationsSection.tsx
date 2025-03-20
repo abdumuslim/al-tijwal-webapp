@@ -1,24 +1,25 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MapPin, Navigation, Check } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
 
 const LocationsSection = () => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [animatingItems, setAnimatingItems] = useState<string[]>([]);
   
   const allLocations = [
-    { name: "المنصور", type: "منطقة تجارية", popularity: "عالية جداً" },
-    { name: "الكرادة", type: "منطقة تجارية", popularity: "عالية جداً" },
-    { name: "شارع فلسطين", type: "شارع رئيسي", popularity: "عالية" },
-    { name: "زيونة", type: "منطقة تسوق", popularity: "عالية" },
-    { name: "الأعظمية", type: "منطقة سكنية/تجارية", popularity: "متوسطة" },
-    { name: "الحارثية", type: "منطقة مكاتب/تجارية", popularity: "عالية" },
-    { name: "العرصات", type: "منطقة راقية", popularity: "عالية" },
-    { name: "الجادرية", type: "منطقة سكنية", popularity: "متوسطة" },
-    { name: "البياع", type: "منطقة سكنية/تجارية", popularity: "متوسطة" },
-    { name: "الدورة", type: "منطقة سكنية/تجارية", popularity: "متوسطة" },
-    { name: "الكاظمية", type: "منطقة دينية/تجارية", popularity: "عالية" },
-    { name: "جسر الجمهورية", type: "شارع رئيسي", popularity: "عالية" }
+    { id: "loc1", name: "المنصور", type: "منطقة تجارية", popularity: "عالية جداً" },
+    { id: "loc2", name: "الكرادة", type: "منطقة تجارية", popularity: "عالية جداً" },
+    { id: "loc3", name: "شارع فلسطين", type: "شارع رئيسي", popularity: "عالية" },
+    { id: "loc4", name: "زيونة", type: "منطقة تسوق", popularity: "عالية" },
+    { id: "loc5", name: "الأعظمية", type: "منطقة سكنية/تجارية", popularity: "متوسطة" },
+    { id: "loc6", name: "الحارثية", type: "منطقة مكاتب/تجارية", popularity: "عالية" },
+    { id: "loc7", name: "العرصات", type: "منطقة راقية", popularity: "عالية" },
+    { id: "loc8", name: "الجادرية", type: "منطقة سكنية", popularity: "متوسطة" },
+    { id: "loc9", name: "البياع", type: "منطقة سكنية/تجارية", popularity: "متوسطة" },
+    { id: "loc10", name: "الدورة", type: "منطقة سكنية/تجارية", popularity: "متوسطة" },
+    { id: "loc11", name: "الكاظمية", type: "منطقة دينية/تجارية", popularity: "عالية" },
+    { id: "loc12", name: "جسر الجمهورية", type: "شارع رئيسي", popularity: "عالية" }
   ];
 
   const filters = [
@@ -27,6 +28,11 @@ const LocationsSection = () => {
     { id: "shopping", name: "أماكن التسوق", types: ["منطقة تسوق"] },
     { id: "main-streets", name: "الشوارع الرئيسية", types: ["شارع رئيسي"] }
   ];
+
+  useEffect(() => {
+    // Initialize all locations as visible
+    setAnimatingItems(allLocations.map(loc => loc.id));
+  }, []);
 
   const handleFilterChange = (filterId: string) => {
     setSelectedFilters(prev => {
@@ -44,6 +50,19 @@ const LocationsSection = () => {
         const relevantFilters = filters.filter(filter => selectedFilters.includes(filter.id));
         return relevantFilters.some(filter => filter.types.includes(location.type));
       });
+      
+  useEffect(() => {
+    // When filters change, update animating items
+    const newVisibleIds = filteredLocations.map(loc => loc.id);
+    
+    // Clear animations first
+    setAnimatingItems([]);
+    
+    // Then add them back with a small delay to trigger animations
+    setTimeout(() => {
+      setAnimatingItems(newVisibleIds);
+    }, 50);
+  }, [selectedFilters]);
 
   return (
     <section id="locations" className="py-20 bg-white">
@@ -110,11 +129,16 @@ const LocationsSection = () => {
                     <input
                       type="checkbox"
                       id={`filter-${filter.id}`}
-                      className="h-5 w-5 rounded border-gray-300 text-tijwal-orange focus:ring-tijwal-orange/25"
+                      className="h-5 w-5 rounded border-gray-300 text-tijwal-orange focus:ring-tijwal-orange/25 location-filter-checkbox"
                       checked={selectedFilters.includes(filter.id)}
                       onChange={() => handleFilterChange(filter.id)}
                     />
-                    <label htmlFor={`filter-${filter.id}`} className="mr-3 text-tijwal-gray">
+                    <label 
+                      htmlFor={`filter-${filter.id}`} 
+                      className={`mr-3 transition-all duration-300 border-b-2 border-transparent pb-1 ${
+                        selectedFilters.includes(filter.id) ? 'text-tijwal-orange border-tijwal-orange' : 'text-tijwal-gray'
+                      }`}
+                    >
                       {filter.name}
                     </label>
                   </div>
@@ -129,10 +153,7 @@ const LocationsSection = () => {
                 variant="primary" 
                 className="w-full"
                 onClick={() => {
-                  const contactSection = document.getElementById('contact');
-                  if (contactSection) {
-                    contactSection.scrollIntoView({ behavior: 'smooth' });
-                  }
+                  window.open('http://wa.me/9647849567837', '_blank');
                 }}
               >
                 تواصل مع فريق المبيعات
@@ -155,10 +176,14 @@ const LocationsSection = () => {
 
             <h3 className="text-xl font-bold mb-6 text-tijwal-dark">المواقع المتاحة</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {filteredLocations.map((location, index) => (
+              {allLocations.map((location) => (
                 <div 
-                  key={index} 
-                  className="bg-white rounded-lg border border-gray-100 p-4 shadow-sm hover:shadow-md transition-shadow transition-all duration-300"
+                  key={location.id} 
+                  className={`bg-white rounded-lg border border-gray-100 p-4 shadow-sm hover:shadow-md transition-all duration-500 ${
+                    animatingItems.includes(location.id) && filteredLocations.some(loc => loc.id === location.id) 
+                      ? 'location-card-enter opacity-100 transform scale-100' 
+                      : 'opacity-0 transform scale-90 h-0 overflow-hidden p-0 m-0 border-0'
+                  }`}
                 >
                   <div className="flex items-start mb-2">
                     <MapPin className="h-5 w-5 text-tijwal-orange mt-1 ml-2" />
@@ -188,10 +213,7 @@ const LocationsSection = () => {
               <TijwalButton 
                 variant="secondary"
                 onClick={() => {
-                  const contactSection = document.getElementById('contact');
-                  if (contactSection) {
-                    contactSection.scrollIntoView({ behavior: 'smooth' });
-                  }
+                  window.open('http://wa.me/9647849567837', '_blank');
                 }}
               >
                 استفسر عن مواقع محددة

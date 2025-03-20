@@ -118,9 +118,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-6">ساعات العمل</h3>
             <ul className="space-y-3">
-              <li className="text-gray-300">الأحد - الخميس: 9:00 ص - 9:00 م</li>
-              <li className="text-gray-300">الجمعة: 9:00 ص - 9:00 م</li>
-              <li className="text-gray-300">السبت: 9:00 ص - 9:00 م</li>
+              <li className="text-gray-300">يومياً: 9:00 ص - 9:00 م</li>
             </ul>
             <div className="mt-6">
               <a 
