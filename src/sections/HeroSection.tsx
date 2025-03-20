@@ -1,7 +1,6 @@
 
 import { ChevronDown } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
-import Logo from '@/components/Logo';
 
 const HeroSection = () => {
   const scrollToNextSection = () => {
@@ -46,9 +45,13 @@ const HeroSection = () => {
           </span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-tijwal-dark mb-6 animate-fade-in">
-          التجوال للدعاية والاعلان
-        </h1>
+        <div className="max-w-md mx-auto mb-6 animate-fade-in">
+          <img 
+            src="/lovable-uploads/4c549c51-c0d7-45d3-863d-9c214c527b99.png" 
+            alt="التجوال للدعاية والاعلان" 
+            className="w-full h-auto"
+          />
+        </div>
 
         <p className="max-w-2xl mx-auto text-lg md:text-xl text-tijwal-gray mb-10 animate-fade-in">
           نبتكر في عالم الإعلان بدمج أحدث التقنيات في شاشاتنا المتنقلة مع التواجد الذكي والتواصل المباشر، لتصل إلى جمهورك في كل مكان وبأنسب الأسعار
@@ -72,7 +75,11 @@ const HeroSection = () => {
               </span>
             </div>
             <div className="absolute bottom-4 right-4 w-16 h-16 opacity-50">
-              <Logo variant="icon" size="md" />
+              <img 
+                src="/lovable-uploads/4c549c51-c0d7-45d3-863d-9c214c527b99.png" 
+                alt="شعار التجوال" 
+                className="w-full h-full"
+              />
             </div>
           </div>
         </div>
