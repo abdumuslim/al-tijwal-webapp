@@ -20,6 +20,10 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleContactClick = () => {
+    window.open('http://wa.me/9647849567837', '_blank');
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -42,8 +46,8 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:block">
-          <TijwalButton variant="primary">
-            احصل على استشارة
+          <TijwalButton variant="primary" onClick={handleContactClick}>
+            تواصل معنا
           </TijwalButton>
         </div>
 
@@ -67,8 +71,11 @@ const Navbar = () => {
           <a href="#locations" className="nav-link" onClick={toggleMenu}>المواقع</a>
           <a href="#pricing" className="nav-link" onClick={toggleMenu}>الأسعار</a>
           <div className="mt-6">
-            <TijwalButton variant="primary" onClick={toggleMenu}>
-              احصل على استشارة
+            <TijwalButton variant="primary" onClick={() => {
+              toggleMenu();
+              handleContactClick();
+            }}>
+              تواصل معنا
             </TijwalButton>
           </div>
         </div>
