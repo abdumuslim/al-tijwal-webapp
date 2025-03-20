@@ -69,27 +69,15 @@ const LocationsSection = () => {
           </div>
           
           <div className="col-span-1 md:col-span-2">
-            {/* Map Placeholder */}
+            {/* Simple Rectangle Map Placeholder */}
             <div className="glass-card p-1 rounded-2xl shadow-xl mb-8">
-              <div className="image-placeholder aspect-[16/9] rounded-xl relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center flex-col">
-                  <Navigation className="h-12 w-12 text-tijwal-orange mb-4 opacity-70" />
-                  <span className="text-sm font-medium bg-white/70 px-4 py-2 rounded-full">خريطة مواقع التجوال في بغداد</span>
+              <div className="image-placeholder aspect-[16/9] rounded-xl relative overflow-hidden flex items-center justify-center">
+                <div className="flex flex-col items-center justify-center">
+                  <Navigation className="h-12 w-12 text-tijwal-orange mb-4" />
+                  <span className="text-sm font-medium bg-white/70 px-4 py-2 rounded-full">
+                    خريطة مواقع التجوال في بغداد
+                  </span>
                 </div>
-                {/* Animated dots for locations */}
-                {[...Array(12)].map((_, i) => (
-                  <div 
-                    key={i}
-                    className="absolute bg-tijwal-orange rounded-full animate-ping opacity-75"
-                    style={{
-                      width: '6px',
-                      height: '6px',
-                      top: `${20 + Math.random() * 60}%`,
-                      left: `${20 + Math.random() * 60}%`,
-                      animationDuration: `${2 + Math.random() * 2}s`
-                    }}
-                  ></div>
-                ))}
               </div>
             </div>
 

@@ -78,22 +78,14 @@ const TijwalEyeSection = () => {
           <div className="order-1 lg:order-2">
             <div className="relative">
               <div className="relative glass-card p-1 rounded-2xl shadow-xl transform transition-all duration-500 hover:scale-[1.02]">
-                {/* Image Placeholder for Tijwal Eye Technology */}
-                <div className="image-placeholder aspect-video md:aspect-[4/3] rounded-xl overflow-hidden bg-tijwal-orange/5 flex items-center justify-center relative">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-40 h-40 rounded-full bg-tijwal-orange/20 animate-pulse flex items-center justify-center">
-                      <div className="w-32 h-32 rounded-full bg-tijwal-orange/30 flex items-center justify-center">
-                        <div className="w-24 h-24 rounded-full bg-tijwal-orange/40 flex items-center justify-center">
-                          <Eye className="h-12 w-12 text-tijwal-orange" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="absolute bottom-4 text-xs text-tijwal-gray/70">صورة توضيحية لتقنية عين التجوال</span>
-                  {/* Animated elements */}
+                {/* Simple Rectangle Image Placeholder */}
+                <div className="image-placeholder aspect-video md:aspect-[4/3] rounded-xl overflow-hidden flex items-center justify-center relative">
+                  <span className="text-center">
+                    صورة توضيحية لتقنية عين التجوال
+                  </span>
                   <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-tijwal-orange rounded-full animate-ping opacity-75"></div>
                   <div className="absolute top-3/4 right-1/3 w-2 h-2 bg-tijwal-blue rounded-full animate-ping opacity-75"></div>
-                  <div className="absolute bottom-1/4 right-1/4 w-4 h-4 bg-tijwal-teal rounded-full animate-ping opacity-75"></div>
+                  <div className="absolute bottom-1/4 right-1/4 w-4 h-4 bg-tijwal-orange rounded-full animate-ping opacity-75"></div>
                 </div>
               </div>
               

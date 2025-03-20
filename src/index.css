@@ -141,6 +141,6 @@
   }
   
   .image-placeholder {
-    @apply bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-400 overflow-hidden;
+    @apply bg-gray-200 flex items-center justify-center text-gray-500 overflow-hidden;
   }
 }

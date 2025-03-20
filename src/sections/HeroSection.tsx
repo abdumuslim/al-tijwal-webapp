@@ -45,13 +45,13 @@ const HeroSection = () => {
           </TijwalButton>
         </div>
 
-        {/* Image Placeholder */}
+        {/* Simple Rectangle Image Placeholder */}
         <div className="max-w-5xl mx-auto mb-10 relative animate-fade-in">
-          <div className="image-placeholder aspect-video rounded-xl">
+          <div className="image-placeholder aspect-video rounded-xl relative">
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center p-4">
-                <span className="text-sm font-medium text-gray-600 bg-white/70 px-4 py-2 rounded-full">صورة للشاشات المتنقلة المحمولة بواسطة الوكلاء</span>
-              </div>
+              <span className="text-sm font-medium text-gray-600 bg-white/70 px-4 py-2 rounded-full">
+                صورة للشاشات المتنقلة المحمولة بواسطة الوكلاء
+              </span>
             </div>
           </div>
         </div>
