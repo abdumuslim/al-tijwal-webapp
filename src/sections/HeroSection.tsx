@@ -10,6 +10,24 @@ const HeroSection = () => {
     }
   };
 
+  const handleConsultation = () => {
+    // For now, we'll just scroll to the contact section
+    const contactSection = document.getElementById('pricing');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    console.log('Consultation button clicked');
+  };
+
+  const handleTijwalEye = () => {
+    // Scroll to Tijwal Eye section
+    const tijwalEyeSection = document.getElementById('tijwal-eye');
+    if (tijwalEyeSection) {
+      tijwalEyeSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    console.log('Tijwal Eye button clicked');
+  };
+
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-tijwal-light via-white to-tijwal-light overflow-hidden">
       {/* Background Elements */}
@@ -37,10 +55,10 @@ const HeroSection = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in">
-          <TijwalButton variant="primary" size="lg">
+          <TijwalButton variant="primary" size="lg" onClick={handleConsultation}>
             احصل على استشارة مجانية
           </TijwalButton>
-          <TijwalButton variant="secondary" size="lg">
+          <TijwalButton variant="secondary" size="lg" onClick={handleTijwalEye}>
             تعرف على عين التجوال
           </TijwalButton>
         </div>
