@@ -71,26 +71,26 @@
 @layer base {
   * {
     @apply border-border;
-    font-family: 'Al-Jazeera', Arial, sans-serif !important;
+    font-family: 'Al-Jazeera' !important;
   }
 
   html {
     scroll-behavior: smooth;
-    font-family: 'Al-Jazeera', Arial, sans-serif !important;
+    font-family: 'Al-Jazeera' !important;
   }
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Al-Jazeera', Arial, sans-serif !important;
+    font-family: 'Al-Jazeera' !important;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Al-Jazeera', Arial, sans-serif !important;
+    font-family: 'Al-Jazeera' !important;
     @apply font-bold;
   }
   
   button, input, select, textarea {
-    font-family: 'Al-Jazeera', Arial, sans-serif !important;
+    font-family: 'Al-Jazeera' !important;
   }
 }
 
@@ -117,17 +117,17 @@
 
   .tijwal-btn {
     @apply inline-flex items-center justify-center gap-2 rounded-lg bg-tijwal-orange text-white font-semibold px-6 py-3 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-tijwal-orange/50;
-    font-family: 'Al-Jazeera', Arial, sans-serif !important;
+    font-family: 'Al-Jazeera' !important;
   }
 
   .tijwal-btn-secondary {
     @apply inline-flex items-center justify-center gap-2 rounded-lg bg-white text-tijwal-blue border border-tijwal-blue font-semibold px-6 py-3 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-tijwal-blue/50;
-    font-family: 'Al-Jazeera', Arial, sans-serif !important;
+    font-family: 'Al-Jazeera' !important;
   }
 
   .tijwal-btn-accent {
     @apply inline-flex items-center justify-center gap-2 rounded-lg bg-tijwal-blue text-white font-semibold px-6 py-3 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-tijwal-blue/50;
-    font-family: 'Al-Jazeera', Arial, sans-serif !important;
+    font-family: 'Al-Jazeera' !important;
   }
 
   .benefit-card {
@@ -166,10 +166,39 @@
   }
 }
 
+@keyframes gridItemFade {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .location-card-enter {
   animation: fadeScale 0.5s ease forwards;
 }
 
 .location-filter-checkbox:checked + label {
   @apply text-tijwal-orange border-tijwal-orange transition-colors duration-300;
+}
+
+.location-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.location-item {
+  animation: gridItemFade 0.4s ease forwards;
+}
+
+.location-item-hidden {
+  display: none;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  visibility: hidden;
 }

@@ -175,37 +175,39 @@ const LocationsSection = () => {
             </div>
 
             <h3 className="text-xl font-bold mb-6 text-tijwal-dark">المواقع المتاحة</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {allLocations.map((location) => (
-                <div 
-                  key={location.id} 
-                  className={`bg-white rounded-lg border border-gray-100 p-4 shadow-sm hover:shadow-md transition-all duration-500 ${
-                    animatingItems.includes(location.id) && filteredLocations.some(loc => loc.id === location.id) 
-                      ? 'location-card-enter opacity-100 transform scale-100' 
-                      : 'opacity-0 transform scale-90 h-0 overflow-hidden p-0 m-0 border-0'
-                  }`}
-                >
-                  <div className="flex items-start mb-2">
-                    <MapPin className="h-5 w-5 text-tijwal-orange mt-1 ml-2" />
-                    <div>
-                      <h4 className="font-bold text-tijwal-dark">{location.name}</h4>
-                      <p className="text-tijwal-gray text-xs">{location.type}</p>
+            <div className="location-grid">
+              {allLocations.map((location) => {
+                const isVisible = animatingItems.includes(location.id) && filteredLocations.some(loc => loc.id === location.id);
+                const animationDelay = `${(Array.from(animatingItems).indexOf(location.id) * 0.05)}s`;
+                
+                return (
+                  <div 
+                    key={location.id} 
+                    className={`bg-white rounded-lg border border-gray-100 p-4 shadow-sm hover:shadow-md transition-all duration-300 location-item ${isVisible ? '' : 'location-item-hidden'}`}
+                    style={{ animationDelay }}
+                  >
+                    <div className="flex items-start mb-2">
+                      <MapPin className="h-5 w-5 text-tijwal-orange mt-1 ml-2" />
+                      <div>
+                        <h4 className="font-bold text-tijwal-dark">{location.name}</h4>
+                        <p className="text-tijwal-gray text-xs">{location.type}</p>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center mt-3">
+                      <span className="text-xs text-tijwal-gray">شعبية:</span>
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        location.popularity === "عالية جداً" 
+                          ? "bg-tijwal-orange/10 text-tijwal-orange" 
+                          : location.popularity === "عالية"
+                          ? "bg-tijwal-blue/10 text-tijwal-blue" 
+                          : "bg-tijwal-blue/10 text-tijwal-blue"
+                      }`}>
+                        {location.popularity}
+                      </span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center mt-3">
-                    <span className="text-xs text-tijwal-gray">شعبية:</span>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      location.popularity === "عالية جداً" 
-                        ? "bg-tijwal-orange/10 text-tijwal-orange" 
-                        : location.popularity === "عالية"
-                        ? "bg-tijwal-blue/10 text-tijwal-blue" 
-                        : "bg-tijwal-blue/10 text-tijwal-blue"
-                    }`}>
-                      {location.popularity}
-                    </span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
             
             <div className="mt-8 text-center">

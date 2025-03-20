@@ -1,5 +1,5 @@
 
-import { Target, Users, BarChart3, Clock, MapPin } from 'lucide-react';
+import { Target, Users, BarChart3, Clock, MapPin, MessageCircle } from 'lucide-react';
 
 const CoreBenefitsSection = () => {
   const benefits = [
@@ -27,6 +27,11 @@ const CoreBenefitsSection = () => {
       title: "تغطية استراتيجية",
       description: "التواجد في المناطق الحيوية والتجارية والترفيهية الأكثر ازدحاماً في بغداد لضمان أقصى انتشار",
       icon: <MapPin className="h-8 w-8" />
+    },
+    {
+      title: "التفاعل المباشر",
+      description: "تواصل مباشر مع العملاء المحتملين من خلال مندوبينا المدربين الذين يمكنهم الإجابة على استفسارات الجمهور",
+      icon: <MessageCircle className="h-8 w-8" />
     },
   ];
 
