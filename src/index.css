@@ -71,11 +71,12 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border font-aljazeera;
   }
 
   html {
     scroll-behavior: smooth;
+    font-family: 'Al-Jazeera', Arial, sans-serif;
   }
 
   body {
@@ -84,6 +85,10 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-aljazeera font-bold;
+  }
+  
+  button, input, select, textarea {
+    font-family: 'Al-Jazeera', Arial, sans-serif;
   }
 }
 
