@@ -1,62 +1,50 @@
 
-/* Define the Cairo font */
+/* Define the fonts using Supabase storage URLs */
 @font-face {
-  font-family: 'Cairo';
-  src: url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
+  font-family: 'Al-Jazeera';
+  src: url('https://hsymczmjhelckkojourg.supabase.co/storage/v1/object/public/fonts/Al-Jazeera-Arabic-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
-/* Apply to root and override shadcn variables */
-:root {
-  --font-sans: 'Cairo', sans-serif;
-  font-family: 'Cairo', sans-serif !important;
+@font-face {
+  font-family: 'Al-Jazeera';
+  src: url('https://hsymczmjhelckkojourg.supabase.co/storage/v1/object/public/fonts/Al-Jazeera-Arabic-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
-/* Override Shadcn UI component styles */
+@font-face {
+  font-family: 'Al-Jazeera';
+  src: url('https://hsymczmjhelckkojourg.supabase.co/storage/v1/object/public/fonts/Al-Jazeera-Arabic-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Force font application globally */
+* {
+  font-family: 'Al-Jazeera', sans-serif !important;
+}
+
+/* Target shadcn components specifically */
+:root {
+  --font-sans: 'Al-Jazeera', sans-serif;
+}
+
+/* Additional specific selectors for problematic components */
 [data-radix-popper-content-wrapper] *,
 [role="dialog"] *,
 [role="tooltip"] *,
-[data-state] * {
-  font-family: 'Cairo', sans-serif !important;
-}
-
-/* Target specific shadcn components */
-button, .button, 
-[type="button"],
-[type="submit"],
-[type="reset"],
-.dialog-content,
-.dialog-title,
-.dialog-description,
-.popover-content,
-.dropdown-content,
-.toast,
-.card,
-.card-title,
-.card-description {
-  font-family: 'Cairo', sans-serif !important;
-}
-
-/* Target all inputs and form elements */
-input,
-select,
+button, 
+input, 
+select, 
 textarea,
-label,
-.form-input,
-.form-select,
-.form-checkbox,
-.form-radio {
-  font-family: 'Cairo', sans-serif !important;
-}
-
-/* Additional specificity for shadcn components */
-[class*="radix-"],
-[class*="dialog-content"],
-[class*="popover-content"],
+.radix-dropdown-content,
 [class*="dropdown-menu"],
-[class*="button-"],
+[class*="dialog-content"],
 [class*="tooltip-"] {
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Al-Jazeera', sans-serif !important;
 }

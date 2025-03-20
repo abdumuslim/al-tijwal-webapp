@@ -6,12 +6,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import FontProvider from "./components/FontProvider";
+import FontPreloader from "./components/FontPreloader";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <FontProvider>
+  <FontPreloader>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
@@ -25,7 +25,7 @@ const App = () => (
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
-  </FontProvider>
+  </FontPreloader>
 );
 
 export default App;
