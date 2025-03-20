@@ -34,7 +34,7 @@ const CoreBenefitsSection = () => {
     <section id="services" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <span className="inline-block bg-tijwal-blue/10 text-tijwal-blue px-4 py-1 rounded-full text-sm font-medium mb-4">
+          <span className="inline-block bg-tijwal-orange/10 text-tijwal-orange px-4 py-1 rounded-full text-sm font-medium mb-4">
             لماذا تختار التجوال؟
           </span>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">مميزات فريدة لإعلانات متميزة</h2>
@@ -59,18 +59,18 @@ const CoreBenefitsSection = () => {
         </div>
 
         {/* Animated Stats Banner */}
-        <div className="mt-16 glass-card p-8 bg-gradient-to-r from-tijwal-blue/5 to-tijwal-blue/10 border-tijwal-blue/20">
+        <div className="mt-16 glass-card p-8 bg-gradient-to-r from-tijwal-orange/5 to-tijwal-orange/10 border-tijwal-orange/20">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <h4 className="text-tijwal-blue text-4xl font-bold mb-2">+40</h4>
+              <h4 className="text-tijwal-orange text-4xl font-bold mb-2">+40</h4>
               <p className="text-tijwal-gray">موقع استراتيجي</p>
             </div>
             <div className="text-center">
-              <h4 className="text-tijwal-blue text-4xl font-bold mb-2">+100</h4>
+              <h4 className="text-tijwal-orange text-4xl font-bold mb-2">+100</h4>
               <p className="text-tijwal-gray">عميل راضٍ</p>
             </div>
             <div className="text-center">
-              <h4 className="text-tijwal-blue text-4xl font-bold mb-2">+1000</h4>
+              <h4 className="text-tijwal-orange text-4xl font-bold mb-2">+1000</h4>
               <p className="text-tijwal-gray">حملة إعلانية ناجحة</p>
             </div>
           </div>

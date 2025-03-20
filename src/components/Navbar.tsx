@@ -28,7 +28,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <span className="font-bold text-2xl text-tijwal-blue">التجوال</span>
+          <span className="font-bold text-2xl text-tijwal-orange">التجوال</span>
         </div>
 
         {/* Desktop Navigation */}

@@ -14,19 +14,19 @@ const Footer = () => {
             <div className="flex space-x-4 rtl:space-x-reverse">
               <a 
                 href="#" 
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-blue transition-colors duration-300"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-orange transition-colors duration-300"
               >
                 <Facebook className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-blue transition-colors duration-300"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-orange transition-colors duration-300"
               >
                 <Instagram className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-blue transition-colors duration-300"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-orange transition-colors duration-300"
               >
                 <Twitter className="h-5 w-5" />
               </a>
@@ -58,20 +58,20 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-6">معلومات الاتصال</h3>
             <ul className="space-y-4">
               <li className="flex items-center gap-3">
-                <div className="bg-tijwal-blue/20 p-2 rounded-full">
-                  <MapPin className="h-5 w-5 text-tijwal-blue" />
+                <div className="bg-tijwal-orange/20 p-2 rounded-full">
+                  <MapPin className="h-5 w-5 text-tijwal-orange" />
                 </div>
                 <span className="text-gray-300">بغداد - المنصور</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="bg-tijwal-blue/20 p-2 rounded-full">
-                  <Phone className="h-5 w-5 text-tijwal-blue" />
+                <div className="bg-tijwal-orange/20 p-2 rounded-full">
+                  <Phone className="h-5 w-5 text-tijwal-orange" />
                 </div>
                 <span className="text-gray-300">هاتف: 07849567837</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="bg-tijwal-blue/20 p-2 rounded-full">
-                  <Mail className="h-5 w-5 text-tijwal-blue" />
+                <div className="bg-tijwal-orange/20 p-2 rounded-full">
+                  <Mail className="h-5 w-5 text-tijwal-orange" />
                 </div>
                 <span className="text-gray-300">contact@al-tijwal.com</span>
               </li>
@@ -88,7 +88,7 @@ const Footer = () => {
             <div className="mt-6">
               <a 
                 href="#contact" 
-                className="inline-block bg-tijwal-blue text-white px-6 py-2 rounded-lg font-medium hover:bg-tijwal-blue/90 transition-colors duration-300"
+                className="inline-block bg-tijwal-orange text-white px-6 py-2 rounded-lg font-medium hover:bg-tijwal-orange/90 transition-colors duration-300"
               >
                 تواصل معنا
               </a>

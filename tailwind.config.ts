@@ -65,7 +65,7 @@ export default {
 				},
 				tijwal: {
 					blue: '#0070F3',
-					orange: '#FF9F1C',
+					orange: '#FF7F00', // Main color (was previously secondary)
 					teal: '#20C997',
 					light: '#F8F9FA',
 					dark: '#212529',
