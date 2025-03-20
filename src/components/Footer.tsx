@@ -1,3 +1,4 @@
+
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
@@ -6,14 +7,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <div className="flex flex-col items-start gap-4 mb-6">
-              <img 
-                src="/lovable-uploads/4c549c51-c0d7-45d3-863d-9c214c527b99.png" 
-                alt="التجوال للدعاية والاعلان" 
-                className="h-16 w-auto bg-white/10 rounded-lg p-2"
-              />
-              <h3 className="text-2xl font-bold">التجوال</h3>
-            </div>
+            <h3 className="text-2xl font-bold mb-6">التجوال</h3>
             <p className="text-gray-300 mb-6">
               نبتكر في عالم الإعلان بدمج أحدث التقنيات في شاشاتنا المتنقلة المحمولة لتحقيق نتائج استثنائية وقابلة للقياس لعملائنا.
             </p>

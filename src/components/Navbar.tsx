@@ -32,13 +32,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <div className="h-12 w-auto">
-            <img 
-              src="/lovable-uploads/c50e0dac-65ae-4d86-929a-77ddbfad6258.png" 
-              alt="التجوال للدعاية والاعلان" 
-              className="h-full w-auto"
-            />
-          </div>
+          <span className="font-bold text-2xl text-tijwal-orange">التجوال</span>
         </div>
 
         {/* Desktop Navigation */}
@@ -70,13 +64,6 @@ const Navbar = () => {
         } md:hidden`}
       >
         <div className="flex flex-col items-center gap-6 text-lg">
-          <div className="h-16 w-auto mb-6">
-            <img 
-              src="/lovable-uploads/c50e0dac-65ae-4d86-929a-77ddbfad6258.png" 
-              alt="التجوال للدعاية والاعلان" 
-              className="h-full w-auto"
-            />
-          </div>
           <a href="#hero" className="nav-link" onClick={toggleMenu}>الرئيسية</a>
           <a href="#about" className="nav-link" onClick={toggleMenu}>من نحن</a>
           <a href="#services" className="nav-link" onClick={toggleMenu}>خدماتنا</a>
