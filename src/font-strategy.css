@@ -1,0 +1,70 @@
+
+/* Define the font */
+@font-face {
+  font-family: 'Al-Jazeera';
+  src: url('https://cdn.jsdelivr.net/gh/Aljazeera-Site/fontsArabic@main/AlJazeera-Arabic-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Al-Jazeera';
+  src: url('https://cdn.jsdelivr.net/gh/Aljazeera-Site/fontsArabic@main/AlJazeera-Arabic-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Apply to root and override shadcn variables */
+:root {
+  --font-sans: 'Al-Jazeera', sans-serif;
+  font-family: 'Al-Jazeera', sans-serif !important;
+}
+
+/* Override Shadcn UI component styles */
+[data-radix-popper-content-wrapper] *,
+[role="dialog"] *,
+[role="tooltip"] *,
+[data-state] * {
+  font-family: 'Al-Jazeera', sans-serif !important;
+}
+
+/* Target specific shadcn components */
+button, .button, 
+[type="button"],
+[type="submit"],
+[type="reset"],
+.dialog-content,
+.dialog-title,
+.dialog-description,
+.popover-content,
+.dropdown-content,
+.toast,
+.card,
+.card-title,
+.card-description {
+  font-family: 'Al-Jazeera', sans-serif !important;
+}
+
+/* Target all inputs and form elements */
+input,
+select,
+textarea,
+label,
+.form-input,
+.form-select,
+.form-checkbox,
+.form-radio {
+  font-family: 'Al-Jazeera', sans-serif !important;
+}
+
+/* Additional specificity for shadcn components */
+[class*="radix-"],
+[class*="dialog-content"],
+[class*="popover-content"],
+[class*="dropdown-menu"],
+[class*="button-"],
+[class*="tooltip-"] {
+  font-family: 'Al-Jazeera', sans-serif !important;
+}
