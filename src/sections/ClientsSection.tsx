@@ -44,9 +44,10 @@ const clients: ClientLogo[] = [
     alt: "Supercell شركة"
   },
   {
-    name: "Zain",
-    src: "/lovable-uploads/a480c332-5a50-4bd1-ae12-5b52c0e36423.png",
-    alt: "Zain شركة"
+    name: "Oodi",
+    src: "/lovable-uploads/b56b7c0e-780f-41cc-8b42-55b987eddc00.png",
+    alt: "Oodi شركة",
+    className: "bg-[#5B23E1] p-4 rounded" // Add purple background for Oodi logo
   }
 ];
 
