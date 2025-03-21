@@ -37,7 +37,7 @@ const clients: ClientLogo[] = [
     name: "ITEXIraq",
     src: "/lovable-uploads/34a6871b-2532-4643-8004-0fb3acfaa2b5.png",
     alt: "ITEX Iraq شركة",
-    className: "bg-[#121212] p-3 rounded" // Darker background, less padding
+    className: "bg-[#121212]" // Removed p-3 to avoid padding issues
   },
   {
     name: "Supercell",
@@ -48,7 +48,7 @@ const clients: ClientLogo[] = [
     name: "Oodi",
     src: "/lovable-uploads/bd292633-35d4-46e9-96fb-0070abe93146.png",
     alt: "Oodi شركة",
-    className: "bg-[#6713e9] p-3 rounded" // Added purple background as requested
+    className: "bg-[#6713e9]" // Removed p-3 to avoid padding issues
   }
 ];
 
@@ -73,12 +73,19 @@ const ClientsSection = () => {
           {clients.map((client) => (
             <div 
               key={client.name}
-              className={`flex items-center justify-center p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 overflow-hidden ${client.className || ''}`}
+              className={`relative flex items-center justify-center h-40 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 overflow-hidden ${client.className || 'bg-white'}`}
             >
+              <div className="absolute inset-0" style={{ 
+                backgroundColor: client.className?.includes('bg-[#') ? 
+                  client.className.match(/bg-\[\#([0-9a-f]+)\]/)?.[1] ? 
+                    `#${client.className.match(/bg-\[\#([0-9a-f]+)\]/)[1]}` : 
+                    'transparent' : 
+                  'transparent' 
+              }}></div>
               <img 
                 src={client.src} 
                 alt={client.alt}
-                className={`max-h-20 max-w-full h-auto object-contain transition-all duration-300 ${client.imgClass || ''}`}
+                className={`relative z-10 max-h-20 max-w-full h-auto object-contain transition-all duration-300 p-3 ${client.imgClass || ''}`}
               />
             </div>
           ))}
@@ -97,11 +104,18 @@ const ClientsSection = () => {
             <CarouselContent>
               {clients.map((client) => (
                 <CarouselItem key={client.name} className="basis-full">
-                  <Card className={`flex items-center justify-center p-6 h-40 border border-gray-100 overflow-hidden ${client.className || ''}`}>
+                  <Card className={`relative flex items-center justify-center h-40 border border-gray-100 overflow-hidden ${client.className || 'bg-white'}`}>
+                    <div className="absolute inset-0" style={{ 
+                      backgroundColor: client.className?.includes('bg-[#') ? 
+                        client.className.match(/bg-\[\#([0-9a-f]+)\]/)?.[1] ? 
+                          `#${client.className.match(/bg-\[\#([0-9a-f]+)\]/)[1]}` : 
+                          'transparent' : 
+                        'transparent' 
+                    }}></div>
                     <img 
                       src={client.src} 
                       alt={client.alt}
-                      className={`max-h-20 max-w-full h-auto object-contain transition-all duration-300 ${client.imgClass || ''}`}
+                      className={`relative z-10 max-h-20 max-w-full h-auto object-contain transition-all duration-300 p-3 ${client.imgClass || ''}`}
                     />
                   </Card>
                 </CarouselItem>
