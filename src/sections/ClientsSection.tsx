@@ -85,7 +85,7 @@ const ClientsSection = () => {
               <img 
                 src={client.src} 
                 alt={client.alt}
-                className={`relative z-10 max-h-20 max-w-full h-auto object-contain transition-all duration-300 p-3 ${client.imgClass || ''}`}
+                className={`relative z-10 max-w-full h-auto object-contain transition-all duration-300 p-3 h-32 ${client.imgClass || ''}`}
               />
             </div>
           ))}
@@ -115,7 +115,7 @@ const ClientsSection = () => {
                     <img 
                       src={client.src} 
                       alt={client.alt}
-                      className={`relative z-10 max-h-20 max-w-full h-auto object-contain transition-all duration-300 p-3 ${client.imgClass || ''}`}
+                      className={`relative z-10 max-w-full h-auto object-contain transition-all duration-300 p-3 h-32 ${client.imgClass || ''}`}
                     />
                   </Card>
                 </CarouselItem>
