@@ -46,7 +46,7 @@ const FaqSection = () => {
   };
 
   return (
-    <section className="py-20 bg-tijwal-light">
+    <section id="faq" className="py-20 bg-tijwal-light">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <span className="inline-block bg-tijwal-blue/10 text-tijwal-blue px-4 py-1 rounded-full text-sm font-medium mb-4">
