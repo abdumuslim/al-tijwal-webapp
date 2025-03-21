@@ -1,4 +1,3 @@
-
 import { useRef } from 'react';
 import { 
   Carousel, 
@@ -46,9 +45,8 @@ const clients: ClientLogo[] = [
   },
   {
     name: "Oodi",
-    src: "/lovable-uploads/b56b7c0e-780f-41cc-8b42-55b987eddc00.png",
-    alt: "Oodi شركة",
-    imgClass: "object-cover scale-[2.5] object-center w-full h-full" // Increased scale and ensured full width/height
+    src: "/lovable-uploads/8a709b64-185a-4c59-be35-cc910c4b77fe.png",
+    alt: "Oodi شركة"
   }
 ];
 
