@@ -37,7 +37,7 @@ const clients: ClientLogo[] = [
     name: "ITEXIraq",
     src: "/lovable-uploads/34a6871b-2532-4643-8004-0fb3acfaa2b5.png",
     alt: "ITEX Iraq شركة",
-    className: "bg-[#221F26] p-4 rounded" // Add dark background for ITEX Iraq logo
+    className: "bg-[#121212] p-3 rounded" // Darker background, less padding
   },
   {
     name: "Supercell",
@@ -48,7 +48,7 @@ const clients: ClientLogo[] = [
     name: "Oodi",
     src: "/lovable-uploads/b56b7c0e-780f-41cc-8b42-55b987eddc00.png",
     alt: "Oodi شركة",
-    imgClass: "object-cover scale-150 object-center" // Use scale and object positioning instead of background
+    imgClass: "object-cover scale-[2.5] object-center w-full h-full" // Increased scale and ensured full width/height
   }
 ];
 
