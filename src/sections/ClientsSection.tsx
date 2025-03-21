@@ -41,7 +41,7 @@ const clients: ClientLogo[] = [
   },
   {
     name: "Supercell",
-    src: "/lovable-uploads/46def75c-e10b-433c-8ffe-dbc0c13e0c90.png",
+    src: "/lovable-uploads/46def75c-e10b-433c-8669-a664a4f218e4.png",
     alt: "Supercell شركة"
   },
   {
@@ -74,6 +74,7 @@ const ClientsSection = () => {
             <div 
               key={client.name}
               className={`flex items-center justify-center p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 overflow-hidden ${client.className || ''}`}
+              style={client.className?.includes('bg-[#') ? {} : {}}
             >
               <img 
                 src={client.src} 
