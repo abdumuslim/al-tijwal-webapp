@@ -7,6 +7,7 @@ import CoreBenefitsSection from '@/sections/CoreBenefitsSection';
 import LocationsSection from '@/sections/LocationsSection';
 import PricingSection from '@/sections/PricingSection';
 import FaqSection from '@/sections/FaqSection';
+import ClientsSection from '@/sections/ClientsSection';
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
       <TijwalEyeSection />
       <CoreBenefitsSection />
       <LocationsSection />
+      <ClientsSection />
       <PricingSection />
       <FaqSection />
     </Layout>
