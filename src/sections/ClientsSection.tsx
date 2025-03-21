@@ -42,9 +42,9 @@ const clients: ClientLogo[] = [
     alt: "Supercell شركة"
   },
   {
-    name: "Zain",
-    src: "/lovable-uploads/1d8014c0-1914-4ed7-8093-941ce28c71cb.png",
-    alt: "Zain شركة"
+    name: "Oodi",
+    src: "/lovable-uploads/313aea98-409d-4abe-bd0c-568d5944ebc7.png",
+    alt: "Oodi شركة"
   }
 ];
 
@@ -74,7 +74,7 @@ const ClientsSection = () => {
               <img 
                 src={client.src} 
                 alt={client.alt}
-                className="max-h-20 max-w-full h-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                className="max-h-20 max-w-full h-auto object-contain transition-all duration-300"
               />
             </div>
           ))}
@@ -97,7 +97,7 @@ const ClientsSection = () => {
                     <img 
                       src={client.src} 
                       alt={client.alt}
-                      className="max-h-20 max-w-full h-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                      className="max-h-20 max-w-full h-auto object-contain transition-all duration-300"
                     />
                   </Card>
                 </CarouselItem>
