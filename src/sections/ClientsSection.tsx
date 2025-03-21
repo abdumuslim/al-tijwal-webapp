@@ -23,7 +23,7 @@ const clients: ClientLogo[] = [
   },
   {
     name: "Elryan",
-    src: "/lovable-uploads/6d0a9f3e-da9e-4297-bb6b-51f96214c333.png",
+    src: "/lovable-uploads/3ac89038-e04f-488f-9e7a-adb1ec83c9f6.png",
     alt: "Elryan شركة"
   },
   {
@@ -56,7 +56,7 @@ const ClientsSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-tijwal-dark">
-            عملاؤنا
+            عملاء يثقون بنا
             <span className="text-tijwal-orange">.</span>
           </h2>
           <p className="text-tijwal-gray max-w-2xl mx-auto">
