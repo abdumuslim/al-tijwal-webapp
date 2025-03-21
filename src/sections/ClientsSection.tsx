@@ -115,7 +115,8 @@ const ClientsSection = () => {
                     <img 
                       src={client.src} 
                       alt={client.alt}
-                      className={`relative z-10 max-w-full h-auto object-contain transition-all duration-300 p-3 h-32 ${client.imgClass || ''}`}
+                      style={{ maxHeight: '8rem' }} // Adding inline style to ensure consistent height
+                      className={`relative z-10 max-w-full h-auto object-contain transition-all duration-300 p-3 ${client.imgClass || ''}`}
                     />
                   </Card>
                 </CarouselItem>

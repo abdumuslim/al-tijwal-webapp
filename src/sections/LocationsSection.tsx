@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { MapPin, Navigation, Check } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
@@ -41,6 +40,13 @@ const LocationsSection = () => {
         return [...prev, filterId];
       }
     });
+  };
+
+  const handleContactClick = () => {
+    const footerSection = document.getElementById('contact');
+    if (footerSection) {
+      footerSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const filteredLocations = selectedFilters.length === 0 
@@ -148,9 +154,7 @@ const LocationsSection = () => {
               <TijwalButton 
                 variant="primary" 
                 className="w-full"
-                onClick={() => {
-                  window.open('http://wa.me/9647849567837', '_blank');
-                }}
+                onClick={handleContactClick}
               >
                 تواصل مع فريق المبيعات
               </TijwalButton>
@@ -212,9 +216,7 @@ const LocationsSection = () => {
               <p className="text-tijwal-gray mb-4">هذه قائمة بالمواقع المتاحة في بغداد. يمكننا أيضًا تخصيص مسارات محددة وفقًا لاحتياجات عملك.</p>
               <TijwalButton 
                 variant="secondary"
-                onClick={() => {
-                  window.open('http://wa.me/9647849567837', '_blank');
-                }}
+                onClick={handleContactClick}
               >
                 استفسر عن مواقع محددة
               </TijwalButton>

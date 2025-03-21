@@ -3,6 +3,14 @@ import { Eye, BarChart3, Users, Clock } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
 
 const TijwalEyeSection = () => {
+  // Function to scroll to footer when button is clicked
+  const handleContactClick = () => {
+    const footerSection = document.getElementById('contact');
+    if (footerSection) {
+      footerSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="tijwal-eye" className="py-20 bg-gradient-to-b from-white to-tijwal-light">
       <div className="container mx-auto px-4">
@@ -71,7 +79,7 @@ const TijwalEyeSection = () => {
             </div>
 
             <div className="mt-10">
-              <TijwalButton variant="primary">تعرف على المزيد</TijwalButton>
+              <TijwalButton variant="primary" onClick={handleContactClick}>تعرف على المزيد</TijwalButton>
             </div>
           </div>
 

@@ -21,7 +21,15 @@ const Navbar = () => {
   };
 
   const handleContactClick = () => {
-    window.open('http://wa.me/9647849567837', '_blank');
+    // Redirect to footer section instead of WhatsApp
+    const footerSection = document.getElementById('contact');
+    if (footerSection) {
+      footerSection.scrollIntoView({ behavior: 'smooth' });
+      // Close mobile menu if open
+      if (isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    }
   };
 
   return (
@@ -46,8 +54,8 @@ const Navbar = () => {
           <a href="#hero" className="nav-link">الرئيسية</a>
           <a href="#about" className="nav-link">من نحن</a>
           <a href="#services" className="nav-link">خدماتنا</a>
-          <a href="#technology" className="nav-link">عين التجوال</a>
-          <a href="#locations" className="nav-link">المواقع</a>
+          <a href="#tijwal-eye" className="nav-link">عين التجوال</a>
+          <a href="#clients" className="nav-link">عملاؤنا</a>
           <a href="#pricing" className="nav-link">الأسعار</a>
         </div>
 
@@ -68,19 +76,20 @@ const Navbar = () => {
         className={`fixed inset-0 bg-white z-40 pt-20 px-4 transition-transform duration-300 ease-in-out ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         } md:hidden`}
+        style={{ 
+          height: isMenuOpen ? '100vh' : '0', 
+          overflow: 'auto' // Make the menu scrollable
+        }}
       >
         <div className="flex flex-col items-center gap-6 text-lg">
           <a href="#hero" className="nav-link" onClick={toggleMenu}>الرئيسية</a>
           <a href="#about" className="nav-link" onClick={toggleMenu}>من نحن</a>
           <a href="#services" className="nav-link" onClick={toggleMenu}>خدماتنا</a>
-          <a href="#technology" className="nav-link" onClick={toggleMenu}>عين التجوال</a>
-          <a href="#locations" className="nav-link" onClick={toggleMenu}>المواقع</a>
+          <a href="#tijwal-eye" className="nav-link" onClick={toggleMenu}>عين التجوال</a>
+          <a href="#clients" className="nav-link" onClick={toggleMenu}>عملاؤنا</a>
           <a href="#pricing" className="nav-link" onClick={toggleMenu}>الأسعار</a>
           <div className="mt-6">
-            <TijwalButton variant="primary" onClick={() => {
-              toggleMenu();
-              handleContactClick();
-            }}>
+            <TijwalButton variant="primary" onClick={handleContactClick}>
               تواصل معنا
             </TijwalButton>
           </div>
