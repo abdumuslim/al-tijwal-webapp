@@ -14,6 +14,7 @@ interface ClientLogo {
   src: string;
   alt: string;
   className?: string; // Add className property for custom styling
+  imgClass?: string; // Add imgClass property for custom image styling
 }
 
 const clients: ClientLogo[] = [
@@ -47,7 +48,7 @@ const clients: ClientLogo[] = [
     name: "Oodi",
     src: "/lovable-uploads/b56b7c0e-780f-41cc-8b42-55b987eddc00.png",
     alt: "Oodi شركة",
-    className: "bg-[#5B23E1] p-4 rounded" // Add purple background for Oodi logo
+    imgClass: "object-cover scale-150 object-center" // Use scale and object positioning instead of background
   }
 ];
 
@@ -72,12 +73,12 @@ const ClientsSection = () => {
           {clients.map((client) => (
             <div 
               key={client.name}
-              className={`flex items-center justify-center p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 ${client.className || ''}`}
+              className={`flex items-center justify-center p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 overflow-hidden ${client.className || ''}`}
             >
               <img 
                 src={client.src} 
                 alt={client.alt}
-                className="max-h-20 max-w-full h-auto object-contain transition-all duration-300"
+                className={`max-h-20 max-w-full h-auto object-contain transition-all duration-300 ${client.imgClass || ''}`}
               />
             </div>
           ))}
@@ -96,11 +97,11 @@ const ClientsSection = () => {
             <CarouselContent>
               {clients.map((client) => (
                 <CarouselItem key={client.name} className="basis-full">
-                  <Card className={`flex items-center justify-center p-6 h-40 border border-gray-100 ${client.className || ''}`}>
+                  <Card className={`flex items-center justify-center p-6 h-40 border border-gray-100 overflow-hidden ${client.className || ''}`}>
                     <img 
                       src={client.src} 
                       alt={client.alt}
-                      className="max-h-20 max-w-full h-auto object-contain transition-all duration-300"
+                      className={`max-h-20 max-w-full h-auto object-contain transition-all duration-300 ${client.imgClass || ''}`}
                     />
                   </Card>
                 </CarouselItem>
