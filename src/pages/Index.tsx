@@ -14,12 +14,12 @@ const Index = () => {
     <Layout>
       <HeroSection />
       <ProblemSolutionSection />
-      <CoreBenefitsSection />
       <TijwalEyeSection />
+      <CoreBenefitsSection />
+      <LocationsSection />
       <ClientsSection />
       <PricingSection />
       <FaqSection />
-      <LocationsSection />
     </Layout>
   );
 };

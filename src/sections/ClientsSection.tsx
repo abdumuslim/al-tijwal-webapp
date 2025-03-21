@@ -13,8 +13,8 @@ interface ClientLogo {
   name: string;
   src: string;
   alt: string;
-  className?: string;
-  imgClass?: string;
+  className?: string; // Add className property for custom styling
+  imgClass?: string; // Add imgClass property for custom image styling
 }
 
 const clients: ClientLogo[] = [
@@ -37,7 +37,7 @@ const clients: ClientLogo[] = [
     name: "ITEXIraq",
     src: "/lovable-uploads/34a6871b-2532-4643-8004-0fb3acfaa2b5.png",
     alt: "ITEX Iraq شركة",
-    className: "bg-[#121212]"
+    className: "bg-[#121212]" // Removed p-3 to avoid padding issues
   },
   {
     name: "Supercell",
@@ -48,7 +48,7 @@ const clients: ClientLogo[] = [
     name: "Oodi",
     src: "/lovable-uploads/bd292633-35d4-46e9-96fb-0070abe93146.png",
     alt: "Oodi شركة",
-    className: "bg-[#6713e9]"
+    className: "bg-[#6713e9]" // Removed p-3 to avoid padding issues
   }
 ];
 
@@ -85,7 +85,7 @@ const ClientsSection = () => {
               <img 
                 src={client.src} 
                 alt={client.alt}
-                className={`relative z-10 max-w-full object-contain transition-all duration-300 p-3 h-32 ${client.imgClass || ''}`}
+                className={`relative z-10 max-w-full h-auto object-contain transition-all duration-300 p-3 h-32 ${client.imgClass || ''}`}
               />
             </div>
           ))}
@@ -115,7 +115,8 @@ const ClientsSection = () => {
                     <img 
                       src={client.src} 
                       alt={client.alt}
-                      className="relative z-10 max-w-full object-contain p-3 h-32"
+                      style={{ maxHeight: '8rem' }} // Adding inline style to ensure consistent height
+                      className={`relative z-10 max-w-full h-auto object-contain transition-all duration-300 p-3 ${client.imgClass || ''}`}
                     />
                   </Card>
                 </CarouselItem>

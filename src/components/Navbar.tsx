@@ -52,12 +52,11 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
           <a href="#hero" className="nav-link">الرئيسية</a>
-          <a href="#about" className="nav-link">المميزات</a>
+          <a href="#about" className="nav-link">من نحن</a>
           <a href="#services" className="nav-link">خدماتنا</a>
           <a href="#tijwal-eye" className="nav-link">عين التجوال</a>
           <a href="#clients" className="nav-link">عملاؤنا</a>
-          <a href="#pricing" className="nav-link">الباقات</a>
-          <a href="#faq" className="nav-link">الأسئلة الشائعة</a>
+          <a href="#pricing" className="nav-link">الأسعار</a>
         </div>
 
         <div className="hidden md:block">
@@ -78,20 +77,17 @@ const Navbar = () => {
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         } md:hidden`}
         style={{ 
-          height: '100vh',
-          position: 'fixed',
-          top: 0,
-          overflow: 'auto'
+          height: isMenuOpen ? '100vh' : '0', 
+          overflow: 'auto' // Make the menu scrollable
         }}
       >
         <div className="flex flex-col items-center gap-6 text-lg">
           <a href="#hero" className="nav-link" onClick={toggleMenu}>الرئيسية</a>
-          <a href="#about" className="nav-link" onClick={toggleMenu}>المميزات</a>
+          <a href="#about" className="nav-link" onClick={toggleMenu}>من نحن</a>
           <a href="#services" className="nav-link" onClick={toggleMenu}>خدماتنا</a>
           <a href="#tijwal-eye" className="nav-link" onClick={toggleMenu}>عين التجوال</a>
           <a href="#clients" className="nav-link" onClick={toggleMenu}>عملاؤنا</a>
-          <a href="#pricing" className="nav-link" onClick={toggleMenu}>الباقات</a>
-          <a href="#faq" className="nav-link" onClick={toggleMenu}>الأسئلة الشائعة</a>
+          <a href="#pricing" className="nav-link" onClick={toggleMenu}>الأسعار</a>
           <div className="mt-6">
             <TijwalButton variant="primary" onClick={handleContactClick}>
               تواصل معنا
