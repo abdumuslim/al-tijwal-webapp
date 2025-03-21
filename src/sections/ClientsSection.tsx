@@ -13,6 +13,7 @@ interface ClientLogo {
   name: string;
   src: string;
   alt: string;
+  className?: string; // Add className property for custom styling
 }
 
 const clients: ClientLogo[] = [
@@ -34,7 +35,8 @@ const clients: ClientLogo[] = [
   {
     name: "ITEXIraq",
     src: "/lovable-uploads/34a6871b-2532-4643-8004-0fb3acfaa2b5.png",
-    alt: "ITEX Iraq شركة"
+    alt: "ITEX Iraq شركة",
+    className: "bg-[#221F26] p-4 rounded" // Add dark background for ITEX Iraq logo
   },
   {
     name: "Supercell",
@@ -42,9 +44,9 @@ const clients: ClientLogo[] = [
     alt: "Supercell شركة"
   },
   {
-    name: "Oodi",
-    src: "/lovable-uploads/313aea98-409d-4abe-bd0c-568d5944ebc7.png",
-    alt: "Oodi شركة"
+    name: "Zain",
+    src: "/lovable-uploads/a480c332-5a50-4bd1-ae12-5b52c0e36423.png",
+    alt: "Zain شركة"
   }
 ];
 
@@ -69,7 +71,7 @@ const ClientsSection = () => {
           {clients.map((client) => (
             <div 
               key={client.name}
-              className="flex items-center justify-center p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300"
+              className={`flex items-center justify-center p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 ${client.className || ''}`}
             >
               <img 
                 src={client.src} 
@@ -93,7 +95,7 @@ const ClientsSection = () => {
             <CarouselContent>
               {clients.map((client) => (
                 <CarouselItem key={client.name} className="basis-full">
-                  <Card className="flex items-center justify-center p-6 h-40 border border-gray-100">
+                  <Card className={`flex items-center justify-center p-6 h-40 border border-gray-100 ${client.className || ''}`}>
                     <img 
                       src={client.src} 
                       alt={client.alt}
