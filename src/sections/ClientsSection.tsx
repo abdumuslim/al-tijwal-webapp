@@ -1,3 +1,4 @@
+
 import { useRef } from 'react';
 import { 
   Carousel, 
@@ -45,8 +46,9 @@ const clients: ClientLogo[] = [
   },
   {
     name: "Oodi",
-    src: "/lovable-uploads/8a709b64-185a-4c59-be35-cc910c4b77fe.png",
-    alt: "Oodi شركة"
+    src: "/lovable-uploads/bd292633-35d4-46e9-96fb-0070abe93146.png",
+    alt: "Oodi شركة",
+    className: "bg-[#6713e9] p-3 rounded" // Added purple background as requested
   }
 ];
 
