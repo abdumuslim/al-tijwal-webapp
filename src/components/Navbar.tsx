@@ -44,13 +44,13 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-white/80 backdrop-blur-lg shadow-md py-3' : 'bg-transparent py-5'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled ? 'bg-white/90 backdrop-blur-md shadow-lg py-3' : 'bg-transparent py-5'
         }`}
       >
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <a href="#" onClick={(e) => { e.preventDefault(); scrollToTop(); }}>
+            <a href="#" onClick={(e) => { e.preventDefault(); scrollToTop(); }} className="transition-transform duration-300 hover:scale-105">
               <img 
                 src="/lovable-uploads/f5296d76-7e51-4c9f-8151-7e8785243d39.png" 
                 alt="التجوال" 
@@ -75,14 +75,18 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden text-tijwal-dark" onClick={toggleMenu}>
+          <button 
+            className="md:hidden text-tijwal-dark p-2 rounded-lg hover:bg-tijwal-blue/10 transition-colors duration-300" 
+            onClick={toggleMenu}
+            aria-label={isMenuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+          >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         <div 
-          className={`fixed inset-0 bg-white z-40 pt-20 px-4 transition-transform duration-300 ease-in-out ${
+          className={`fixed inset-0 bg-white/95 backdrop-blur-md z-40 pt-20 px-4 transition-transform duration-500 ease-in-out ${
             isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           } md:hidden`}
           style={{ 
@@ -92,12 +96,12 @@ const Navbar = () => {
             overflow: 'auto'
           }}
         >
-          <div className="flex flex-col items-center gap-6 text-lg">
-            <a href="#about" className="nav-link" onClick={toggleMenu}>المميزات</a>
-            <a href="#locations" className="nav-link" onClick={toggleMenu}>الأماكن</a>
-            <a href="#clients" className="nav-link" onClick={toggleMenu}>عملاؤنا</a>
-            <a href="#pricing" className="nav-link" onClick={toggleMenu}>الباقات</a>
-            <a href="#faq" className="nav-link" onClick={toggleMenu}>الأسئلة الشائعة</a>
+          <div className="flex flex-col items-center gap-8 text-lg">
+            <a href="#about" className="nav-link text-xl" onClick={toggleMenu}>المميزات</a>
+            <a href="#locations" className="nav-link text-xl" onClick={toggleMenu}>الأماكن</a>
+            <a href="#clients" className="nav-link text-xl" onClick={toggleMenu}>عملاؤنا</a>
+            <a href="#pricing" className="nav-link text-xl" onClick={toggleMenu}>الباقات</a>
+            <a href="#faq" className="nav-link text-xl" onClick={toggleMenu}>الأسئلة الشائعة</a>
             <div className="mt-6">
               <TijwalButton variant="primary" onClick={handleContactClick}>
                 تواصل معنا
@@ -111,7 +115,7 @@ const Navbar = () => {
       {showScrollTop && (
         <button 
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 bg-tijwal-orange text-white p-3 rounded-full shadow-lg hover:bg-tijwal-orange/90 transition-all duration-300 animate-fade-in"
+          className="fixed bottom-6 right-6 z-50 bg-tijwal-blue text-white p-3 rounded-full shadow-md shadow-tijwal-blue/20 hover:shadow-lg hover:shadow-tijwal-blue/30 hover:bg-tijwal-blue/90 transition-all duration-300 animate-fade-in"
           aria-label="العودة للأعلى"
         >
           <ArrowUp className="h-5 w-5" />

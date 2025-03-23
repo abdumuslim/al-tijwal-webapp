@@ -36,23 +36,24 @@ const CoreBenefitsSection = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-white">
+    <section id="about" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <span className="inline-block bg-tijwal-orange/10 text-tijwal-orange px-4 py-1 rounded-full text-sm font-medium mb-4">
+          <span className="section-tag">
             لماذا تختار التجوال؟
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">مزايا التجوال التنافسية</h2>
-          <p className="text-tijwal-gray max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-tijwal-dark modern-header">مزايا التجوال التنافسية</h2>
+          <p className="text-tijwal-gray max-w-2xl mx-auto mt-8">
             تجمع خدماتنا بين الانتشار الواسع والاستهداف الدقيق مع إمكانية قياس الأداء لتحقيق أقصى عائد على استثمارك الإعلاني
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
           {benefits.map((benefit, index) => (
             <div 
               key={index} 
-              className="benefit-card transform transition-all duration-300 hover:-translate-y-2"
+              className="feature-card reveal stagger-1"
+              style={{ transitionDelay: `${index * 0.1}s` }}
             >
               <div className="benefit-icon-container">
                 {benefit.icon}
@@ -64,15 +65,40 @@ const CoreBenefitsSection = () => {
         </div>
 
         {/* Vision Section */}
-        <div className="mt-16 glass-card p-8 bg-gradient-to-r from-tijwal-orange/5 to-tijwal-blue/5 border border-tijwal-orange/20">
+        <div className="mt-16 p-10 bg-gradient-to-r from-tijwal-blue/5 to-tijwal-orange/5 rounded-2xl shadow-lg border border-white">
           <div className="text-center">
-            <h3 className="text-2xl font-bold mb-4 text-tijwal-dark">رؤيتنا لعام 2029</h3>
+            <h3 className="text-2xl font-bold mb-4 text-tijwal-blue">رؤيتنا لعام 2029</h3>
             <p className="text-tijwal-gray max-w-3xl mx-auto">
               أن نصبح الشركة الرائدة في مجال الإعلانات الداخلية والخارجية المبتكرة في العراق، محدثين ثورة في طريقة تواصل العلامات التجارية مع جماهيرها من خلال شاشاتنا المتنقلة المتطورة. نريد أن يرتبط اسم التجوال في أذهان الناس بالابتكار والجودة العالية في الإعلان في العراق وأن نكون الخيار الأول الذي يفكرون فيه.
             </p>
           </div>
         </div>
       </div>
+
+      {/* Add the scroll reveal JavaScript */}
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          function revealElements() {
+            var reveals = document.querySelectorAll('.reveal');
+            
+            for (var i = 0; i < reveals.length; i++) {
+              var windowHeight = window.innerHeight;
+              var elementTop = reveals[i].getBoundingClientRect().top;
+              var elementVisible = 150;
+              
+              if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add('active');
+              }
+            }
+          }
+          
+          window.addEventListener('scroll', revealElements);
+          window.addEventListener('load', revealElements);
+          
+          // Initial call to reveal elements that might be in view on page load
+          document.addEventListener('DOMContentLoaded', revealElements);
+        `
+      }} />
     </section>
   );
 };

@@ -117,6 +117,22 @@ export default {
 					'0%': { backgroundPosition: '200% 0' },
 					'100%': { backgroundPosition: '-200% 0' },
 				},
+				'slideInUp': {
+					'0%': { transform: 'translateY(30px)', opacity: '0' },
+					'100%': { transform: 'translateY(0)', opacity: '1' }
+				},
+				'slideInRight': {
+					'0%': { transform: 'translateX(30px)', opacity: '0' },
+					'100%': { transform: 'translateX(0)', opacity: '1' }
+				},
+				'slideInLeft': {
+					'0%': { transform: 'translateX(-30px)', opacity: '0' },
+					'100%': { transform: 'translateX(0)', opacity: '1' }
+				},
+				'ripple': {
+					'0%': { transform: 'scale(0)', opacity: '1' },
+					'100%': { transform: 'scale(4)', opacity: '0' }
+				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -128,6 +144,18 @@ export default {
 				'float': 'float 6s ease-in-out infinite',
 				'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
 				'background-shine': 'background-shine 8s linear infinite',
+				'slideInUp': 'slideInUp 0.6s ease-out',
+				'slideInRight': 'slideInRight 0.6s ease-out',
+				'slideInLeft': 'slideInLeft 0.6s ease-out',
+				'ripple': 'ripple 1s linear'
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-soft': 'linear-gradient(to right, #f5f7fa, #c3cfe2)',
+				'gradient-blue': 'linear-gradient(135deg, #007BFF 0%, #00c6ff 100%)',
+				'gradient-orange': 'linear-gradient(135deg, #FF7F00 0%, #ffb347 100%)',
+				'gradient-card': 'linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)',
+				'hero-pattern': 'linear-gradient(120deg, rgba(248, 249, 250, 0.95) 0%, rgba(240, 242, 245, 0.8) 100%), url("/lovable-uploads/54847be8-3e6a-44a9-aca6-3337e7204f12.png")'
 			}
 		}
 	},
