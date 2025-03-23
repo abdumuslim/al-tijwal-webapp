@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -195,11 +194,26 @@ button, input, select, textarea, optgroup {
   }
 
   .btn-with-arrow {
-    @apply group flex items-center gap-2 text-tijwal-blue font-medium transition-all duration-300 hover:text-tijwal-orange;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #007BFF;
+    font-weight: 500;
+    transition-property: all;
+    transition-duration: 300ms;
+  }
+  
+  .btn-with-arrow:hover {
+    color: #FF7F00;
   }
 
   .btn-with-arrow svg {
-    @apply transition-transform duration-300 group-hover:translate-x-1;
+    transition-property: transform;
+    transition-duration: 300ms;
+  }
+  
+  .group:hover .btn-with-arrow svg {
+    transform: translateX(0.25rem);
   }
 
   .pricing-feature {
