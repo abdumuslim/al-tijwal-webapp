@@ -5,9 +5,9 @@ import ProblemSolutionSection from '@/sections/ProblemSolutionSection';
 import TijwalEyeSection from '@/sections/TijwalEyeSection';
 import CoreBenefitsSection from '@/sections/CoreBenefitsSection';
 import LocationsSection from '@/sections/LocationsSection';
+import ClientsSection from '@/sections/ClientsSection';
 import PricingSection from '@/sections/PricingSection';
 import FaqSection from '@/sections/FaqSection';
-import ClientsSection from '@/sections/ClientsSection';
 
 const Index = () => {
   return (
@@ -16,10 +16,10 @@ const Index = () => {
       <ProblemSolutionSection />
       <CoreBenefitsSection />
       <TijwalEyeSection />
+      <LocationsSection />
       <ClientsSection />
       <PricingSection />
       <FaqSection />
-      <LocationsSection />
     </Layout>
   );
 };
