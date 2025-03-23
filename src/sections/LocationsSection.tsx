@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { MapPin, Navigation, Check } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
@@ -68,79 +67,78 @@ const LocationsSection = () => {
   }, [selectedFilters]);
 
   return (
-    <section id="locations" className="py-24 bg-gradient-to-b from-white to-tijwal-light">
+    <section id="locations" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <span className="section-tag">
+          <span className="inline-block bg-tijwal-orange/10 text-tijwal-orange px-4 py-1 rounded-full text-sm font-medium mb-4">
             مناطق خدماتنا
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-tijwal-dark modern-header">استهداف استراتيجي في بغداد</h2>
-          <p className="text-tijwal-gray max-w-2xl mx-auto mt-8">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">استهداف استراتيجي في بغداد</h2>
+          <p className="text-tijwal-gray max-w-2xl mx-auto">
             نوفر خدمة الإعلان المتنقل في مناطق مختارة بعناية في بغداد، مع التركيز على المناطق ذات الكثافة السكانية العالية والمراكز التجارية والترفيهية
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-16">
           <div className="col-span-1">
-            <div className="glass-card p-6 sticky top-24 reveal">
-              <h3 className="text-xl font-bold mb-6 text-tijwal-blue">تصفية المواقع</h3>
+            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-20">
+              <h3 className="text-xl font-bold mb-6 text-tijwal-dark">تصفية المواقع</h3>
 
-              <div className="glass-card p-6 mb-8 bg-gradient-to-r from-tijwal-blue/5 to-transparent reveal stagger-1">
+              <div className="glass-card p-6 mb-8">
                 <h3 className="text-xl font-bold mb-4 text-tijwal-dark">استراتيجية اختيار المواقع</h3>
                 <p className="text-tijwal-gray mb-4">
                   نختار مواقعنا بعناية بناءً على معايير محددة لضمان أقصى تأثير للحملات الإعلانية:
                 </p>
-                <ul className="space-y-3">
+                <ul className="space-y-2">
                   <li className="flex items-start">
                     <div className="mt-1 ml-2 flex-shrink-0">
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-tijwal-blue/10">
-                        <Check className="h-3 w-3 text-tijwal-blue" />
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-tijwal-orange/20">
+                        <Check className="h-3 w-3 text-tijwal-orange" />
                       </span>
                     </div>
-                    <span className="text-tijwal-gray">المناطق التجارية: المنصور، الكرادة، وشوارع التسوق الرئيسية</span>
+                    <span>المناطق التجارية: المنصور، الكرادة، وشوارع التسوق الرئيسية</span>
                   </li>
                   <li className="flex items-start">
                     <div className="mt-1 ml-2 flex-shrink-0">
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-tijwal-blue/10">
-                        <Check className="h-3 w-3 text-tijwal-blue" />
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-tijwal-orange/20">
+                        <Check className="h-3 w-3 text-tijwal-orange" />
                       </span>
                     </div>
-                    <span className="text-tijwal-gray">أماكن التجمعات: بالقرب من مراكز التسوق والمطاعم والمقاهي الشهيرة</span>
+                    <span>أماكن التجمعات: بالقرب من مراكز التسوق والمطاعم والمقاهي الشهيرة</span>
                   </li>
                   <li className="flex items-start">
                     <div className="mt-1 ml-2 flex-shrink-0">
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-tijwal-blue/10">
-                        <Check className="h-3 w-3 text-tijwal-blue" />
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-tijwal-orange/20">
+                        <Check className="h-3 w-3 text-tijwal-orange" />
                       </span>
                     </div>
-                    <span className="text-tijwal-gray">مراكز النقل: بالقرب من محطات الباصات ومواقف سيارات الأجرة</span>
+                    <span>مراكز النقل: بالقرب من محطات الباصات ومواقف سيارات الأجرة</span>
                   </li>
                   <li className="flex items-start">
                     <div className="mt-1 ml-2 flex-shrink-0">
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-tijwal-blue/10">
-                        <Check className="h-3 w-3 text-tijwal-blue" />
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-tijwal-orange/20">
+                        <Check className="h-3 w-3 text-tijwal-orange" />
                       </span>
                     </div>
-                    <span className="text-tijwal-gray">المناسبات الخاصة: بالقرب من الفعاليات والمهرجانات والحفلات</span>
+                    <span>المناسبات الخاصة: بالقرب من الفعاليات والمهرجانات والحفلات</span>
                   </li>
                 </ul>
               </div>
               
-              <div className="space-y-4 mb-8 reveal stagger-2">
-                <h4 className="font-bold text-lg mb-2 text-tijwal-dark">اختر نوع المنطقة:</h4>
+              <div className="space-y-4 mb-8">
                 {filters.map((filter, index) => (
                   <div key={index} className="flex items-center">
                     <input
                       type="checkbox"
                       id={`filter-${filter.id}`}
-                      className="h-5 w-5 rounded border-gray-300 text-tijwal-blue focus:ring-tijwal-blue/25"
+                      className="h-5 w-5 rounded border-gray-300 text-tijwal-orange focus:ring-tijwal-orange/25 location-filter-checkbox"
                       checked={selectedFilters.includes(filter.id)}
                       onChange={() => handleFilterChange(filter.id)}
                     />
                     <label 
                       htmlFor={`filter-${filter.id}`} 
                       className={`mr-3 transition-all duration-300 border-b-2 border-transparent pb-1 ${
-                        selectedFilters.includes(filter.id) ? 'text-tijwal-blue border-tijwal-blue' : 'text-tijwal-gray'
+                        selectedFilters.includes(filter.id) ? 'text-tijwal-orange border-tijwal-orange' : 'text-tijwal-gray'
                       }`}
                     >
                       {filter.name}
@@ -149,24 +147,22 @@ const LocationsSection = () => {
                 ))}
               </div>
 
-              <div className="glass-card p-6 bg-gradient-to-r from-tijwal-orange/5 to-transparent reveal stagger-3">
-                <h3 className="text-xl font-bold mb-4 text-tijwal-dark">احتاج مساعدة في اختيار المواقع المناسبة</h3>
-                <p className="text-tijwal-gray mb-6 text-sm">
-                  فريقنا المتخصص يساعدك في اختيار المواقع المناسبة لنشاطك التجاري وجمهورك المستهدف
-                </p>
-                <TijwalButton 
-                  variant="primary" 
-                  className="w-full"
-                  onClick={handleContactClick}
-                >
-                  تواصل مع فريق المبيعات
-                </TijwalButton>
-              </div>
+              <h3 className="text-xl font-bold mb-4 text-tijwal-dark">احتاج مساعدة في اختيار المواقع المناسبة</h3>
+              <p className="text-tijwal-gray mb-6 text-sm">
+                فريقنا المتخصص يساعدك في اختيار المواقع المناسبة لنشاطك التجاري وجمهورك المستهدف
+              </p>
+              <TijwalButton 
+                variant="primary" 
+                className="w-full"
+                onClick={handleContactClick}
+              >
+                تواصل مع فريق المبيعات
+              </TijwalButton>
             </div>
           </div>
           
           <div className="col-span-1 md:col-span-2">
-            <div className="glass-card p-1 rounded-2xl shadow-xl mb-8 reveal">
+            <div className="glass-card p-1 rounded-2xl shadow-xl mb-8">
               <div className="relative rounded-xl overflow-hidden">
                 <iframe 
                   src="https://www.google.com/maps/d/u/0/embed?mid=1ktBrIpaMmmRgekTrYzKKfAQhdZPMv8o&ehbc=2E312F&noprof=1" 
@@ -180,21 +176,20 @@ const LocationsSection = () => {
               </div>
             </div>
 
-            <h3 className="text-xl font-bold mb-6 text-tijwal-blue reveal">المواقع المتاحة</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {allLocations.map((location, index) => {
+            <h3 className="text-xl font-bold mb-6 text-tijwal-dark">المواقع المتاحة</h3>
+            <div className="location-grid">
+              {allLocations.map((location) => {
                 const isVisible = animatingItems.includes(location.id) && filteredLocations.some(loc => loc.id === location.id);
+                const animationDelay = `${(Array.from(animatingItems).indexOf(location.id) * 0.05)}s`;
                 
                 return (
                   <div 
                     key={location.id} 
-                    className={`bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 ${
-                      isVisible ? 'animate-slideInUp' : 'hidden'
-                    }`}
-                    style={{ animationDelay: `${index * 0.05}s` }}
+                    className={`bg-white rounded-lg border border-gray-100 p-4 shadow-sm hover:shadow-md transition-all duration-300 location-item ${isVisible ? '' : 'location-item-hidden'}`}
+                    style={{ animationDelay }}
                   >
                     <div className="flex items-start mb-2">
-                      <MapPin className="h-5 w-5 text-tijwal-blue mt-1 ml-2" />
+                      <MapPin className="h-5 w-5 text-tijwal-orange mt-1 ml-2" />
                       <div>
                         <h4 className="font-bold text-tijwal-dark">{location.name}</h4>
                         <p className="text-tijwal-gray text-xs">{location.type}</p>
@@ -204,10 +199,10 @@ const LocationsSection = () => {
                       <span className="text-xs text-tijwal-gray">شعبية:</span>
                       <span className={`text-xs px-2 py-1 rounded-full ${
                         location.popularity === "عالية جداً" 
-                          ? "bg-tijwal-blue/10 text-tijwal-blue" 
+                          ? "bg-tijwal-orange/10 text-tijwal-orange" 
                           : location.popularity === "عالية"
-                          ? "bg-tijwal-blue/5 text-tijwal-blue" 
-                          : "bg-tijwal-gray/10 text-tijwal-gray"
+                          ? "bg-tijwal-blue/10 text-tijwal-blue" 
+                          : "bg-tijwal-blue/10 text-tijwal-blue"
                       }`}>
                         {location.popularity}
                       </span>
@@ -217,8 +212,8 @@ const LocationsSection = () => {
               })}
             </div>
             
-            <div className="mt-10 text-center reveal">
-              <p className="text-tijwal-gray mb-6">هذه قائمة بالمواقع المتاحة في بغداد. يمكننا أيضًا تخصيص مسارات محددة وفقًا لاحتياجات عملك.</p>
+            <div className="mt-8 text-center">
+              <p className="text-tijwal-gray mb-4">هذه قائمة بالمواقع المتاحة في بغداد. يمكننا أيضًا تخصيص مسارات محددة وفقًا لاحتياجات عملك.</p>
               <TijwalButton 
                 variant="secondary"
                 onClick={handleContactClick}

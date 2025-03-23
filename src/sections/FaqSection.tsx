@@ -46,45 +46,45 @@ const FaqSection = () => {
   };
 
   return (
-    <section id="faq" className="py-24 bg-white">
+    <section id="faq" className="py-20 bg-tijwal-light">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <span className="section-tag">
+          <span className="inline-block bg-tijwal-blue/10 text-tijwal-blue px-4 py-1 rounded-full text-sm font-medium mb-4">
             الأسئلة الشائعة
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-tijwal-dark modern-header">كل ما تحتاج معرفته</h2>
-          <p className="text-tijwal-gray max-w-2xl mx-auto mt-8">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">كل ما تحتاج معرفته</h2>
+          <p className="text-tijwal-gray max-w-2xl mx-auto">
             إليك أجوبة لأكثر الأسئلة شيوعاً حول خدماتنا. إذا لم تجد إجابة لسؤالك، لا تتردد في التواصل معنا
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto glass-card p-8 reveal">
+        <div className="max-w-3xl mx-auto">
           {faqs.map((faq, index) => (
             <div 
               key={index} 
-              className={`border-b border-gray-100 last:border-0 transition-all duration-500 ${
+              className={`border-b border-gray-200 last:border-0 transition-all duration-300 ${
                 openIndex === index ? 'pb-6' : 'pb-0'
               }`}
             >
               <button
-                className="flex justify-between items-center w-full py-6 text-right focus:outline-none"
+                className="flex justify-between items-center w-full py-6 text-right"
                 onClick={() => toggleFaq(index)}
               >
                 <h3 className="text-xl font-semibold text-tijwal-dark">{faq.question}</h3>
-                <span className="flex-shrink-0 ml-4 transition-colors duration-300 p-2 rounded-full bg-tijwal-blue/5 hover:bg-tijwal-blue/10">
+                <span className="flex-shrink-0 ml-4">
                   {openIndex === index ? (
-                    <ChevronUp className="h-5 w-5 text-tijwal-blue" />
+                    <ChevronUp className="h-6 w-6 text-tijwal-blue" />
                   ) : (
-                    <ChevronDown className="h-5 w-5 text-tijwal-gray" />
+                    <ChevronDown className="h-6 w-6 text-tijwal-gray" />
                   )}
                 </span>
               </button>
               <div 
-                className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
                   openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
-                <p className="text-tijwal-gray pb-4 pl-12">{faq.answer}</p>
+                <p className="text-tijwal-gray pb-4">{faq.answer}</p>
               </div>
             </div>
           ))}

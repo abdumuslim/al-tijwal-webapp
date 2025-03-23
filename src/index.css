@@ -14,10 +14,10 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 217 91% 50%;
+    --primary: 30 100% 50%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 30 100% 50%;
+    --secondary: 214 100% 48%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
@@ -33,7 +33,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
 
   .dark {
@@ -132,169 +132,109 @@ button, input, select, textarea, optgroup {
 
 @layer components {
   .nav-link {
-    @apply relative py-2 text-tijwal-dark hover:text-tijwal-blue transition-colors duration-300 after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:right-0 after:bg-tijwal-blue after:origin-bottom-left after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-right;
+    @apply relative py-2 text-tijwal-dark hover:text-tijwal-orange transition-colors duration-300 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-tijwal-orange after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
   }
 
   .glass-card {
-    @apply bg-white/90 backdrop-blur-md border border-gray-100/20 shadow-lg rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300;
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-lg rounded-2xl overflow-hidden;
   }
 
   .section-container {
-    @apply py-20 md:py-28 px-4 max-w-7xl mx-auto;
+    @apply py-16 md:py-24 px-4 max-w-7xl mx-auto;
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-center relative;
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-center;
   }
 
   .section-subtitle {
-    @apply text-lg md:text-xl text-tijwal-gray max-w-3xl mx-auto text-center mb-16;
-  }
-
-  .section-tag {
-    @apply inline-block bg-gradient-to-r from-tijwal-blue/10 to-tijwal-blue/5 text-tijwal-blue px-4 py-1 rounded-full text-sm font-medium mb-4;
+    @apply text-lg md:text-xl text-tijwal-gray max-w-3xl mx-auto text-center mb-12;
   }
 
   .tijwal-btn {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-xl bg-tijwal-blue text-white font-medium px-6 py-3 shadow-md shadow-tijwal-blue/20 hover:shadow-xl hover:shadow-tijwal-blue/30 transition-all duration-300 hover:-translate-y-1 active:translate-y-0 overflow-hidden;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-tijwal-orange text-white font-semibold px-6 py-3 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-tijwal-orange/50;
     font-family: 'Al-Jazeera', sans-serif !important;
   }
 
   .tijwal-btn-secondary {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-xl bg-white text-tijwal-orange border border-tijwal-orange font-medium px-6 py-3 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 active:translate-y-0 overflow-hidden;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-white text-tijwal-blue border border-tijwal-blue font-semibold px-6 py-3 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-tijwal-blue/50;
     font-family: 'Al-Jazeera', sans-serif !important;
   }
 
   .tijwal-btn-accent {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-xl bg-tijwal-orange text-white font-medium px-6 py-3 shadow-md shadow-tijwal-orange/20 hover:shadow-xl hover:shadow-tijwal-orange/30 transition-all duration-300 hover:-translate-y-1 active:translate-y-0 overflow-hidden;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-tijwal-blue text-white font-semibold px-6 py-3 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-tijwal-blue/50;
     font-family: 'Al-Jazeera', sans-serif !important;
   }
 
-  .feature-card {
-    @apply bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 relative overflow-hidden;
-  }
-
-  .feature-card::after {
-    @apply content-[''] absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-tijwal-blue to-tijwal-orange;
-  }
-
   .benefit-card {
-    @apply bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100;
+    @apply bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100;
+  }
+
+  .fade-in-section {
+    @apply opacity-0 transform translate-y-10 transition duration-700;
+  }
+
+  .fade-in-section.is-visible {
+    @apply opacity-100 transform translate-y-0;
+  }
+
+  .animated-gradient-btn {
+    @apply relative inline-flex items-center justify-center overflow-hidden rounded-xl bg-tijwal-orange text-white p-0.5 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-tijwal-orange;
   }
 
   .benefit-icon-container {
-    @apply w-16 h-16 flex items-center justify-center rounded-full bg-tijwal-blue/10 text-tijwal-blue mb-4 mx-auto;
+    @apply w-16 h-16 flex items-center justify-center rounded-full bg-tijwal-light text-tijwal-orange mb-4 mx-auto;
   }
   
   .image-placeholder {
     @apply bg-gray-200 flex items-center justify-center text-gray-500 overflow-hidden;
   }
+}
 
-  .ripple {
-    @apply absolute bg-white/30 rounded-full pointer-events-none scale-0 animate-ripple;
+@keyframes fadeScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
   }
-
-  .btn-with-arrow {
-    @apply group flex items-center gap-2 text-tijwal-blue font-medium transition-all duration-300 hover:text-tijwal-orange;
-  }
-
-  .btn-with-arrow svg {
-    @apply transition-transform duration-300 group-hover:translate-x-1;
-  }
-
-  .pricing-feature {
-    @apply flex items-start gap-3 mb-4;
-  }
-
-  .pricing-feature-icon {
-    @apply flex-shrink-0 mt-1 h-5 w-5 flex items-center justify-center rounded-full bg-tijwal-blue/10 text-tijwal-blue;
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-/* Add modern scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+@keyframes gridItemFade {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
+.location-card-enter {
+  animation: fadeScale 0.5s ease forwards;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #007BFF;
-  border-radius: 10px;
+.location-filter-checkbox:checked + label {
+  @apply text-tijwal-orange border-tijwal-orange transition-colors duration-300;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #0056b3;
+.location-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
 }
 
-/* Custom animations */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
+.location-item {
+  animation: gridItemFade 0.4s ease forwards;
 }
 
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Staggered animation delays */
-.stagger-1 { transition-delay: 0.1s; }
-.stagger-2 { transition-delay: 0.2s; }
-.stagger-3 { transition-delay: 0.3s; }
-.stagger-4 { transition-delay: 0.4s; }
-.stagger-5 { transition-delay: 0.5s; }
-
-.slide-in-right {
-  animation: slideInRight 0.6s ease forwards;
-}
-.slide-in-left {
-  animation: slideInLeft 0.6s ease forwards;
-}
-.slide-in-up {
-  animation: slideInUp 0.6s ease forwards;
-}
-
-/* Prevent FOUC (Flash of Unstyled Content) */
-.no-fouc {
-  opacity: 0;
+.location-item-hidden {
+  display: none;
+  height: 0;
+  margin: 0;
+  padding: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.fouc-ready {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Modern effect for headers */
-.modern-header {
-  position: relative;
-  display: inline-block;
-}
-
-.modern-header::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  border-radius: 3px;
-  background: linear-gradient(to right, #007BFF, #FF7F00);
-}
-
-/* Hero section specific styles */
-.hero-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  z-index: -1;
-  opacity: 0.6;
 }

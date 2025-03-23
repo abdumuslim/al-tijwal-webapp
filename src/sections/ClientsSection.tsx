@@ -7,6 +7,7 @@ import {
   CarouselNext, 
   CarouselPrevious 
 } from '@/components/ui/carousel';
+import { Card } from '@/components/ui/card';
 
 interface ClientLogo {
   name: string;
@@ -55,25 +56,24 @@ const ClientsSection = () => {
   const carouselRef = useRef(null);
 
   return (
-    <section id="clients" className="py-24 bg-white">
+    <section id="clients" className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <span className="section-tag">
-            ثقة وشراكة
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-tijwal-dark modern-header">عملاء يثقون بنا</h2>
-          <p className="text-tijwal-gray max-w-2xl mx-auto mt-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-tijwal-dark">
+            عملاء يثقون بنا
+            <span className="text-tijwal-orange">.</span>
+          </h2>
+          <p className="text-tijwal-gray max-w-2xl mx-auto">
             نفتخر بثقة العديد من الشركات الرائدة في العراق والمنطقة. هذه بعض العلامات التجارية التي اختارت التعاون معنا
           </p>
         </div>
 
         {/* Desktop View - Grid Layout */}
-        <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8 mb-12 reveal">
-          {clients.map((client, index) => (
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+          {clients.map((client) => (
             <div 
               key={client.name}
-              className={`relative flex items-center justify-center h-40 rounded-xl shadow-md border border-gray-100 hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2 ${client.className || 'bg-white'}`}
-              style={{ transitionDelay: `${index * 0.1}s` }}
+              className={`relative flex items-center justify-center h-40 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 overflow-hidden ${client.className || 'bg-white'}`}
             >
               <div className="absolute inset-0" style={{ 
                 backgroundColor: client.className?.includes('bg-[#') ? 
@@ -92,7 +92,7 @@ const ClientsSection = () => {
         </div>
 
         {/* Mobile View - Carousel */}
-        <div className="md:hidden mb-12 reveal">
+        <div className="md:hidden">
           <Carousel
             ref={carouselRef}
             className="w-full max-w-xs mx-auto"
@@ -104,9 +104,7 @@ const ClientsSection = () => {
             <CarouselContent>
               {clients.map((client) => (
                 <CarouselItem key={client.name} className="basis-full">
-                  <div 
-                    className={`relative flex items-center justify-center h-40 rounded-xl shadow-md border border-gray-100 hover:shadow-xl transition-all duration-300 overflow-hidden ${client.className || 'bg-white'}`}
-                  >
+                  <Card className={`relative flex items-center justify-center h-40 border border-gray-100 overflow-hidden ${client.className || 'bg-white'}`}>
                     <div className="absolute inset-0" style={{ 
                       backgroundColor: client.className?.includes('bg-[#') ? 
                         client.className.match(/bg-\[\#([0-9a-f]+)\]/)?.[1] ? 
@@ -119,21 +117,19 @@ const ClientsSection = () => {
                       alt={client.alt}
                       className="relative z-10 max-w-full object-contain p-3 h-32"
                     />
-                  </div>
+                  </Card>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute left-0 bg-white text-tijwal-blue border-gray-200 hover:bg-tijwal-blue hover:text-white transition-colors duration-300" />
-            <CarouselNext className="absolute right-0 bg-white text-tijwal-blue border-gray-200 hover:bg-tijwal-blue hover:text-white transition-colors duration-300" />
+            <CarouselPrevious className="absolute left-0 bg-white text-tijwal-dark border-tijwal-gray/20" />
+            <CarouselNext className="absolute right-0 bg-white text-tijwal-dark border-tijwal-gray/20" />
           </Carousel>
         </div>
 
-        <div className="text-center reveal">
-          <div className="inline-block bg-gradient-to-r from-tijwal-blue/10 to-tijwal-orange/10 px-6 py-3 rounded-xl">
-            <p className="text-tijwal-dark font-medium">
-              انضم إلى قائمة عملائنا المميزين وحقق أهدافك الإعلانية معنا
-            </p>
-          </div>
+        <div className="text-center mt-12">
+          <p className="text-tijwal-gray font-medium">
+            انضم إلى قائمة عملائنا المميزين وحقق أهدافك الإعلانية معنا
+          </p>
         </div>
       </div>
     </section>

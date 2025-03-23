@@ -28,67 +28,51 @@ const TijwalButton = ({
   const getVariantClass = (): string => {
     switch (variant) {
       case 'primary':
-        return 'bg-tijwal-blue text-white hover:bg-tijwal-blue/90 shadow-md shadow-tijwal-blue/20 hover:shadow-lg hover:shadow-tijwal-blue/30';
+        return 'bg-tijwal-orange text-white hover:bg-tijwal-orange/90';
       case 'secondary':
-        return 'bg-white text-tijwal-orange border border-tijwal-orange hover:bg-tijwal-orange/5 shadow-sm hover:shadow-md';
+        return 'bg-white text-tijwal-blue border border-tijwal-blue hover:bg-tijwal-blue/5';
       case 'accent':
-        return 'bg-tijwal-orange text-white hover:bg-tijwal-orange/90 shadow-md shadow-tijwal-orange/20 hover:shadow-lg hover:shadow-tijwal-orange/30';
+        return 'bg-tijwal-blue text-white hover:bg-tijwal-blue/90';
       case 'gradient':
-        return 'bg-gradient-to-r from-tijwal-blue to-tijwal-orange text-white hover:opacity-95';
+        return 'animated-gradient-btn';
       default:
-        return 'bg-tijwal-blue text-white hover:bg-tijwal-blue/90 shadow-md shadow-tijwal-blue/20 hover:shadow-lg hover:shadow-tijwal-blue/30';
+        return 'bg-tijwal-orange text-white hover:bg-tijwal-orange/90';
     }
   };
 
   const getSizeClass = (): string => {
     switch (size) {
       case 'sm':
-        return 'text-sm px-4 py-2 rounded-lg';
+        return 'text-sm px-4 py-2 rounded-md';
       case 'md':
-        return 'text-base px-6 py-3 rounded-xl';
+        return 'text-base px-6 py-3 rounded-lg';
       case 'lg':
-        return 'text-lg px-8 py-4 rounded-xl';
+        return 'text-lg px-8 py-4 rounded-lg';
       default:
-        return 'text-base px-6 py-3 rounded-xl';
+        return 'text-base px-6 py-3 rounded-lg';
     }
-  };
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // Create ripple effect
-    const button = e.currentTarget;
-    const rect = button.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const ripple = document.createElement('span');
-    ripple.classList.add('ripple');
-    ripple.style.left = `${x}px`;
-    ripple.style.top = `${y}px`;
-    
-    button.appendChild(ripple);
-    
-    setTimeout(() => {
-      ripple.remove();
-    }, 1000);
-    
-    // Call the provided onClick handler
-    if (onClick) onClick();
   };
 
   return (
     <button
       type={type}
       className={cn(
-        "relative inline-flex items-center justify-center font-medium transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden",
+        "inline-flex items-center justify-center font-medium transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2",
         getVariantClass(),
         getSizeClass(),
-        disabled && 'opacity-50 cursor-not-allowed hover:transform-none',
+        disabled && 'opacity-50 cursor-not-allowed',
         className
       )}
-      onClick={handleClick}
+      onClick={onClick}
       disabled={disabled}
     >
-      {children}
+      {variant === 'gradient' ? (
+        <span className="flex items-center justify-center w-full h-full px-5 py-2.5 bg-white rounded-lg text-tijwal-orange font-medium">
+          {children}
+        </span>
+      ) : (
+        children
+      )}
     </button>
   );
 };
