@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { MapPin, Check } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
@@ -40,9 +39,9 @@ const LocationsSection = () => {
   };
 
   const handleContactClick = () => {
-    const footerSection = document.getElementById('contact');
-    if (footerSection) {
-      footerSection.scrollIntoView({ behavior: 'smooth' });
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -217,3 +216,4 @@ const LocationsSection = () => {
 };
 
 export default LocationsSection;
+

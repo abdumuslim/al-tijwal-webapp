@@ -23,10 +23,10 @@ const Navbar = () => {
   };
 
   const handleContactClick = () => {
-    // Redirect to footer section
-    const footerSection = document.getElementById('contact');
-    if (footerSection) {
-      footerSection.scrollIntoView({ behavior: 'smooth' });
+    // Redirect to contact section
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
       // Close mobile menu if open
       if (isMenuOpen) {
         setIsMenuOpen(false);

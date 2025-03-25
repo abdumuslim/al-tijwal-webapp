@@ -11,12 +11,12 @@ const HeroSection = () => {
   };
 
   const handleFooterRedirect = () => {
-    // Scroll to footer section
-    const footerSection = document.getElementById('contact');
-    if (footerSection) {
-      footerSection.scrollIntoView({ behavior: 'smooth' });
+    // Scroll to contact section
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
     }
-    console.log('Contact button clicked - redirecting to footer');
+    console.log('Contact button clicked - redirecting to contact section');
   };
 
   const handleTijwalEye = () => {

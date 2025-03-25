@@ -8,6 +8,7 @@ import LocationsSection from '@/sections/LocationsSection';
 import ClientsSection from '@/sections/ClientsSection';
 import PricingSection from '@/sections/PricingSection';
 import FaqSection from '@/sections/FaqSection';
+import ContactSection from '@/sections/ContactSection';
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
       <ClientsSection />
       <PricingSection />
       <FaqSection />
+      <ContactSection />
     </Layout>
   );
 };

@@ -3,11 +3,11 @@ import { Eye, BarChart3, Users, Clock } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
 
 const TijwalEyeSection = () => {
-  // Function to scroll to footer when button is clicked
+  // Function to scroll to contact section when button is clicked
   const handleContactClick = () => {
-    const footerSection = document.getElementById('contact');
-    if (footerSection) {
-      footerSection.scrollIntoView({ behavior: 'smooth' });
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
