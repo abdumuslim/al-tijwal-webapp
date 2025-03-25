@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from 'react';
-import { MapPin, Navigation, Check } from 'lucide-react';
+import { MapPin, Check } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
 
 const LocationsSection = () => {
@@ -7,25 +8,21 @@ const LocationsSection = () => {
   const [animatingItems, setAnimatingItems] = useState<string[]>([]);
   
   const allLocations = [
-    { id: "loc1", name: "المنصور", type: "منطقة تجارية", popularity: "عالية جداً" },
-    { id: "loc2", name: "الكرادة", type: "منطقة تجارية", popularity: "عالية جداً" },
-    { id: "loc3", name: "شارع فلسطين", type: "شارع رئيسي", popularity: "عالية" },
-    { id: "loc4", name: "زيونة", type: "منطقة تسوق", popularity: "عالية" },
-    { id: "loc5", name: "الأعظمية", type: "منطقة سكنية/تجارية", popularity: "متوسطة" },
-    { id: "loc6", name: "الحارثية", type: "منطقة مكاتب/تجارية", popularity: "عالية" },
-    { id: "loc7", name: "العرصات", type: "منطقة راقية", popularity: "عالية" },
-    { id: "loc8", name: "الجادرية", type: "منطقة سكنية", popularity: "متوسطة" },
-    { id: "loc9", name: "البياع", type: "منطقة سكنية/تجارية", popularity: "متوسطة" },
-    { id: "loc10", name: "الدورة", type: "منطقة سكنية/تجارية", popularity: "متوسطة" },
-    { id: "loc11", name: "الكاظمية", type: "منطقة دينية/تجارية", popularity: "عالية" },
-    { id: "loc12", name: "جسر الجمهورية", type: "شارع رئيسي", popularity: "عالية" }
+    { id: "loc1", name: "المنصور", popularity: "عالية جداً" },
+    { id: "loc2", name: "المتنبي", popularity: "عالية جداً" },
+    { id: "loc3", name: "14 رمضان", popularity: "عالية" },
+    { id: "loc4", name: "الحارثية", popularity: "عالية" },
+    { id: "loc5", name: "الأعظمية", popularity: "عالية" },
+    { id: "loc6", name: "زيونة", popularity: "عالية" },
+    { id: "loc7", name: "العامرية", popularity: "عالية" },
+    { id: "loc8", name: "السيدية", popularity: "متوسطة" },
+    { id: "loc9", name: "الكرادة داخل", popularity: "متوسطة" }
   ];
 
   const filters = [
-    { id: "commercial", name: "المناطق التجارية", types: ["منطقة تجارية", "منطقة مكاتب/تجارية", "منطقة راقية", "منطقة دينية/تجارية"] },
-    { id: "residential", name: "المناطق السكنية", types: ["منطقة سكنية", "منطقة سكنية/تجارية"] },
-    { id: "shopping", name: "أماكن التسوق", types: ["منطقة تسوق"] },
-    { id: "main-streets", name: "الشوارع الرئيسية", types: ["شارع رئيسي"] }
+    { id: "high-very", name: "شعبية عالية جداً", popularityTypes: ["عالية جداً"] },
+    { id: "high", name: "شعبية عالية", popularityTypes: ["عالية"] },
+    { id: "medium", name: "شعبية متوسطة", popularityTypes: ["متوسطة"] }
   ];
 
   useEffect(() => {
@@ -53,7 +50,7 @@ const LocationsSection = () => {
     ? allLocations 
     : allLocations.filter(location => {
         const relevantFilters = filters.filter(filter => selectedFilters.includes(filter.id));
-        return relevantFilters.some(filter => filter.types.includes(location.type));
+        return relevantFilters.some(filter => filter.popularityTypes.includes(location.popularity));
       });
       
   useEffect(() => {
@@ -105,14 +102,6 @@ const LocationsSection = () => {
                       </span>
                     </div>
                     <span>أماكن التجمعات: بالقرب من مراكز التسوق والمطاعم والمقاهي الشهيرة</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="mt-1 ml-2 flex-shrink-0">
-                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-tijwal-orange/20">
-                        <Check className="h-3 w-3 text-tijwal-orange" />
-                      </span>
-                    </div>
-                    <span>مراكز النقل: بالقرب من محطات الباصات ومواقف سيارات الأجرة</span>
                   </li>
                   <li className="flex items-start">
                     <div className="mt-1 ml-2 flex-shrink-0">
@@ -192,7 +181,6 @@ const LocationsSection = () => {
                       <MapPin className="h-5 w-5 text-tijwal-orange mt-1 ml-2" />
                       <div>
                         <h4 className="font-bold text-tijwal-dark">{location.name}</h4>
-                        <p className="text-tijwal-gray text-xs">{location.type}</p>
                       </div>
                     </div>
                     <div className="flex justify-between items-center mt-3">
@@ -202,7 +190,7 @@ const LocationsSection = () => {
                           ? "bg-tijwal-orange/10 text-tijwal-orange" 
                           : location.popularity === "عالية"
                           ? "bg-tijwal-blue/10 text-tijwal-blue" 
-                          : "bg-tijwal-blue/10 text-tijwal-blue"
+                          : "bg-emerald-400/10 text-emerald-600"
                       }`}>
                         {location.popularity}
                       </span>
