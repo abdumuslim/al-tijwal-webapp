@@ -166,7 +166,7 @@ const LocationsSection = () => {
             </div>
 
             <h3 className="text-xl font-bold mb-6 text-tijwal-dark">المواقع المتاحة</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {allLocations.map((location) => {
                 const isVisible = animatingItems.includes(location.id) && filteredLocations.some(loc => loc.id === location.id);
                 const animationDelay = `${(Array.from(animatingItems).indexOf(location.id) * 0.05)}s`;
