@@ -1,5 +1,4 @@
-
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { 
   Carousel, 
   CarouselContent, 
@@ -52,8 +51,33 @@ const clients: ClientLogo[] = [
   }
 ];
 
+// Helper function to extract background color from className
+const extractBgColor = (className?: string): string => {
+  if (!className || !className.includes('bg-[#')) return 'transparent';
+  const match = className.match(/bg-\[\#([0-9a-f]+)\]/);
+  return match?.[1] ? `#${match[1]}` : 'transparent';
+};
+
 const ClientsSection = () => {
   const carouselRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Auto advance the slide every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % clients.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Handle manual navigation
+  const goToNext = () => {
+    setActiveIndex((current) => (current + 1) % clients.length);
+  };
+
+  const goToPrev = () => {
+    setActiveIndex((current) => (current - 1 + clients.length) % clients.length);
+  };
 
   return (
     <section id="clients" className="py-16 bg-white">
@@ -76,11 +100,7 @@ const ClientsSection = () => {
               className={`relative flex items-center justify-center h-40 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 overflow-hidden ${client.className || 'bg-white'}`}
             >
               <div className="absolute inset-0" style={{ 
-                backgroundColor: client.className?.includes('bg-[#') ? 
-                  client.className.match(/bg-\[\#([0-9a-f]+)\]/)?.[1] ? 
-                    `#${client.className.match(/bg-\[\#([0-9a-f]+)\]/)[1]}` : 
-                    'transparent' : 
-                  'transparent' 
+                backgroundColor: extractBgColor(client.className)
               }}></div>
               <img 
                 src={client.src} 
@@ -91,39 +111,61 @@ const ClientsSection = () => {
           ))}
         </div>
 
-        {/* Mobile View - Carousel */}
-        <div className="md:hidden">
-          <Carousel
-            ref={carouselRef}
-            className="w-full max-w-xs mx-auto"
-            opts={{
-              align: "center",
-              loop: true,
-            }}
-          >
-            <CarouselContent>
-              {clients.map((client) => (
-                <CarouselItem key={client.name} className="basis-full">
-                  <Card className={`relative flex items-center justify-center h-40 border border-gray-100 overflow-hidden ${client.className || 'bg-white'}`}>
-                    <div className="absolute inset-0" style={{ 
-                      backgroundColor: client.className?.includes('bg-[#') ? 
-                        client.className.match(/bg-\[\#([0-9a-f]+)\]/)?.[1] ? 
-                          `#${client.className.match(/bg-\[\#([0-9a-f]+)\]/)[1]}` : 
-                          'transparent' : 
-                        'transparent' 
-                    }}></div>
-                    <img 
-                      src={client.src} 
-                      alt={client.alt}
-                      className="relative z-10 max-w-full object-contain p-3 h-32"
-                    />
-                  </Card>
-                </CarouselItem>
+        {/* Mobile View - Simple Carousel */}
+        <div className="md:hidden w-full">
+          <div className="relative w-full max-w-xs mx-auto">
+            {/* Current slide */}
+            <div className="relative">
+              {clients.map((client, index) => (
+                <div 
+                  key={client.name}
+                  className={`relative flex items-center justify-center h-40 rounded-xl shadow-sm border border-gray-100 ${client.className || 'bg-white'} ${index === activeIndex ? 'block' : 'hidden'}`}
+                >
+                  <div className="absolute inset-0" style={{ 
+                    backgroundColor: extractBgColor(client.className)
+                  }}></div>
+                  <img 
+                    src={client.src} 
+                    alt={client.alt}
+                    loading="eager"
+                    className={`relative z-10 h-32 w-auto object-contain p-3 ${client.imgClass || ''}`}
+                  />
+                </div>
               ))}
-            </CarouselContent>
-            <CarouselPrevious className="absolute left-0 bg-white text-tijwal-dark border-tijwal-gray/20" />
-            <CarouselNext className="absolute right-0 bg-white text-tijwal-dark border-tijwal-gray/20" />
-          </Carousel>
+            </div>
+            
+            {/* Navigation buttons */}
+            <button 
+              onClick={goToPrev}
+              className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-200 text-tijwal-dark z-10"
+              aria-label="Previous client"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </button>
+            <button 
+              onClick={goToNext}
+              className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-200 text-tijwal-dark z-10"
+              aria-label="Next client"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+            
+            {/* Slide indicators */}
+            <div className="flex justify-center mt-4 gap-2">
+              {clients.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveIndex(index)}
+                  className={`w-2 h-2 rounded-full ${index === activeIndex ? 'bg-tijwal-orange' : 'bg-gray-300'}`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="text-center mt-12">

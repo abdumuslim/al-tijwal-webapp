@@ -189,8 +189,34 @@ button, input, select, textarea, optgroup {
   .image-placeholder {
     @apply bg-gray-200 flex items-center justify-center text-gray-500 overflow-hidden;
   }
-}
 
+
+
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .carousel-item {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+
+
+
+}
+/* Force GPU acceleration for smoother animations */
+.transform-gpu {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000;
+  -webkit-perspective: 1000;
+}
 @keyframes fadeScale {
   0% {
     opacity: 0;
