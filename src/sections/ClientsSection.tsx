@@ -19,35 +19,35 @@ interface ClientLogo {
 
 const clients: ClientLogo[] = [
   {
-    name: "101",
+    name: "1001",
     src: "/lovable-uploads/74c985b0-fd1c-4129-bbdf-9cc9c13fc92a.png",
-    alt: "101 شركة"
+    alt: "1001"
   },
   {
     name: "Elryan",
     src: "/lovable-uploads/3ac89038-e04f-488f-9e7a-adb1ec83c9f6.png",
-    alt: "Elryan شركة"
+    alt: "Elryan"
   },
   {
     name: "FastPay",
     src: "/lovable-uploads/a61f8a63-a512-483c-8669-a664a4f218e4.png",
-    alt: "FastPay شركة"
+    alt: "FastPay"
   },
   {
     name: "ITEXIraq",
     src: "/lovable-uploads/34a6871b-2532-4643-8004-0fb3acfaa2b5.png",
-    alt: "ITEX Iraq شركة",
+    alt: "ITEX Iraq",
     className: "bg-[#121212]"
   },
   {
     name: "Supercell",
     src: "/lovable-uploads/46def75c-e10b-433c-8ffe-dbc0c13e0c90.png",
-    alt: "Supercell شركة"
+    alt: "Supercell"
   },
   {
     name: "Oodi",
     src: "/lovable-uploads/bd292633-35d4-46e9-96fb-0070abe93146.png",
-    alt: "Oodi شركة",
+    alt: "Oodi",
     className: "bg-[#6713e9]"
   }
 ];
