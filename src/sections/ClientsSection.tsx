@@ -24,12 +24,16 @@ const clients: ClientLogo[] = [
   {
     name: "1001",
     src: "/lovable-uploads/74c985b0-fd1c-4129-bbdf-9cc9c13fc92a.png",
-    alt: "1001"
+    alt: "1001",
+    hasFlip: true,
+    flipImage: "/lovable-uploads/d9ae7d9e-0cd0-4292-b13f-bd568b05032c.png"
   },
   {
     name: "Elryan",
     src: "/lovable-uploads/3ac89038-e04f-488f-9e7a-adb1ec83c9f6.png",
-    alt: "Elryan"
+    alt: "Elryan",
+    hasFlip: true,
+    flipImage: "/lovable-uploads/ecb8e1bd-e57d-4eb5-8247-e6325b1ac73c.png"
   },
   {
     name: "FastPay",
@@ -42,18 +46,24 @@ const clients: ClientLogo[] = [
     name: "ITEXIraq",
     src: "/lovable-uploads/34a6871b-2532-4643-8004-0fb3acfaa2b5.png",
     alt: "ITEX Iraq",
-    className: "bg-[#121212]"
+    className: "bg-[#121212]",
+    hasFlip: true,
+    flipImage: "/lovable-uploads/118974b3-56fb-41ff-819d-ab73569fef2d.png"
   },
   {
     name: "Supercell",
     src: "/lovable-uploads/46def75c-e10b-433c-8ffe-dbc0c13e0c90.png",
-    alt: "Supercell"
+    alt: "Supercell",
+    hasFlip: true,
+    flipImage: "/lovable-uploads/229b94b1-79c2-4765-ad7d-770be4916c5f.png"
   },
   {
     name: "Oodi",
     src: "/lovable-uploads/bd292633-35d4-46e9-96fb-0070abe93146.png",
     alt: "Oodi",
-    className: "bg-[#6713e9]"
+    className: "bg-[#6713e9]",
+    hasFlip: true,
+    flipImage: "/lovable-uploads/6c61dc6e-d820-4c41-807f-ed0adbe2ee9b.png"
   }
 ];
 
@@ -146,11 +156,7 @@ const ClientsSection = () => {
         {/* Desktop View - Grid Layout */}
         <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {clients.map((client) => (
-            client.hasFlip ? (
-              <FlippableClientCard key={client.name} client={client} />
-            ) : (
-              <ClientCard key={client.name} client={client} />
-            )
+            <FlippableClientCard key={client.name} client={client} />
           ))}
         </div>
 
