@@ -23,8 +23,12 @@ const ClientsSection = () => {
 
         {/* Desktop View - Grid Layout */}
         <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-          {clients.map((client) => (
-            <FlippableClientCard key={client.name} client={client} />
+          {clients.map((client, index) => (
+            <FlippableClientCard 
+              key={client.name} 
+              client={client} 
+              delay={index * 100} // Staggered delay of 100ms per card
+            />
           ))}
         </div>
 
