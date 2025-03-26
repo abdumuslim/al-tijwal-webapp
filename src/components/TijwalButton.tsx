@@ -1,5 +1,5 @@
 
-import { ReactNode } from 'react';
+import { ReactNode, CSSProperties } from 'react';
 import { cn } from '@/lib/utils';
 
 type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'gradient';
@@ -13,6 +13,7 @@ interface TijwalButtonProps {
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
+  style?: CSSProperties;
 }
 
 const TijwalButton = ({
@@ -23,6 +24,7 @@ const TijwalButton = ({
   onClick,
   type = 'button',
   disabled = false,
+  style,
 }: TijwalButtonProps) => {
   
   const getVariantClass = (): string => {
@@ -65,6 +67,7 @@ const TijwalButton = ({
       )}
       onClick={onClick}
       disabled={disabled}
+      style={style}
     >
       {variant === 'gradient' ? (
         <span className="flex items-center justify-center w-full h-full px-5 py-2.5 bg-white rounded-lg text-tijwal-orange font-medium">
