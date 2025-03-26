@@ -14,14 +14,14 @@ export const clients: ClientLogo[] = [
     src: "/lovable-uploads/3ac89038-e04f-488f-9e7a-adb1ec83c9f6.png",
     alt: "Elryan",
     hasFlip: true,
-    flipImage: "/lovable-uploads/ecb8e1bd-e57d-4eb5-8247-e6325b1ac73c.png"
+    flipImage: "/lovable-uploads/6c61dc6e-d820-4c41-807f-ed0adbe2ee9b.png"
   },
   {
     name: "FastPay",
     src: "/lovable-uploads/a61f8a63-a512-483c-8669-a664a4f218e4.png",
     alt: "FastPay",
     hasFlip: true,
-    flipImage: "/lovable-uploads/fd661e02-046b-4577-9fcc-c1f4d370023f.png"
+    flipImage: "/lovable-uploads/fd661e02-046b-4577-9fcc-c1f4d370023f.jpg"
   },
   {
     name: "ITEXIraq",
@@ -29,14 +29,14 @@ export const clients: ClientLogo[] = [
     alt: "ITEX Iraq",
     className: "bg-[#121212]",
     hasFlip: true,
-    flipImage: "/lovable-uploads/118974b3-56fb-41ff-819d-ab73569fef2d.png"
+    flipImage: "/lovable-uploads/ecb8e1bd-e57d-4eb5-8247-e6325b1ac73c.png"
   },
   {
     name: "Supercell",
     src: "/lovable-uploads/46def75c-e10b-433c-8ffe-dbc0c13e0c90.png",
     alt: "Supercell",
     hasFlip: true,
-    flipImage: "/lovable-uploads/229b94b1-79c2-4765-ad7d-770be4916c5f.png"
+    flipImage: "/lovable-uploads/118974b3-56fb-41ff-819d-ab73569fef2d.png"
   },
   {
     name: "Oodi",
@@ -44,7 +44,7 @@ export const clients: ClientLogo[] = [
     alt: "Oodi",
     className: "bg-[#6713e9]",
     hasFlip: true,
-    flipImage: "/lovable-uploads/6c61dc6e-d820-4c41-807f-ed0adbe2ee9b.png"
+    flipImage: "/lovable-uploads/229b94b1-79c2-4765-ad7d-770be4916c5f.png"
   }
 ];
 
