@@ -1,7 +1,36 @@
 
 import { Target, Users, BarChart3, Clock, MapPin, MessageCircle } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 const CoreBenefitsSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1,
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
   const benefits = [
     {
       title: "الوصول الأوسع",
@@ -36,9 +65,9 @@ const CoreBenefitsSection = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-white">
+    <section ref={sectionRef} id="services" className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <span className="inline-block bg-tijwal-orange/10 text-tijwal-orange px-4 py-1 rounded-full text-sm font-medium mb-4">
             لماذا تختار التجوال؟
           </span>
@@ -52,7 +81,8 @@ const CoreBenefitsSection = () => {
           {benefits.map((benefit, index) => (
             <div 
               key={index} 
-              className="benefit-card transform transition-all duration-300 hover:-translate-y-2"
+              className={`benefit-card transform transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0 hover:-translate-y-2' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="benefit-icon-container">
                 {benefit.icon}
@@ -64,7 +94,7 @@ const CoreBenefitsSection = () => {
         </div>
 
         {/* Vision Section */}
-        <div className="mt-16 glass-card p-8 bg-gradient-to-r from-tijwal-orange/5 to-tijwal-blue/5 border border-tijwal-orange/20">
+        <div className={`mt-16 glass-card p-8 bg-gradient-to-r from-tijwal-orange/5 to-tijwal-blue/5 border border-tijwal-orange/20 transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '700ms' }}>
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-4 text-tijwal-dark">رؤيتنا لعام 2029</h3>
             <p className="text-tijwal-gray max-w-3xl mx-auto">
