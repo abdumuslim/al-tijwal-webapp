@@ -1,3 +1,4 @@
+
 import { useRef, useState, useEffect } from 'react';
 import { 
   Carousel, 
@@ -7,6 +8,7 @@ import {
   CarouselPrevious 
 } from '@/components/ui/carousel';
 import { Card } from '@/components/ui/card';
+import FlipCard from '@/components/FlipCard';
 
 interface ClientLogo {
   name: string;
@@ -14,6 +16,8 @@ interface ClientLogo {
   alt: string;
   className?: string;
   imgClass?: string;
+  hasFlip?: boolean;
+  flipImage?: string;
 }
 
 const clients: ClientLogo[] = [
@@ -30,7 +34,9 @@ const clients: ClientLogo[] = [
   {
     name: "FastPay",
     src: "/lovable-uploads/a61f8a63-a512-483c-8669-a664a4f218e4.png",
-    alt: "FastPay"
+    alt: "FastPay",
+    hasFlip: true,
+    flipImage: "/lovable-uploads/fd661e02-046b-4577-9fcc-c1f4d370023f.png"
   },
   {
     name: "ITEXIraq",
@@ -57,6 +63,51 @@ const extractBgColor = (className?: string): string => {
   const match = className.match(/bg-\[\#([0-9a-f]+)\]/);
   return match?.[1] ? `#${match[1]}` : 'transparent';
 };
+
+// Regular client logo card component
+const ClientCard = ({ client }: { client: ClientLogo }) => (
+  <div 
+    key={client.name}
+    className={`relative flex items-center justify-center h-40 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 overflow-hidden ${client.className || 'bg-white'}`}
+  >
+    <div className="absolute inset-0" style={{ 
+      backgroundColor: extractBgColor(client.className)
+    }}></div>
+    <img 
+      src={client.src} 
+      alt={client.alt}
+      className={`relative z-10 max-w-full object-contain transition-all duration-300 p-3 h-32 ${client.imgClass || ''}`}
+    />
+  </div>
+);
+
+// Flippable client card component
+const FlippableClientCard = ({ client }: { client: ClientLogo }) => (
+  <div className="flip-card h-40 rounded-xl shadow-sm border border-gray-100 hover:shadow-md">
+    <div className="flip-card-inner">
+      {/* Front of card */}
+      <div className={`flip-card-front flex items-center justify-center ${client.className || 'bg-white'}`}>
+        <div className="absolute inset-0" style={{ 
+          backgroundColor: extractBgColor(client.className)
+        }}></div>
+        <img 
+          src={client.src} 
+          alt={client.alt}
+          className={`relative z-10 max-w-full object-contain p-3 h-32 ${client.imgClass || ''}`}
+        />
+      </div>
+      
+      {/* Back of card */}
+      <div className="flip-card-back bg-white">
+        <img 
+          src={client.flipImage} 
+          alt={`${client.alt} in action`}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+);
 
 const ClientsSection = () => {
   const carouselRef = useRef(null);
@@ -95,19 +146,11 @@ const ClientsSection = () => {
         {/* Desktop View - Grid Layout */}
         <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {clients.map((client) => (
-            <div 
-              key={client.name}
-              className={`relative flex items-center justify-center h-40 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 overflow-hidden ${client.className || 'bg-white'}`}
-            >
-              <div className="absolute inset-0" style={{ 
-                backgroundColor: extractBgColor(client.className)
-              }}></div>
-              <img 
-                src={client.src} 
-                alt={client.alt}
-                className={`relative z-10 max-w-full object-contain transition-all duration-300 p-3 h-32 ${client.imgClass || ''}`}
-              />
-            </div>
+            client.hasFlip ? (
+              <FlippableClientCard key={client.name} client={client} />
+            ) : (
+              <ClientCard key={client.name} client={client} />
+            )
           ))}
         </div>
 
