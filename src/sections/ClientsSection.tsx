@@ -36,7 +36,7 @@ const clients: ClientLogo[] = [
     src: "/lovable-uploads/a61f8a63-a512-483c-8669-a664a4f218e4.png",
     alt: "FastPay",
     hasFlip: true,
-    flipImage: "/lovable-uploads/fd661e02-046b-4577-9fcc-c1f4d370023f.png"
+    flipImage: "/lovable-uploads/743a54d9-dba6-4c45-9554-d2fa968f48f7.png"
   },
   {
     name: "ITEXIraq",
@@ -147,7 +147,33 @@ const ClientsSection = () => {
         <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {clients.map((client) => (
             client.hasFlip ? (
-              <FlippableClientCard key={client.name} client={client} />
+              <FlipCard
+                key={client.name}
+                frontContent={
+                  <div className={`w-full h-full flex items-center justify-center ${client.className || 'bg-white'}`}>
+                    <div className="absolute inset-0" style={{ 
+                      backgroundColor: extractBgColor(client.className)
+                    }}></div>
+                    <img 
+                      src={client.src} 
+                      alt={client.alt}
+                      loading="eager"
+                      className={`relative z-10 max-w-full object-contain p-3 h-32 ${client.imgClass || ''}`}
+                    />
+                  </div>
+                }
+                backContent={
+                  <div className="w-full h-full">
+                    <img 
+                      src={client.flipImage} 
+                      alt={`${client.alt} in action`}
+                      loading="eager"
+                      className="w-full h-full object-cover rounded-xl"
+                    />
+                  </div>
+                }
+                className="h-40 rounded-xl shadow-sm border border-gray-100 hover:shadow-md"
+              />
             ) : (
               <ClientCard key={client.name} client={client} />
             )
