@@ -15,7 +15,7 @@ const TechnicalSpecsSection = () => {
       },
       {
         root: null,
-        rootMargin: '0px',
+        rootMargin: '-50px',
         threshold: 0.1,
       }
     );
@@ -72,16 +72,36 @@ const TechnicalSpecsSection = () => {
           ].map((spec, index) => (
             <div 
               key={index} 
-              className={`glass-card p-6 text-center transition-all duration-700 delay-${index * 100} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              className={`glass-card p-6 text-center transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0 hover:shadow-lg hover:-translate-y-2' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: `${index * 150}ms`, transition: 'all 0.5s ease' }}
             >
-              <div className="mx-auto w-12 h-12 rounded-full bg-tijwal-orange/10 flex items-center justify-center mb-4">
-                {spec.icon}
+              <div className={`mx-auto w-12 h-12 rounded-full bg-tijwal-orange/10 flex items-center justify-center mb-4 transition-all duration-500 ${isVisible ? 'scale-100 animate-pulse-soft' : 'scale-0'}`} 
+                   style={{ transitionDelay: `${(index * 150) + 100}ms` }}>
+                <div className={`transition-all duration-500 ${isVisible ? 'opacity-100 rotate-0' : 'opacity-0 rotate-90'}`} 
+                     style={{ transitionDelay: `${(index * 150) + 250}ms` }}>
+                  {spec.icon}
+                </div>
               </div>
-              <h3 className="text-xl font-bold mb-2">{spec.title}</h3>
-              <p className="text-tijwal-gray mb-4">{spec.description1}</p>
-              {spec.description2 && <p className="text-tijwal-gray mb-2">{spec.description2}</p>}
-              {spec.description3 && <p className="text-tijwal-gray">{spec.description3}</p>}
+              <h3 className={`text-xl font-bold mb-2 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`} 
+                  style={{ transitionDelay: `${(index * 150) + 300}ms` }}>
+                {spec.title}
+              </h3>
+              <p className={`text-tijwal-gray mb-4 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`} 
+                 style={{ transitionDelay: `${(index * 150) + 350}ms` }}>
+                {spec.description1}
+              </p>
+              {spec.description2 && (
+                <p className={`text-tijwal-gray mb-2 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`} 
+                   style={{ transitionDelay: `${(index * 150) + 400}ms` }}>
+                  {spec.description2}
+                </p>
+              )}
+              {spec.description3 && (
+                <p className={`text-tijwal-gray transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`} 
+                   style={{ transitionDelay: `${(index * 150) + 450}ms` }}>
+                  {spec.description3}
+                </p>
+              )}
             </div>
           ))}
         </div>

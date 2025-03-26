@@ -94,10 +94,13 @@ const PricingSection = () => {
                 <p className="text-center text-tijwal-gray mb-6">{plan.description}</p>
                 <ul className="space-y-4 mb-8">
                   {plan.features.map((feature, fIndex) => (
-                    <li key={fIndex} className="flex items-start">
+                    <li key={fIndex} className={`flex items-start transition-all duration-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-5'}`} 
+                        style={{ transitionDelay: `${(index * 200) + (fIndex * 100)}ms` }}>
                       <div className="mt-1 flex-shrink-0">
-                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-tijwal-orange/10">
-                          <Check className="h-3 w-3 text-tijwal-orange" />
+                        <span className={`flex h-5 w-5 items-center justify-center rounded-full bg-tijwal-orange/10 ${isVisible ? 'animate-scale-in' : 'opacity-0 scale-0'}`}
+                              style={{ animationDelay: `${(index * 200) + (fIndex * 150)}ms` }}>
+                          <Check className={`h-3 w-3 text-tijwal-orange ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} 
+                                 style={{ animationDelay: `${(index * 200) + (fIndex * 150) + 100}ms` }} />
                         </span>
                       </div>
                       <span className="mr-3 text-tijwal-gray text-sm">{feature}</span>
@@ -107,7 +110,8 @@ const PricingSection = () => {
                 <div className="text-center">
                   <TijwalButton 
                     variant={plan.isPopular ? "primary" : "secondary"}
-                    className="w-full"
+                    className={`w-full transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                    style={{ transitionDelay: `${(index * 200) + (plan.features.length * 100) + 200}ms` }}
                     onClick={() => {
                       const contactSection = document.getElementById('contact');
                       if (contactSection) {
@@ -127,8 +131,8 @@ const PricingSection = () => {
         <div className={`mt-12 max-w-6xl mx-auto bg-tijwal-blue/5 rounded-xl p-6 border border-tijwal-blue/20 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '500ms' }}>
           <h3 className="text-xl font-bold mb-4 text-center">خصومات خاصة</h3>
           <p className="text-center mb-6">نقدم خصومات تصاعدية بناءً على مدة الحملة الإعلانية:</p>
-          <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm max-w-xl mx-auto">
-            <div className="mr-3 h-10 w-10 flex items-center justify-center bg-tijwal-orange/10 rounded-full text-tijwal-orange font-bold">%</div>
+          <div className={`flex items-center justify-center p-4 bg-white rounded-lg shadow-sm max-w-xl mx-auto transition-all duration-500 delay-700 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+            <div className={`mr-3 h-10 w-10 flex items-center justify-center bg-tijwal-orange/10 rounded-full text-tijwal-orange font-bold ${isVisible ? 'animate-pulse-soft' : ''}`}>%</div>
             <div>
               <h4 className="font-bold mb-1">خصم تصاعدي على الحملات</h4>
               <p className="text-sm text-tijwal-gray">تزداد نسبة الخصم تدريجياً كلما زادت مدة الحملة، بدءاً من حملات الأسبوع الواحد</p>

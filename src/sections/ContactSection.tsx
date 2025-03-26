@@ -1,12 +1,41 @@
 
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { useEffect, useRef, useState } from 'react';
 
 const ContactSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1,
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <section id="contact" className="py-20 bg-tijwal-light">
+    <section ref={sectionRef} id="contact" className="py-20 bg-tijwal-light">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <span className="inline-block bg-tijwal-orange/10 text-tijwal-orange px-4 py-1 rounded-full text-sm font-medium mb-4">
             تواصل معنا
           </span>
@@ -16,7 +45,7 @@ const ContactSection = () => {
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto relative overflow-hidden rounded-2xl shadow-xl">
+        <div className={`max-w-5xl mx-auto relative overflow-hidden rounded-2xl shadow-xl transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
           {/* Decorative Background Elements */}
           <div className="absolute inset-0 z-0">
             <div className="absolute top-1/3 -right-20 w-80 h-80 bg-tijwal-orange/10 rounded-full blur-3xl"></div>
@@ -25,7 +54,7 @@ const ContactSection = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-5 z-10 relative">
             {/* Contact Image - Takes 2/5 of the space on desktop */}
-            <div className="md:col-span-2 order-2 md:order-1 overflow-hidden">
+            <div className={`md:col-span-2 order-2 md:order-1 overflow-hidden transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
               <img 
                 src="/lovable-uploads/1e2edf25-e969-4f0d-a548-a7be467e4220.png" 
                 alt="فريق التجوال" 
@@ -34,52 +63,57 @@ const ContactSection = () => {
             </div>
 
             {/* Contact Information - Takes 3/5 of the space on desktop */}
-            <div className="md:col-span-3 order-1 md:order-2 bg-white p-8 md:p-10">
+            <div className={`md:col-span-3 order-1 md:order-2 bg-white p-8 md:p-10 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
               <h3 className="text-2xl font-bold mb-8 text-tijwal-dark">تواصل معنا مباشرة</h3>
               
               <div className="space-y-8 mb-10">
-                <div className="flex items-start gap-4">
-                  <div className="bg-tijwal-orange/20 p-3 rounded-full shrink-0">
-                    <MapPin className="h-6 w-6 text-tijwal-orange" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-tijwal-dark mb-1">العنوان</h4>
-                    <p className="text-tijwal-gray">بغداد - المنصور</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="bg-tijwal-orange/20 p-3 rounded-full shrink-0">
-                    <Phone className="h-6 w-6 text-tijwal-orange" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-tijwal-dark mb-1">رقم الهاتف</h4>
-                    <a 
+                {[
+                  {
+                    icon: <MapPin className="h-6 w-6 text-tijwal-orange" />,
+                    title: "العنوان",
+                    content: "بغداد - المنصور",
+                    delay: 400
+                  },
+                  {
+                    icon: <Phone className="h-6 w-6 text-tijwal-orange" />,
+                    title: "رقم الهاتف",
+                    content: <a 
                       href="tel:+9647849567837" 
                       className="text-tijwal-gray hover:text-tijwal-orange transition-colors duration-300"
                     >
                       07849567837
-                    </a>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="bg-tijwal-orange/20 p-3 rounded-full shrink-0">
-                    <Mail className="h-6 w-6 text-tijwal-orange" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-tijwal-dark mb-1">البريد الإلكتروني</h4>
-                    <a 
+                    </a>,
+                    delay: 500
+                  },
+                  {
+                    icon: <Mail className="h-6 w-6 text-tijwal-orange" />,
+                    title: "البريد الإلكتروني",
+                    content: <a 
                       href="mailto:contact@al-tijwal.com" 
                       className="text-tijwal-gray hover:text-tijwal-orange transition-colors duration-300"
                     >
                       contact@al-tijwal.com
-                    </a>
+                    </a>,
+                    delay: 600
+                  }
+                ].map((item, index) => (
+                  <div 
+                    key={index} 
+                    className={`flex items-start gap-4 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                    style={{ transitionDelay: `${item.delay}ms` }}
+                  >
+                    <div className="bg-tijwal-orange/20 p-3 rounded-full shrink-0">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-tijwal-dark mb-1">{item.title}</h4>
+                      <div>{item.content}</div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
               
-              <div className="space-y-4">
+              <div className={`space-y-4 transition-all duration-500 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                 <h4 className="font-semibold text-tijwal-dark mb-2">تواصل مباشرة عبر</h4>
                 <div className="flex flex-wrap gap-4">
                   <a 
@@ -105,12 +139,12 @@ const ContactSection = () => {
                 </div>
               </div>
 
-              <div className="mt-10">
+              <div className={`mt-10 transition-all duration-500 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                 <h4 className="font-semibold text-tijwal-dark mb-4">ساعات العمل</h4>
                 <p className="text-tijwal-gray">يومياً: 9:00 ص - 9:00 م</p>
               </div>
 
-              <div className="mt-10 pt-6 border-t border-gray-100">
+              <div className={`mt-10 pt-6 border-t border-gray-100 transition-all duration-500 delay-900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                 <h4 className="font-semibold text-tijwal-dark mb-4">تابعنا على</h4>
                 <div className="flex gap-4">
                   <a 

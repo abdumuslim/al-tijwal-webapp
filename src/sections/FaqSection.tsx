@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface FaqItem {
@@ -9,6 +9,33 @@ interface FaqItem {
 
 const FaqSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1,
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   const faqs: FaqItem[] = [
     {
@@ -46,9 +73,9 @@ const FaqSection = () => {
   };
 
   return (
-    <section id="faq" className="py-20 bg-tijwal-light">
+    <section ref={sectionRef} id="faq" className="py-20 bg-tijwal-light">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <span className="inline-block bg-tijwal-blue/10 text-tijwal-blue px-4 py-1 rounded-full text-sm font-medium mb-4">
             الأسئلة الشائعة
           </span>
@@ -64,7 +91,11 @@ const FaqSection = () => {
               key={index} 
               className={`border-b border-gray-200 last:border-0 transition-all duration-300 ${
                 openIndex === index ? 'pb-6' : 'pb-0'
-              }`}
+              } ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+              style={{ 
+                transitionDelay: `${index * 100}ms`,
+                animationDelay: `${index * 100}ms`
+              }}
             >
               <button
                 className="flex justify-between items-center w-full py-6 text-right"
