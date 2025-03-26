@@ -1,0 +1,53 @@
+
+@layer components {
+  .nav-link {
+    @apply relative py-2 text-tijwal-dark hover:text-tijwal-orange transition-colors duration-300 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-tijwal-orange after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-lg rounded-2xl overflow-hidden;
+  }
+
+  .section-container {
+    @apply py-16 md:py-24 px-4 max-w-7xl mx-auto;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-center;
+  }
+
+  .section-subtitle {
+    @apply text-lg md:text-xl text-tijwal-gray max-w-3xl mx-auto text-center mb-12;
+  }
+
+  .tijwal-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-tijwal-orange text-white font-semibold px-6 py-3 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-tijwal-orange/50;
+    font-family: 'Al-Jazeera', sans-serif !important;
+  }
+
+  .tijwal-btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-white text-tijwal-blue border border-tijwal-blue font-semibold px-6 py-3 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-tijwal-blue/50;
+    font-family: 'Al-Jazeera', sans-serif !important;
+  }
+
+  .tijwal-btn-accent {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-tijwal-blue text-white font-semibold px-6 py-3 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-tijwal-blue/50;
+    font-family: 'Al-Jazeera', sans-serif !important;
+  }
+
+  .benefit-card {
+    @apply bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100;
+  }
+
+  .benefit-icon-container {
+    @apply w-16 h-16 flex items-center justify-center rounded-full bg-tijwal-light text-tijwal-orange mb-4 mx-auto;
+  }
+  
+  .image-placeholder {
+    @apply bg-gray-200 flex items-center justify-center text-gray-500 overflow-hidden;
+  }
+
+  .animated-gradient-btn {
+    @apply relative inline-flex items-center justify-center overflow-hidden rounded-xl bg-tijwal-orange text-white p-0.5 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-tijwal-orange;
+  }
+}
