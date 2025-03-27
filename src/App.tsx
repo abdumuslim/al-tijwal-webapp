@@ -3,13 +3,29 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { initGA, logPageView } from "./lib/analytics";
+import { useEffect } from 'react';
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import FontPreloader from "./components/FontPreloader";
 import useHashScroll from "./hooks/useHashScroll";
 import RedirectHandler from "./components/RedirectHandler"; // Import RedirectHandler
 import { redirects } from "./data/redirects"; // Import redirects data
+
+// Initialize Google Analytics
+initGA();
+
+// Create a component to track page views
+const AnalyticsTracker = () => {
+  const location = useLocation();
+  
+  useEffect(() => {
+    logPageView();
+  }, [location]);
+  
+  return null;
+};
 
 const queryClient = new QueryClient();
 
@@ -47,6 +63,7 @@ const App = () => (
         {/* <Toaster /> */}
         {/* <Sonner /> */}
         <BrowserRouter>
+          <AnalyticsTracker />
           {/* Render the component that uses the hook inside BrowserRouter */}
           <AppContent />
         </BrowserRouter>

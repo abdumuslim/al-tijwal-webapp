@@ -1,6 +1,7 @@
 
 import { ChevronDown } from 'lucide-react';
 import TijwalButton from '@/components/TijwalButton';
+import { logEvent } from '@/lib/analytics';
 
 const HeroSection = () => {
   const scrollToNextSection = () => {
@@ -11,6 +12,9 @@ const HeroSection = () => {
   };
 
   const handleFooterRedirect = () => {
+    // Track this event
+    logEvent('Navigation', 'Click', 'Hero - Free Consultation Button');
+    
     // Scroll to contact section
     const contactSection = document.getElementById('contact');
     if (contactSection) {
@@ -20,6 +24,9 @@ const HeroSection = () => {
   };
 
   const handleTijwalEye = () => {
+    // Track this event
+    logEvent('Navigation', 'Click', 'Hero - Tijwal Eye Button');
+    
     // Scroll to Tijwal Eye section
     const tijwalEyeSection = document.getElementById('tijwal-eye');
     if (tijwalEyeSection) {
