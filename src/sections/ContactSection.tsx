@@ -33,7 +33,8 @@ const ContactSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="contact" className="py-20 bg-tijwal-light">
+    <section ref={sectionRef} id="contact" className="py-20 bg-tijwal-light relative"> {/* Added relative positioning */}
+      <span id="hta" className="absolute -top-20"></span> {/* Invisible anchor point with offset */}
       <div className="container mx-auto px-4">
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <span className="inline-block bg-tijwal-orange/10 text-tijwal-orange px-4 py-1 rounded-full text-sm font-medium mb-4">
