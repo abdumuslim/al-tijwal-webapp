@@ -9,7 +9,7 @@ const Footer = () => {
           <div>
             <div className="mb-6">
               <img 
-                src="/lovable-uploads/c7ecb791-6f0b-49db-baf0-2f7610d5a376.png" 
+                src="/lovable-uploads/c7ecb791-6f0b-49db-baf0-2f7610d5a376.webp" 
                 alt="التجوال" 
                 className="h-16 w-16"
               />

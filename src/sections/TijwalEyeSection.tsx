@@ -109,7 +109,7 @@ const TijwalEyeSection = () => {
             <div className="relative">
               <div className="relative glass-card p-1 rounded-2xl shadow-xl transform transition-all duration-500 hover:scale-[1.02]">
                 <img 
-                  src="/lovable-uploads/51fb4261-5cde-4486-a976-0b3ec174ce35.png" 
+                  src="/lovable-uploads/51fb4261-5cde-4486-a976-0b3ec174ce35.webp" 
                   alt="تقنية عين التجوال في العمل" 
                   className="w-full h-auto rounded-xl"
                 />

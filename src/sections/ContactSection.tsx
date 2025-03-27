@@ -56,7 +56,7 @@ const ContactSection = () => {
             {/* Contact Image - Takes 2/5 of the space on desktop */}
             <div className={`md:col-span-2 order-2 md:order-1 overflow-hidden transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
               <img 
-                src="/lovable-uploads/1e2edf25-e969-4f0d-a548-a7be467e4220.png" 
+                src="/lovable-uploads/1e2edf25-e969-4f0d-a548-a7be467e4220.webp" 
                 alt="فريق التجوال" 
                 className="w-full h-full object-cover object-center"
               />

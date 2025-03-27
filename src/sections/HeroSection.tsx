@@ -67,7 +67,7 @@ const HeroSection = () => {
         <div className="max-w-5xl mx-auto mb-10 relative animate-fade-in">
           <div className="relative rounded-xl overflow-hidden shadow-xl">
             <img 
-              src="/lovable-uploads/54847be8-3e6a-44a9-aca6-3337e7204f12.png" 
+              src="/lovable-uploads/54847be8-3e6a-44a9-aca6-3337e7204f12.webp" 
               alt="فريق التجوال مع شاشات الإعلان المتنقلة" 
               className="w-full h-auto rounded-xl"
             />
