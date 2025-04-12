@@ -17,11 +17,21 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   // N8N authentication header - this is the passphrase required by the webhook
   const AUTH_HEADER_KEY = 'tijwal-AI-bot';
   const AUTH_HEADER_VALUE = 'tijwal-secret-2025'; // Replace with your actual passphrase
+
+  // Automatically focus the input when chat opens
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 300); // Small delay to ensure the animation completes
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     scrollToBottom();
@@ -44,27 +54,47 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
     setIsLoading(true);
     
     try {
-      // Send message to n8n webhook with authentication header
-      const response = await fetch('https://n8n.al-tijwal.com/webhook/bf4dd093-bb02-472c-9454-7ab9af97bd1d', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          [AUTH_HEADER_KEY]: AUTH_HEADER_VALUE, // Add the authentication header
-        },
-        body: JSON.stringify({ 
-          message: userMessage 
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('حدث خطأ أثناء الاتصال بالخادم');
+      // Mock response while debugging the n8n connection
+      let responseData;
+      
+      try {
+        // Use a timeout to prevent hanging requests
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
+        
+        // Send message to n8n webhook with authentication header
+        const response = await fetch('https://n8n.al-tijwal.com/webhook/bf4dd093-bb02-472c-9454-7ab9af97bd1d', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            [AUTH_HEADER_KEY]: AUTH_HEADER_VALUE,
+          },
+          body: JSON.stringify({ 
+            message: userMessage 
+          }),
+          signal: controller.signal,
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          console.log('Server responded with error:', response.status);
+          throw new Error(`Server responded with status: ${response.status}`);
+        }
+        
+        responseData = await response.json();
+      } catch (fetchError) {
+        console.error('Error during fetch:', fetchError);
+        
+        // Fallback to a default response while debugging
+        responseData = {
+          response: "أنا أتلقى رسالتك، لكن لدينا مشكلة فنية حالياً. فريق الدعم يعمل على إصلاحها. هل يمكنني مساعدتك بشيء آخر؟"
+        };
       }
-
-      const data = await response.json();
       
       // Add bot response to chat
       setMessages(prev => [...prev, { 
-        text: data.response || 'عذراً، لم أتمكن من فهم سؤالك. هل يمكنك إعادة صياغته؟', 
+        text: responseData.response || 'عذراً، لم أتمكن من فهم سؤالك. هل يمكنك إعادة صياغته؟', 
         sender: 'bot' 
       }]);
     } catch (error) {
@@ -81,6 +111,10 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
       }]);
     } finally {
       setIsLoading(false);
+      // Focus the input after sending
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
     }
   };
 
@@ -147,6 +181,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
       <div className="p-4 border-t border-gray-200">
         <div className="flex gap-2">
           <input
+            ref={inputRef}
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
