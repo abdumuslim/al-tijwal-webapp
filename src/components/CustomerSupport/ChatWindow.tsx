@@ -20,7 +20,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   const { toast } = useToast();
 
   // N8N authentication header - this is the passphrase required by the webhook
-  const AUTH_HEADER_KEY = 'OK-ACCESS-PASSPHRASE';
+  const AUTH_HEADER_KEY = 'tijwal-AI-bot';
   const AUTH_HEADER_VALUE = 'tijwal-secret-2025'; // Replace with your actual passphrase
 
   useEffect(() => {
