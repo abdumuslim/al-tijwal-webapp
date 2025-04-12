@@ -52,6 +52,17 @@
   }
 }
 
+@keyframes scale-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -84,6 +95,10 @@
   animation: scale-in 0.5s ease forwards;
 }
 
+.animate-scale-out {
+  animation: scale-out 0.5s ease forwards;
+}
+
 .animate-fade-in {
   animation: fade-in 0.5s ease forwards;
 }
@@ -100,7 +115,7 @@
   animation: fadeScale 0.5s ease forwards;
 }
 
-/* Speech bubble subtle float animation */
+/* Speech bubble float animation */
 @keyframes float {
   0%, 100% {
     transform: translateY(0);
@@ -112,4 +127,34 @@
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+/* Speech bubble styling */
+.speech-bubble {
+  position: relative;
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 20px;
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: white transparent transparent;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.05));
+}
+
+/* Add pulsing glow effect to speech bubble */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(255, 127, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255, 127, 0, 0.4);
+  }
+}
+
+.speech-bubble {
+  animation: pulse-glow 2s ease-in-out infinite;
 }

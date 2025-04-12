@@ -11,48 +11,46 @@ interface ChatButtonProps {
 
 const ChatButton = ({ onClick, isOpen }: ChatButtonProps) => {
   const [showSpeechBubble, setShowSpeechBubble] = useState(false);
-
-  // Show the speech bubble after a short delay when component mounts
+  
+  // Create a cycling effect for the speech bubble
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Show the speech bubble initially after a short delay
+    const initialDelay = setTimeout(() => {
       setShowSpeechBubble(true);
     }, 1500);
-
-    return () => clearTimeout(timer);
+    
+    // Set up the cycle for showing/hiding the speech bubble
+    const cycleInterval = setInterval(() => {
+      setShowSpeechBubble(prev => !prev);
+    }, 7000); // Toggle every 7 seconds
+    
+    return () => {
+      clearTimeout(initialDelay);
+      clearInterval(cycleInterval);
+    };
   }, []);
-
-  // Hide the speech bubble after it's been shown for a while
-  useEffect(() => {
-    if (showSpeechBubble) {
-      const timer = setTimeout(() => {
-        setShowSpeechBubble(false);
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [showSpeechBubble]);
-
+  
   // Hide speech bubble if chat is opened
   useEffect(() => {
-    if (isOpen && showSpeechBubble) {
+    if (isOpen) {
       setShowSpeechBubble(false);
     }
-  }, [isOpen, showSpeechBubble]);
+  }, [isOpen]);
 
   return (
     <TooltipProvider>
       <Tooltip>
         <div className="fixed bottom-6 left-6 z-50 flex items-end">
-          {/* Speech bubble */}
+          {/* Speech bubble with improved design */}
           <div 
             className={cn(
-              "absolute mb-14 ml-8 bg-white text-tijwal-orange px-4 py-2 rounded-lg shadow-md border border-tijwal-orange/20 transition-all duration-300",
-              showSpeechBubble ? "opacity-100 transform-gpu translate-y-0" : "opacity-0 transform-gpu translate-y-2 pointer-events-none",
+              "absolute mb-16 ml-6 bg-white text-tijwal-orange px-4 py-3 rounded-lg shadow-md border border-tijwal-orange/20 animate-float",
+              "speech-bubble", // custom CSS class for the speech bubble shape
+              showSpeechBubble ? "animate-scale-in" : "animate-scale-out opacity-0 scale-0 pointer-events-none",
             )}
           >
             <span className="font-bold text-lg">اسألني</span>
-            {/* Triangle for speech bubble */}
-            <div className="absolute bottom-0 left-0 w-4 h-4 transform translate-y-1/2 -translate-x-1/2 rotate-45 bg-white border-b border-r border-tijwal-orange/20"></div>
+            {/* Triangle for speech bubble is now added via CSS */}
           </div>
           
           <TooltipTrigger asChild>
