@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { AnimatedRobot } from './AnimatedRobot';
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface ChatButtonProps {
   onClick: () => void;
@@ -11,64 +10,70 @@ interface ChatButtonProps {
 }
 
 const ChatButton = ({ onClick, isOpen }: ChatButtonProps) => {
-  const [showPopover, setShowPopover] = useState(false);
+  const [showSpeechBubble, setShowSpeechBubble] = useState(false);
 
-  // Show the popover after a short delay when component mounts
+  // Show the speech bubble after a short delay when component mounts
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowPopover(true);
+      setShowSpeechBubble(true);
     }, 1500);
 
     return () => clearTimeout(timer);
   }, []);
 
-  // Hide the popover after it's been shown for a while
+  // Hide the speech bubble after it's been shown for a while
   useEffect(() => {
-    if (showPopover) {
+    if (showSpeechBubble) {
       const timer = setTimeout(() => {
-        setShowPopover(false);
+        setShowSpeechBubble(false);
       }, 5000);
 
       return () => clearTimeout(timer);
     }
-  }, [showPopover]);
+  }, [showSpeechBubble]);
 
-  // Hide popover if chat is opened
+  // Hide speech bubble if chat is opened
   useEffect(() => {
-    if (isOpen && showPopover) {
-      setShowPopover(false);
+    if (isOpen && showSpeechBubble) {
+      setShowSpeechBubble(false);
     }
-  }, [isOpen, showPopover]);
+  }, [isOpen, showSpeechBubble]);
 
   return (
     <TooltipProvider>
       <Tooltip>
-        <Popover open={showPopover} onOpenChange={setShowPopover}>
-          <PopoverTrigger asChild>
-            <TooltipTrigger asChild>
-              <button
-                onClick={(e) => {
-                  onClick();
-                  setShowPopover(false);
-                  e.preventDefault();
-                }}
-                className={cn(
-                  "fixed bottom-6 left-6 z-50 rounded-full bg-tijwal-orange p-3 shadow-lg hover:bg-tijwal-orange/90 transition-all duration-300 text-white",
-                  isOpen && "scale-0 opacity-0" // Hide when chat is open
-                )}
-                aria-label="فتح نافذة المحادثة"
-              >
-                <AnimatedRobot className="h-7 w-7" />
-              </button>
-            </TooltipTrigger>
-          </PopoverTrigger>
-          <PopoverContent side="top" className="bg-tijwal-orange text-white border-tijwal-orange mb-2 mr-2 animate-bounce">
+        <div className="fixed bottom-6 left-6 z-50 flex items-end">
+          {/* Speech bubble */}
+          <div 
+            className={cn(
+              "absolute mb-14 ml-8 bg-white text-tijwal-orange px-4 py-2 rounded-lg shadow-md border border-tijwal-orange/20 transition-all duration-300",
+              showSpeechBubble ? "opacity-100 transform-gpu translate-y-0" : "opacity-0 transform-gpu translate-y-2 pointer-events-none",
+            )}
+          >
             <span className="font-bold text-lg">اسألني</span>
-          </PopoverContent>
+            {/* Triangle for speech bubble */}
+            <div className="absolute bottom-0 left-0 w-4 h-4 transform translate-y-1/2 -translate-x-1/2 rotate-45 bg-white border-b border-r border-tijwal-orange/20"></div>
+          </div>
+          
+          <TooltipTrigger asChild>
+            <button
+              onClick={() => {
+                onClick();
+                setShowSpeechBubble(false);
+              }}
+              className={cn(
+                "rounded-full bg-tijwal-orange p-3 shadow-lg hover:bg-tijwal-orange/90 transition-all duration-300 text-white",
+                isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100" // Hide when chat is open
+              )}
+              aria-label="فتح نافذة المحادثة"
+            >
+              <AnimatedRobot className="h-7 w-7" />
+            </button>
+          </TooltipTrigger>
           <TooltipContent side="right" className="bg-white text-tijwal-dark">
             <p>التحدث مع مساعد التجوال</p>
           </TooltipContent>
-        </Popover>
+        </div>
       </Tooltip>
     </TooltipProvider>
   );

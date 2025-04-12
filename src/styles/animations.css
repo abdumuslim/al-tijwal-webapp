@@ -70,12 +70,12 @@
   }
 }
 
-/* Added robot eye blinking animation */
+/* Robot eye blinking animation */
 @keyframes blink {
   0%, 100% {
     opacity: 1;
   }
-  50% {
+  40%, 60% {
     opacity: 0;
   }
 }
@@ -89,27 +89,27 @@
 }
 
 .animate-pulse-soft {
-  animation: pulse-soft 2s infinite;
+  animation: pulse-soft 3s ease-in-out infinite;
 }
 
 .animate-blink {
-  animation: blink 3s infinite;
+  animation: blink 0.5s ease-in-out;
 }
 
 .location-card-enter {
   animation: fadeScale 0.5s ease forwards;
 }
 
-/* Added for popup animation */
-.animate-bounce {
-  animation: bounce 2s ease-in-out infinite;
-}
-
-@keyframes bounce {
+/* Speech bubble subtle float animation */
+@keyframes float {
   0%, 100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
