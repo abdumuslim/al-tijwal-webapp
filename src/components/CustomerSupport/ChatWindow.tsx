@@ -62,48 +62,58 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
     setIsLoading(true);
     
     try {
-      // Mock response while debugging the n8n connection
-      let responseData;
+      // Use a timeout to prevent hanging requests
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
       
-      try {
-        // Use a timeout to prevent hanging requests
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
-        
-        // Send message to n8n webhook with authentication header and sessionId
-        const response = await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            [AUTH_HEADER_KEY]: AUTH_HEADER_VALUE,
-          },
-          body: JSON.stringify({ 
-            message: userMessage,
-            sessionId: sessionId // Include the sessionId in the request
-          }),
-          signal: controller.signal,
-        });
-        
-        clearTimeout(timeoutId);
-        
-        if (!response.ok) {
-          console.log('Server responded with error:', response.status);
-          throw new Error(`Server responded with status: ${response.status}`);
-        }
-        
-        responseData = await response.json();
-      } catch (fetchError) {
-        console.error('Error during fetch:', fetchError);
-        
-        // Fallback to a default response while debugging
-        responseData = {
-          response: "أنا أتلقى رسالتك، لكن لدينا مشكلة فنية حالياً. فريق الدعم يعمل على إصلاحها. هل يمكنني مساعدتك بشيء آخر؟"
-        };
+      // Send message to n8n webhook with authentication header and sessionId
+      const response = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          [AUTH_HEADER_KEY]: AUTH_HEADER_VALUE,
+        },
+        body: JSON.stringify({ 
+          message: userMessage,
+          sessionId: sessionId // Include the sessionId in the request
+        }),
+        signal: controller.signal,
+      });
+      
+      clearTimeout(timeoutId);
+      
+      if (!response.ok) {
+        console.error('Server responded with error:', response.status);
+        throw new Error(`Server responded with status: ${response.status}`);
+      }
+      
+      const responseData = await response.json();
+      console.log('Response from webhook:', responseData);
+      
+      // Extract the bot response based on the n8n response structure
+      let botMessage = '';
+      
+      // Handle the response format where output is an array with object containing output property
+      if (Array.isArray(responseData) && responseData[0]?.output) {
+        botMessage = responseData[0].output;
+      } 
+      // Handle the response format where the output is directly in the response object
+      else if (responseData?.output) {
+        botMessage = responseData.output;
+      }
+      // Legacy format where response property is used
+      else if (responseData?.response) {
+        botMessage = responseData.response;
+      }
+      // Fallback if none of the above formats match
+      else {
+        botMessage = 'عذراً، لم أتمكن من فهم سؤالك. هل يمكنك إعادة صياغته؟';
+        console.error('Unexpected response format:', responseData);
       }
       
       // Add bot response to chat
       setMessages(prev => [...prev, { 
-        text: responseData.response || 'عذراً، لم أتمكن من فهم سؤالك. هل يمكنك إعادة صياغته؟', 
+        text: botMessage, 
         sender: 'bot' 
       }]);
     } catch (error) {
