@@ -70,6 +70,16 @@
   }
 }
 
+/* Added robot eye blinking animation */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 .animate-scale-in {
   animation: scale-in 0.5s ease forwards;
 }
@@ -82,6 +92,24 @@
   animation: pulse-soft 2s infinite;
 }
 
+.animate-blink {
+  animation: blink 3s infinite;
+}
+
 .location-card-enter {
   animation: fadeScale 0.5s ease forwards;
+}
+
+/* Added for popup animation */
+.animate-bounce {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
