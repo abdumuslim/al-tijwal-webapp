@@ -19,10 +19,18 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+  
+  // Generate a unique sessionId when the component first mounts
+  const [sessionId] = useState(() => {
+    return `session_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+  });
 
   // N8N authentication header - this is the passphrase required by the webhook
   const AUTH_HEADER_KEY = 'tijwal-AI-bot';
   const AUTH_HEADER_VALUE = 'tijwal-secret-2025'; // Replace with your actual passphrase
+  
+  // Updated webhook URL
+  const WEBHOOK_URL = 'https://n8n.al-tijwal.com/webhook-test/bf4dd093-bb02-472c-9454-7ab9af97bd1d';
 
   // Automatically focus the input when chat opens
   useEffect(() => {
@@ -62,15 +70,16 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
         
-        // Send message to n8n webhook with authentication header
-        const response = await fetch('https://n8n.al-tijwal.com/webhook/bf4dd093-bb02-472c-9454-7ab9af97bd1d', {
+        // Send message to n8n webhook with authentication header and sessionId
+        const response = await fetch(WEBHOOK_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             [AUTH_HEADER_KEY]: AUTH_HEADER_VALUE,
           },
           body: JSON.stringify({ 
-            message: userMessage 
+            message: userMessage,
+            sessionId: sessionId // Include the sessionId in the request
           }),
           signal: controller.signal,
         });
