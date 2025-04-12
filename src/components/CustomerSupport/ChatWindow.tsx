@@ -19,6 +19,10 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
+  // N8N authentication header - this is the passphrase required by the webhook
+  const AUTH_HEADER_KEY = 'OK-ACCESS-PASSPHRASE';
+  const AUTH_HEADER_VALUE = 'tijwal-secret-2025'; // Replace with your actual passphrase
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -40,11 +44,12 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
     setIsLoading(true);
     
     try {
-      // Send message to n8n webhook
+      // Send message to n8n webhook with authentication header
       const response = await fetch('https://n8n.al-tijwal.com/webhook/bf4dd093-bb02-472c-9454-7ab9af97bd1d', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          [AUTH_HEADER_KEY]: AUTH_HEADER_VALUE, // Add the authentication header
         },
         body: JSON.stringify({ 
           message: userMessage 
