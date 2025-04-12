@@ -14,6 +14,12 @@ const ChatButton = ({ onClick, isOpen }: ChatButtonProps) => {
   
   // Create a cycling effect for the speech bubble
   useEffect(() => {
+    // Don't show the speech bubble if the chat is open
+    if (isOpen) {
+      setShowSpeechBubble(false);
+      return;
+    }
+    
     // Show the speech bubble initially after a short delay
     const initialDelay = setTimeout(() => {
       setShowSpeechBubble(true);
@@ -22,19 +28,12 @@ const ChatButton = ({ onClick, isOpen }: ChatButtonProps) => {
     // Set up the cycle for showing/hiding the speech bubble
     const cycleInterval = setInterval(() => {
       setShowSpeechBubble(prev => !prev);
-    }, 7000); // Toggle every 7 seconds
+    }, 10000); // Toggle every 10 seconds - longer duration
     
     return () => {
       clearTimeout(initialDelay);
       clearInterval(cycleInterval);
     };
-  }, []);
-  
-  // Hide speech bubble if chat is opened
-  useEffect(() => {
-    if (isOpen) {
-      setShowSpeechBubble(false);
-    }
   }, [isOpen]);
 
   return (
@@ -44,13 +43,12 @@ const ChatButton = ({ onClick, isOpen }: ChatButtonProps) => {
           {/* Speech bubble with improved design */}
           <div 
             className={cn(
-              "absolute mb-16 ml-6 bg-white text-tijwal-orange px-4 py-3 rounded-lg shadow-md border border-tijwal-orange/20 animate-float",
-              "speech-bubble", // custom CSS class for the speech bubble shape
-              showSpeechBubble ? "animate-scale-in" : "animate-scale-out opacity-0 scale-0 pointer-events-none",
+              "absolute mb-12 ml-0 bg-white rounded-full px-4 py-2 shadow-md",
+              "speech-bubble-oval", // custom CSS class for the oval speech bubble shape with pointer
+              showSpeechBubble ? "animate-bubble-appear" : "animate-bubble-disappear opacity-0 scale-0 pointer-events-none",
             )}
           >
-            <span className="font-bold text-lg">اسألني</span>
-            {/* Triangle for speech bubble is now added via CSS */}
+            <span className="font-bold text-tijwal-orange">اسألني</span>
           </div>
           
           <TooltipTrigger asChild>

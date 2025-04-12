@@ -30,53 +30,43 @@ export const AnimatedRobot = ({ className, ...props }: LucideProps) => {
       className={cn("transform-gpu", className)}
       {...props}
     >
-      {/* Robot head - more rounded */}
+      {/* Robot head - more rounded like in the reference image */}
       <rect 
-        x="4" 
-        y="2" 
-        width="16" 
-        height="14" 
-        rx="4" 
+        x="3" 
+        y="4" 
+        width="18" 
+        height="12" 
+        rx="6" 
         className="animate-pulse-soft" 
       />
       
-      {/* Eyes - larger for better visibility when blinking */}
+      {/* Eyes - positioned more prominently */}
       <circle 
         cx="9" 
-        y="8" 
-        r="1.5"
+        cy="10" 
+        r="2"
         fill="currentColor" 
         className={blinking ? "animate-blink" : ""} 
       />
       <circle 
         cx="15" 
-        y="8" 
-        r="1.5" 
+        cy="10" 
+        r="2" 
         fill="currentColor"
         className={blinking ? "animate-blink" : ""} 
       />
       
-      {/* Mouth */}
-      <path d="M9 12h6" stroke="currentColor" strokeWidth="1.5" />
+      {/* Mouth - simple curved smile */}
+      <path d="M9 14c2,1.5 4,1.5 6,0" stroke="currentColor" strokeWidth="1.5" />
       
-      {/* Antenna */}
-      <path 
-        d="M12 2v-1"
-        className="animate-pulse-soft" 
-      />
-      
-      {/* Robot body */}
+      {/* Robot body - minimal rectangle at bottom */}
       <rect 
-        x="7" 
+        x="8" 
         y="16" 
-        width="10" 
-        height="7" 
+        width="8" 
+        height="4" 
         rx="2" 
-        className="animate-pulse-soft" 
       />
-      
-      {/* Neck */}
-      <path d="M12 16v-2" />
     </svg>
   );
 };
