@@ -22,50 +22,87 @@ export const AnimatedRobot = ({ className, ...props }: LucideProps) => {
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
       viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
+      fill="none"
       className={cn("transform-gpu", className)}
       {...props}
     >
-      {/* Robot head - more rounded like in the reference image */}
-      <rect 
-        x="3" 
-        y="4" 
-        width="18" 
-        height="12" 
-        rx="6" 
+      {/* Main head circle - light gray */}
+      <circle 
+        cx="12" 
+        cy="12" 
+        r="9" 
+        fill="#E6E6F0" 
         className="animate-pulse-soft" 
       />
       
-      {/* Eyes - positioned more prominently */}
+      {/* Outer ring - subtle blue */}
       <circle 
-        cx="9" 
-        cy="10" 
-        r="2"
-        fill="currentColor" 
-        className={blinking ? "animate-blink" : ""} 
+        cx="12" 
+        cy="12" 
+        r="10" 
+        stroke="#A0C8FF" 
+        strokeWidth="0.5" 
+        fill="none" 
       />
+      
+      {/* Left headphone */}
       <circle 
-        cx="15" 
-        cy="10" 
+        cx="3.5" 
+        cy="12" 
         r="2" 
-        fill="currentColor"
-        className={blinking ? "animate-blink" : ""} 
+        fill="#A0C8FF" 
       />
       
-      {/* Mouth - simple curved smile */}
-      <path d="M9 14c2,1.5 4,1.5 6,0" stroke="currentColor" strokeWidth="1.5" />
+      {/* Right headphone */}
+      <circle 
+        cx="20.5" 
+        cy="12" 
+        r="2" 
+        fill="#A0C8FF" 
+      />
       
-      {/* Robot body - minimal rectangle at bottom */}
+      {/* Visor/eye area - dark blue/black */}
       <rect 
-        x="8" 
-        y="16" 
-        width="8" 
+        x="7" 
+        y="9" 
+        width="10" 
         height="4" 
         rx="2" 
+        fill="#0A1A3B" 
+      />
+      
+      {/* Left eye - light blue */}
+      <circle 
+        cx="9" 
+        cy="11" 
+        r="1.25" 
+        fill="#A0C8FF" 
+        className={blinking ? "animate-blink" : ""} 
+      />
+      
+      {/* Right eye - light blue */}
+      <circle 
+        cx="15" 
+        cy="11" 
+        r="1.25" 
+        fill="#A0C8FF"
+        className={blinking ? "animate-blink" : ""} 
+      />
+      
+      {/* Smile */}
+      <path 
+        d="M10 15c1.5,1 2.5,1 4,0" 
+        stroke="#0A1A3B" 
+        strokeWidth="0.75" 
+        strokeLinecap="round" 
+      />
+      
+      {/* Microphone/chin piece */}
+      <circle 
+        cx="12" 
+        cy="19" 
+        r="1.5" 
+        fill="#A0C8FF" 
       />
     </svg>
   );

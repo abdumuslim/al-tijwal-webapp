@@ -28,7 +28,7 @@ const ChatButton = ({ onClick, isOpen }: ChatButtonProps) => {
     // Set up the cycle for showing/hiding the speech bubble
     const cycleInterval = setInterval(() => {
       setShowSpeechBubble(prev => !prev);
-    }, 10000); // Toggle every 10 seconds - longer duration
+    }, 10000); // Toggle every 10 seconds
     
     return () => {
       clearTimeout(initialDelay);
@@ -43,8 +43,8 @@ const ChatButton = ({ onClick, isOpen }: ChatButtonProps) => {
           {/* Speech bubble with improved design */}
           <div 
             className={cn(
-              "absolute mb-12 ml-0 bg-white rounded-full px-4 py-2 shadow-md",
-              "speech-bubble-oval", // custom CSS class for the oval speech bubble shape with pointer
+              "absolute mb-12 ml-6 bg-white rounded-full px-4 py-2 shadow-md",
+              "speech-bubble", // custom CSS class for the styled speech bubble
               showSpeechBubble ? "animate-bubble-appear" : "animate-bubble-disappear opacity-0 scale-0 pointer-events-none",
             )}
           >
@@ -58,7 +58,7 @@ const ChatButton = ({ onClick, isOpen }: ChatButtonProps) => {
                 setShowSpeechBubble(false);
               }}
               className={cn(
-                "rounded-full bg-tijwal-orange p-3 shadow-lg hover:bg-tijwal-orange/90 transition-all duration-300 text-white",
+                "rounded-full bg-tijwal-blue p-3 shadow-lg hover:bg-tijwal-blue/90 transition-all duration-300 text-white",
                 isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100" // Hide when chat is open
               )}
               aria-label="فتح نافذة المحادثة"
