@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import { Send, X, User } from 'lucide-react'; // Import User icon
 import ReactMarkdown from 'react-markdown'; // Import ReactMarkdown
@@ -41,60 +40,60 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   // Updated webhook URL
   // const WEBHOOK_URL = 'https://n8n.al-tijwal.com/webhook-test/bf4dd093-bb02-472c-9454-7ab9af97bd1d'; // for testing
   const WEBHOOK_URL = 'https://n8n.al-tijwal.com/webhook/bf4dd093-bb02-472c-9454-7ab9af97bd1d';
-// --- Start Blinking Animation Logic ---
-const blinkSequence = [eye1, eye2, eye3, eye4, eye5, eye4, eye3, eye2, eye1];
-const [currentEyeImage, setCurrentEyeImage] = useState(eye1);
+  
+  // --- Start Blinking Animation Logic ---
+  const blinkSequence = [eye1, eye2, eye3, eye4, eye5, eye4, eye3, eye2, eye1];
+  const [currentEyeImage, setCurrentEyeImage] = useState(eye1);
 
-useEffect(() => {
-  let blinkTimeout: NodeJS.Timeout | null = null;
-  let blinkInterval: NodeJS.Timeout | null = null;
-  let sequenceIndex = 0;
+  useEffect(() => {
+    let blinkTimeout: NodeJS.Timeout | null = null;
+    let blinkInterval: NodeJS.Timeout | null = null;
+    let sequenceIndex = 0;
 
-  const startBlinkSequence = () => {
-    sequenceIndex = 0;
-    blinkInterval = setInterval(() => {
-      setCurrentEyeImage(blinkSequence[sequenceIndex]);
-      sequenceIndex++;
-      if (sequenceIndex >= blinkSequence.length) {
-        clearInterval(blinkInterval!);
-        blinkInterval = null;
-        // Schedule the next blink
-        scheduleNextBlink();
-      }
-    }, 80); // Speed of the blink animation (ms per frame)
-  };
+    const startBlinkSequence = () => {
+      sequenceIndex = 0;
+      blinkInterval = setInterval(() => {
+        setCurrentEyeImage(blinkSequence[sequenceIndex]);
+        sequenceIndex++;
+        if (sequenceIndex >= blinkSequence.length) {
+          clearInterval(blinkInterval!);
+          blinkInterval = null;
+          // Schedule the next blink
+          scheduleNextBlink();
+        }
+      }, 80); // Speed of the blink animation (ms per frame)
+    };
 
-  const scheduleNextBlink = () => {
-    // Ensure eye is open before scheduling next blink
-    setCurrentEyeImage(eye1);
-    const randomDelay = Math.random() * 4000 + 2500; // Blink every 2.5-6.5 seconds
-    blinkTimeout = setTimeout(startBlinkSequence, randomDelay);
-  };
+    const scheduleNextBlink = () => {
+      // Ensure eye is open before scheduling next blink
+      setCurrentEyeImage(eye1);
+      const randomDelay = Math.random() * 4000 + 2500; // Blink every 2.5-6.5 seconds
+      blinkTimeout = setTimeout(startBlinkSequence, randomDelay);
+    };
 
-  // Start the first blink cycle only when the chat is open
-  if (isOpen) {
-     scheduleNextBlink();
-  }
+    // Start the first blink cycle only when the chat is open
+    if (isOpen) {
+      scheduleNextBlink();
+    }
 
-  // Cleanup function
-  return () => {
-    if (blinkTimeout) clearTimeout(blinkTimeout);
-    if (blinkInterval) clearInterval(blinkInterval);
-    // Reset to open eye when closing or unmounting
-    setCurrentEyeImage(eye1);
-  };
-}, [isOpen]); // Rerun effect when isOpen changes
-// --- End Blinking Animation Logic ---
+    // Cleanup function
+    return () => {
+      if (blinkTimeout) clearTimeout(blinkTimeout);
+      if (blinkInterval) clearInterval(blinkInterval);
+      // Reset to open eye when closing or unmounting
+      setCurrentEyeImage(eye1);
+    };
+  }, [isOpen]); // Rerun effect when isOpen changes
+  // --- End Blinking Animation Logic ---
 
-
-// Automatically focus the input when chat opens
-useEffect(() => {
-  if (isOpen && inputRef.current) {
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 300); // Small delay to ensure the animation completes
-  }
-}, [isOpen]);
+  // Automatically focus the input when chat opens
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 300); // Small delay to ensure the animation completes
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     scrollToBottom();
@@ -232,41 +231,41 @@ useEffect(() => {
               className={cn(
                 "flex w-full items-end gap-2 animate-fade-in", // Ensure full width and apply flex alignment
                 message.sender === 'bot'
-                  ? "justify-start" // Align content to the start (left) for bot
-                  : "justify-end" // Align content to the end (right) for user
+                  ? "justify-end" // CHANGED: Align bot messages to right
+                  : "justify-start" // CHANGED: Align user messages to left
               )}
             >
-              {/* Bot Icon */}
-              {message.sender === 'bot' && (
-                <img src={eye1} alt="Bot Icon" className="h-6 w-6 rounded-full mb-1 flex-shrink-0" />
+              {/* User Icon - MOVED: Now on the left for user messages */}
+              {message.sender === 'user' && (
+                <User className="h-6 w-6 text-gray-400 mb-1 flex-shrink-0" />
               )}
               {/* Message Bubble */}
               <div
                 className={cn(
                   "max-w-[80%] p-3 rounded-lg prose prose-sm", // Common styles
                   message.sender === 'bot'
-                    ? "bg-tijwal-light text-tijwal-dark rounded-bl-none prose-headings:text-tijwal-dark prose-strong:text-tijwal-dark prose-a:text-tijwal-orange hover:prose-a:text-tijwal-orange/80" // Bot specific styles
-                    : "bg-tijwal-blue text-white rounded-br-none prose-headings:text-white prose-strong:text-white prose-a:text-tijwal-light hover:prose-a:text-tijwal-light/80" // User specific styles
+                    ? "bg-tijwal-blue text-white rounded-br-none prose-headings:text-white prose-strong:text-white prose-a:text-tijwal-light hover:prose-a:text-tijwal-light/80" // CHANGED: Bot now uses blue style and rounded-br-none
+                    : "bg-tijwal-light text-tijwal-dark rounded-bl-none prose-headings:text-tijwal-dark prose-strong:text-tijwal-dark prose-a:text-tijwal-orange hover:prose-a:text-tijwal-orange/80" // CHANGED: User now uses light style and rounded-bl-none
                 )}
               >
                 <ReactMarkdown>{message.text}</ReactMarkdown>
               </div>
-              {/* User Icon */}
-              {message.sender === 'user' && (
-                <User className="h-6 w-6 text-gray-400 mb-1 flex-shrink-0" />
+              {/* Bot Icon - MOVED: Now on the right for bot messages */}
+              {message.sender === 'bot' && (
+                <img src={eye1} alt="Bot Icon" className="h-6 w-6 rounded-full mb-1 flex-shrink-0" />
               )}
             </div>
           ))} {/* End of message mapping */}
           {isLoading && ( // Start of loading indicator
-            <div className="flex w-full items-end gap-2 justify-start"> {/* Align loading indicator left */}
-              <img src={eye1} alt="Bot Icon" className="h-6 w-6 rounded-full mb-1 flex-shrink-0" /> {/* Add bot icon */}
-              <div className="bg-tijwal-light text-tijwal-dark rounded-lg rounded-bl-none max-w-[80%] p-3">
+            <div className="flex w-full items-end gap-2 justify-end"> {/* CHANGED: Align loading indicator right */}
+              <div className="bg-tijwal-blue text-white rounded-lg rounded-br-none max-w-[80%] p-3"> {/* CHANGED: Updated styles to match bot messages */}
                 <div className="flex gap-1">
-                  <span className="w-2 h-2 bg-gray-500 rounded-full animate-pulse"></span> {/* Loading dots */}
-                  <span className="w-2 h-2 bg-gray-500 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></span>
-                  <span className="w-2 h-2 bg-gray-500 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></span>
+                  <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span> {/* CHANGED: Changed dots color to white */}
+                  <span className="w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></span>
+                  <span className="w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></span>
                 </div>
               </div>
+              <img src={eye1} alt="Bot Icon" className="h-6 w-6 rounded-full mb-1 flex-shrink-0" /> {/* MOVED: Bot icon to right */}
             </div>
           )} {/* End of loading indicator */}
           <div ref={messagesEndRef} />
