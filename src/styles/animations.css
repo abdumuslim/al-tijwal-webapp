@@ -176,14 +176,14 @@
 .speech-bubble::after {
   content: '';
   position: absolute;
-  bottom: -8px;
-  left: 20px;
+  bottom: -1px;
+  left: -1px;
   width: 16px;
   height: 16px;
   background: white;
   border-right: 1px solid #FF7F00;
   border-bottom: 1px solid #FF7F00;
-  transform: rotate(45deg);
+  transform: rotate(90deg);
 }
 
 /* Add pulsing glow effect to speech bubble */
