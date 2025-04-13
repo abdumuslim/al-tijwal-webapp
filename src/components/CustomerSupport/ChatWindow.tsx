@@ -1,6 +1,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Send, X } from 'lucide-react';
+import ReactMarkdown from 'react-markdown'; // Import ReactMarkdown
 import { Bot } from './Bot';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
@@ -30,7 +31,8 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   const AUTH_HEADER_VALUE = 'tijwal-secret-2025'; // Replace with your actual passphrase
   
   // Updated webhook URL
-  const WEBHOOK_URL = 'https://n8n.al-tijwal.com/webhook-test/bf4dd093-bb02-472c-9454-7ab9af97bd1d';
+  // const WEBHOOK_URL = 'https://n8n.al-tijwal.com/webhook-test/bf4dd093-bb02-472c-9454-7ab9af97bd1d'; // for testing
+  const WEBHOOK_URL = 'https://n8n.al-tijwal.com/webhook/bf4dd093-bb02-472c-9454-7ab9af97bd1d';
 
   // Automatically focus the input when chat opens
   useEffect(() => {
@@ -147,7 +149,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   return (
     <div
       className={cn(
-        "fixed bottom-20 left-6 z-50 w-[330px] md:w-[380px] rounded-2xl shadow-xl bg-white border border-gray-200 transition-all duration-300 transform opacity-0 scale-95 pointer-events-none",
+        "fixed bottom-24 right-6 z-50 w-[330px] md:w-[380px] rounded-2xl shadow-xl bg-white border border-gray-200 transition-all duration-300 transform opacity-0 scale-95 pointer-events-none",
         isOpen && "opacity-100 scale-100 pointer-events-auto"
       )}
       style={{ maxHeight: 'calc(100vh - 140px)' }}
@@ -174,13 +176,13 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
             <div
               key={index}
               className={cn(
-                "max-w-[80%] p-3 rounded-lg animate-fade-in",
-                message.sender === 'bot' 
-                  ? "bg-tijwal-light text-tijwal-dark self-start rounded-bl-none" 
-                  : "bg-tijwal-blue text-white self-end rounded-br-none"
+                "max-w-[80%] p-3 rounded-lg animate-fade-in prose prose-sm", // Add prose classes
+                message.sender === 'bot'
+                  ? "bg-tijwal-light text-tijwal-dark self-start rounded-bl-none prose-headings:text-tijwal-dark prose-strong:text-tijwal-dark prose-a:text-tijwal-orange hover:prose-a:text-tijwal-orange/80" // Bot specific prose styles
+                  : "bg-tijwal-blue text-white self-end rounded-br-none prose-headings:text-white prose-strong:text-white prose-a:text-tijwal-light hover:prose-a:text-tijwal-light/80" // User specific prose styles
               )}
             >
-              {message.text}
+              <ReactMarkdown>{message.text}</ReactMarkdown>
             </div>
           ))}
           {isLoading && (
