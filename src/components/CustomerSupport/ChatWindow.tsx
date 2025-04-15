@@ -20,7 +20,7 @@ interface ChatWindowProps {
 
 const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   const [messages, setMessages] = useState<Array<{ text: string; sender: 'user' | 'bot' }>>([
-    { text: 'مرحباً! أنا مساعد التجوال. كيف يمكنني مساعدتك؟', sender: 'bot' }
+    { text: 'مرحباً! اني مساعد التجوال الذكي. شلون اكدر اساعدك اليوم؟', sender: 'bot' }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -118,7 +118,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
     try {
       // Use a timeout to prevent hanging requests
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
+      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 seconds timeout
       
       // Send message to n8n webhook with authentication header and sessionId
       const response = await fetch(WEBHOOK_URL, {
@@ -174,12 +174,12 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
       console.error('Error sending message:', error);
       toast({
         title: "حدث خطأ",
-        description: "لم نتمكن من الاتصال بخدمة الدردشة، يرجى المحاولة مرة أخرى لاحقاً.",
+        description: "عذراً، المساعد غير متوفر حالياً. حاول اعادة السؤال مرة اخرى لطفاً",
         variant: "destructive",
       });
       
       setMessages(prev => [...prev, { 
-        text: 'عذراً، حدثت مشكلة في الاتصال. يرجى المحاولة مرة أخرى.', 
+        text: 'عذراً، المساعد غير متوفر حاليا. يرجى المحاولة مرة أخرى.', 
         sender: 'bot' 
       }]);
     } finally {
@@ -244,8 +244,9 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
                 className={cn(
                   "max-w-[80%] p-3 rounded-lg prose prose-sm", // Common styles
                   message.sender === 'bot'
-                    ? "bg-tijwal-blue text-white rounded-br-none prose-headings:text-white prose-strong:text-white prose-a:text-tijwal-light hover:prose-a:text-tijwal-light/80" // CHANGED: Bot now uses blue style and rounded-br-none
-                    : "bg-tijwal-light text-tijwal-dark rounded-bl-none prose-headings:text-tijwal-dark prose-strong:text-tijwal-dark prose-a:text-tijwal-orange hover:prose-a:text-tijwal-orange/80" // CHANGED: User now uses light style and rounded-bl-none
+                  ? "bg-tijwal-light text-tijwal-dark rounded-bl-none prose-headings:text-tijwal-dark prose-strong:text-tijwal-dark prose-a:text-tijwal-orange hover:prose-a:text-tijwal-orange/80" // CHANGED: User now uses light style and rounded-bl-none
+                  : "bg-tijwal-blue text-white rounded-br-none prose-headings:text-white prose-strong:text-white prose-a:text-tijwal-light hover:prose-a:text-tijwal-light/80" // CHANGED: Bot now uses blue style and rounded-br-none
+                   
                 )}
               >
                 <ReactMarkdown>{message.text}</ReactMarkdown>
@@ -256,18 +257,21 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
               )}
             </div>
           ))} {/* End of message mapping */}
-          {isLoading && ( // Start of loading indicator
-            <div className="flex w-full items-end gap-2 justify-end"> {/* CHANGED: Align loading indicator right */}
-              <div className="bg-tijwal-blue text-white rounded-lg rounded-br-none max-w-[80%] p-3"> {/* CHANGED: Updated styles to match bot messages */}
+          {/* Loading indicator for user messages */}
+          {(isLoading) && (
+            <div className="flex w-full items-end gap-2 justify-end"> {/* Align loading indicator LEFT */}
+              {/* Loading bubble to the RIGHT of the icon */}
+              <div className="bg-tijwal-light text-tijwal-dark rounded-lg rounded-bl-none max-w-[80%] p-3"> {/* Styles match bot messages (light background) */}
                 <div className="flex gap-1">
-                  <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span> {/* CHANGED: Changed dots color to white */}
-                  <span className="w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></span>
-                  <span className="w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></span>
+                  {/* Dots are now blue */}
+                  <span className="w-2 h-2 bg-tijwal-blue rounded-full animate-pulse"></span>
+                  <span className="w-2 h-2 bg-tijwal-blue rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></span>
+                  <span className="w-2 h-2 bg-tijwal-blue rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></span>
                 </div>
               </div>
-              <img src={eye1} alt="Bot Icon" className="h-6 w-6 rounded-full mb-1 flex-shrink-0" /> {/* MOVED: Bot icon to right */}
+              <img src={eye1} alt="Bot Icon" className="h-6 w-6 rounded-full mb-1 flex-shrink-0" /> {/* Bot icon on LEFT */}
             </div>
-          )} {/* End of loading indicator */}
+          )}
           <div ref={messagesEndRef} />
         </div>
       </div>
