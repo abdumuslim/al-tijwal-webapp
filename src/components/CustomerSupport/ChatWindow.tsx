@@ -201,10 +201,10 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   return (
     <div
       className={cn(
-        "fixed bottom-24 left-6 z-50 w-[330px] md:w-[380px] rounded-2xl shadow-xl bg-white border border-gray-200 transition-all duration-300 transform opacity-0 scale-95 pointer-events-none",
+        "fixed bottom-24 left-4 right-4 sm:left-6 sm:right-auto z-50 w-auto sm:w-[330px] md:w-[380px] max-w-md rounded-2xl shadow-xl bg-white border border-gray-200 transition-all duration-300 transform opacity-0 scale-95 pointer-events-none flex flex-col", // Added flex flex-col, adjusted width/positioning
         isOpen && "opacity-100 scale-100 pointer-events-auto"
       )}
-      style={{ maxHeight: 'calc(100vh - 140px)' }}
+      style={{ maxHeight: '80vh' }} // Use viewport height directly
     >
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-tijwal-orange text-white rounded-t-2xl">
@@ -223,7 +223,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
       </div>
 
       {/* Messages */}
-      <div className="p-4 h-[380px] overflow-y-auto">
+      <div className="p-4 flex-1 overflow-y-auto"> {/* Removed fixed height, added flex-1 */}
         <div className="flex flex-col gap-3">
           {messages.map((message, index) => ( // Start of message mapping
             <div // Outer container for alignment and icon
