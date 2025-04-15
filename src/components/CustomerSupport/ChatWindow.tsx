@@ -25,7 +25,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const { toast } = useToast();
   
   // Generate a unique sessionId when the component first mounts
@@ -91,6 +91,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
     if (isOpen && inputRef.current) {
       setTimeout(() => {
         inputRef.current?.focus();
+        resizeTextarea(); // Resize on open/focus
       }, 300); // Small delay to ensure the animation completes
     }
   }, [isOpen]);
@@ -190,12 +191,33 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
       }, 100);
     }
   };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+ 
+  // Function to resize the textarea based on content
+  const resizeTextarea = () => {
+    if (inputRef.current) {
+      inputRef.current.style.height = 'auto'; // Reset height to recalculate
+      // Set height based on scroll height, but limit max height
+      const maxHeight = 120; // Example max height in pixels (adjust as needed)
+      const scrollHeight = inputRef.current.scrollHeight;
+      inputRef.current.style.height = `${Math.min(scrollHeight, maxHeight)}px`;
+      // Show scrollbar if content exceeds max height
+      inputRef.current.style.overflowY = scrollHeight > maxHeight ? 'auto' : 'hidden';
+    }
+  };
+ 
+  // Update input value and resize textarea
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputValue(e.target.value);
+    resizeTextarea();
+  };
+ 
+  // Handle Enter key press for sending message
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
+      e.preventDefault(); // Prevent newline on Enter
       handleSendMessage();
     }
+    // Allow Shift+Enter for newlines (default textarea behavior)
   };
 
   return (
@@ -279,15 +301,16 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
       {/* Input */}
       <div className="p-4 border-t border-gray-200">
         <div className="flex gap-2">
-          <input
+          <textarea
             ref={inputRef}
-            type="text"
+            rows={1} // Start with one row
             value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={handleInputChange} // Use the combined handler
             onKeyDown={handleKeyDown}
             placeholder="اكتب رسالتك هنا..."
-            className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-tijwal-orange"
+            className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-tijwal-orange resize-none overflow-hidden" // Added resize-none and overflow-hidden
             disabled={isLoading}
+            style={{ maxHeight: '120px' }} // Set max height directly for consistency
           />
           <button
             onClick={handleSendMessage}
