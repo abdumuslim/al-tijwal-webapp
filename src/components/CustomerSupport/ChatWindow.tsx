@@ -119,7 +119,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
     try {
       // Use a timeout to prevent hanging requests
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 seconds timeout
+      const timeoutId = setTimeout(() => controller.abort(), 120000); // 120 seconds timeout
       
       // Send message to n8n webhook with authentication header and sessionId
       const response = await fetch(WEBHOOK_URL, {
@@ -143,29 +143,35 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
       }
       
       const responseData = await response.json();
-      console.log('Response from webhook:', responseData);
-      
+      console.log('Response from webhook:', responseData); // Keep original log
+
       // Extract the bot response based on the n8n response structure
       let botMessage = '';
-      
-      // Handle the response format where output is an array with object containing output property
-      if (Array.isArray(responseData) && responseData[0]?.output) {
-        botMessage = responseData[0].output;
-      } 
-      // Handle the response format where the output is directly in the response object
-      else if (responseData?.output) {
+
+      // --- REVISED EXTRACTION LOGIC ---
+      // 1. Check for direct 'output' property (most likely)
+      if (typeof responseData?.output === 'string' && responseData.output.trim() !== '') {
         botMessage = responseData.output;
       }
-      // Legacy format where response property is used
-      else if (responseData?.response) {
+      // 2. Check for nested 'Response.output' (less likely, based on console log ambiguity)
+      else if (typeof responseData?.Response?.output === 'string' && responseData.Response.output.trim() !== '') {
+        botMessage = responseData.Response.output;
+      }
+      // 3. Check for legacy 'response' property
+      else if (typeof responseData?.response === 'string' && responseData.response.trim() !== '') {
         botMessage = responseData.response;
       }
-      // Fallback if none of the above formats match
+      // 4. Check for array structure (as originally present)
+      else if (Array.isArray(responseData) && typeof responseData[0]?.output === 'string' && responseData[0].output.trim() !== '') {
+        botMessage = responseData[0].output;
+      }
+      // 5. Fallback if none of the above formats match or provide a valid string
       else {
         botMessage = 'عذراً، لم أتمكن من فهم سؤالك. هل يمكنك إعادة صياغته؟';
-        console.error('Unexpected response format:', responseData);
+        console.error('Unexpected response format or empty message:', responseData); // Updated error message
       }
-      
+      // --- END REVISED EXTRACTION LOGIC ---
+
       // Add bot response to chat
       setMessages(prev => [...prev, { 
         text: botMessage, 
@@ -213,7 +219,8 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
  
   // Handle Enter key press for sending message
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    // Handle Enter key press for sending message, only if not already loading
+    if (e.key === 'Enter' && !e.shiftKey && !isLoading) {
       e.preventDefault(); // Prevent newline on Enter
       handleSendMessage();
     }
@@ -223,7 +230,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   return (
     <div
       className={cn(
-        "fixed bottom-24 left-4 right-4 sm:left-6 sm:right-auto z-50 w-auto sm:w-[330px] md:w-[380px] max-w-md rounded-2xl shadow-xl bg-white border border-gray-200 transition-all duration-300 transform opacity-0 scale-95 pointer-events-none flex flex-col", // Added flex flex-col, adjusted width/positioning
+        "fixed bottom-5 left-4 right-4 sm:left-6 sm:right-auto z-50 w-auto sm:w-[330px] md:w-[480px] max-w-md rounded-2xl shadow-xl bg-white border border-gray-200 transition-all duration-300 transform opacity-0 scale-95 pointer-events-none flex flex-col", // Added flex flex-col, adjusted width/positioning
         isOpen && "opacity-100 scale-100 pointer-events-auto"
       )}
       style={{ maxHeight: '80vh' }} // Use viewport height directly
@@ -284,7 +291,9 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
             <div className="flex w-full items-end gap-2 justify-end"> {/* Align loading indicator LEFT */}
               {/* Loading bubble to the RIGHT of the icon */}
               <div className="bg-tijwal-light text-tijwal-dark rounded-lg rounded-bl-none max-w-[80%] p-3"> {/* Styles match bot messages (light background) */}
-                <div className="flex gap-1">
+                <div className="flex items-center gap-2"> {/* Use items-center for vertical alignment */}
+                  {/* Added text */}
+                  <span className="text-sm text-tijwal-dark">دا افكر...</span>
                   {/* Dots are now blue */}
                   <span className="w-2 h-2 bg-tijwal-blue rounded-full animate-pulse"></span>
                   <span className="w-2 h-2 bg-tijwal-blue rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></span>
