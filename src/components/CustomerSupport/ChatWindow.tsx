@@ -91,7 +91,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
     if (isOpen && inputRef.current) {
       setTimeout(() => {
         inputRef.current?.focus();
-        resizeTextarea(); // Resize on open/focus
+        // Removed resizeTextarea() call from here to prevent initial resize when empty
       }, 300); // Small delay to ensure the animation completes
     }
   }, [isOpen]);
