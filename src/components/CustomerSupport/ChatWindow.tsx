@@ -151,7 +151,8 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
           throw error; // Re-throw timeout error
         }
 
-        console.error(`Attempt ${retries + 1} failed:`, error.message);
+        // Log as warning instead of error, as the next attempt might succeed
+        console.warn(`Attempt ${retries + 1} encountered an issue:`, error.message);
         retries++;
 
         if (retries >= maxRetries) {
@@ -307,10 +308,10 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   return (
     <div
       className={cn(
-        "fixed bottom-5 left-4 right-4 sm:left-6 sm:right-auto z-50 w-auto sm:w-[330px] md:w-[480px] max-w-md rounded-2xl shadow-xl bg-white border border-gray-200 transition-all duration-300 transform opacity-0 scale-95 pointer-events-none flex flex-col", // Added flex flex-col, adjusted width/positioning
+        "fixed bottom-7 left-4 right-4 sm:left-6 sm:right-auto z-50 w-auto sm:w-[330px] md:w-[480px] max-w-md rounded-2xl shadow-xl bg-white border border-gray-200 transition-all duration-300 transform opacity-0 scale-95 pointer-events-none flex flex-col", // Added flex flex-col, adjusted width/positioning
         isOpen && "opacity-100 scale-100 pointer-events-auto"
       )}
-      style={{ maxHeight: '80vh' }} // Use viewport height directly
+      style={{ maxHeight: '90vh' }} // Use viewport height directly
     >
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-tijwal-orange text-white rounded-t-2xl">
