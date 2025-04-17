@@ -104,51 +104,117 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Helper function for sending message with retries
+  const sendMessageWithRetry = async (
+    url: string,
+    options: RequestInit,
+    maxRetries = 3,
+    initialDelay = 1000 // 1 second initial delay
+  ): Promise<Response> => {
+    let retries = 0;
+    let delay = initialDelay;
+
+    while (retries < maxRetries) {
+      try {
+        // Use a timeout for each attempt
+        const controller = new AbortController();
+        // Assign timeoutId within the loop scope for proper clearing
+        const timeoutId = setTimeout(() => controller.abort(), 180000); // 180 seconds timeout per attempt
+
+        const currentOptions = { ...options, signal: controller.signal };
+        const response = await fetch(url, currentOptions);
+
+        clearTimeout(timeoutId); // Clear the timeout for this specific attempt
+
+        // If response is OK, return it immediately
+        if (response.ok) {
+          return response;
+        }
+
+        // Check if the error is retryable (e.g., server errors 5xx)
+        // We don't retry client errors (4xx) or specific non-retryable statuses
+        if (response.status >= 500 && response.status <= 599) {
+          console.warn(`Attempt ${retries + 1} failed with status ${response.status}. Retrying...`);
+          // Throw an error to trigger the catch block for retry logic
+          throw new Error(`Server error: ${response.status}`);
+        } else {
+          // For non-retryable errors (like 4xx), return the response directly
+          // The caller (handleSendMessage) will handle this non-ok response
+          console.error(`Non-retryable server error: ${response.status}`);
+          return response;
+        }
+
+      } catch (error: any) {
+        // Don't retry if it was an AbortError (timeout)
+        if (error.name === 'AbortError') {
+          console.error('Request timed out. Not retrying.');
+          throw error; // Re-throw timeout error
+        }
+
+        console.error(`Attempt ${retries + 1} failed:`, error.message);
+        retries++;
+
+        if (retries >= maxRetries) {
+          console.error('Max retries reached. Giving up.');
+          throw error; // Re-throw the last error after max retries
+        }
+
+        // Wait before retrying
+        console.log(`Waiting ${delay}ms before next retry...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        // delay *= 2; // Optional: Exponential backoff - keeping it simple for now
+      }
+    }
+    // Should not be reached if maxRetries > 0, but satisfies TypeScript
+    throw new Error('sendMessageWithRetry failed after exhausting retries.');
+  };
+
+
   const handleSendMessage = async () => {
     if (inputValue.trim() === '') return;
-    
+
     const userMessage = inputValue;
     setInputValue('');
-    
+    resizeTextarea(); // Reset textarea size after sending
+
     // Add user message to chat
     setMessages(prev => [...prev, { text: userMessage, sender: 'user' }]);
-    
+
     // Set loading state
     setIsLoading(true);
-    
+
     try {
-      // Use a timeout to prevent hanging requests
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 120000); // 120 seconds timeout
-      
-      // Send message to n8n webhook with authentication header and sessionId
-      const response = await fetch(WEBHOOK_URL, {
+      // Prepare fetch options
+      const fetchOptions: RequestInit = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           [AUTH_HEADER_KEY]: AUTH_HEADER_VALUE,
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           message: userMessage,
           sessionId: sessionId // Include the sessionId in the request
         }),
-        signal: controller.signal,
-      });
-      
-      clearTimeout(timeoutId);
-      
+        // Note: The signal/timeout is now handled inside sendMessageWithRetry
+      };
+
+      // Send message using the retry helper
+      const response = await sendMessageWithRetry(WEBHOOK_URL, fetchOptions);
+
+      // --- Handle Response (Success or Non-Retryable Error) ---
       if (!response.ok) {
-        console.error('Server responded with error:', response.status);
+        // This handles non-retryable errors (e.g., 4xx) or if sendMessageWithRetry returns a non-ok response
+        console.error('Server responded with non-retryable error:', response.status);
         throw new Error(`Server responded with status: ${response.status}`);
       }
-      
+
+      // --- Process Successful Response ---
       const responseData = await response.json();
-      console.log('Response from webhook:', responseData); // Keep original log
+      console.log('Response from webhook:', responseData);
 
       // Extract the bot response based on the n8n response structure
       let botMessage = '';
 
-      // --- REVISED EXTRACTION LOGIC ---
       // 1. Check for direct 'output' property (most likely)
       if (typeof responseData?.output === 'string' && responseData.output.trim() !== '') {
         botMessage = responseData.output;
@@ -168,30 +234,41 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
       // 5. Fallback if none of the above formats match or provide a valid string
       else {
         botMessage = 'عذراً، لم أتمكن من فهم سؤالك. هل يمكنك إعادة صياغته؟';
-        console.error('Unexpected response format or empty message:', responseData); // Updated error message
+        console.error('Unexpected response format or empty message:', responseData);
       }
-      // --- END REVISED EXTRACTION LOGIC ---
 
       // Add bot response to chat
-      setMessages(prev => [...prev, { 
-        text: botMessage, 
-        sender: 'bot' 
+      setMessages(prev => [...prev, {
+        text: botMessage,
+        sender: 'bot'
       }]);
-    } catch (error) {
-      console.error('Error sending message:', error);
+
+    } catch (error: any) {
+      // This catch block now handles:
+      // 1. Timeout errors (AbortError) from sendMessageWithRetry
+      // 2. Final errors after all retries failed in sendMessageWithRetry
+      // 3. Errors thrown explicitly for non-ok responses above
+      console.error('Error sending message after retries or due to non-retryable error:', error);
+      
+      // Determine if it was a timeout
+      const isTimeout = error.name === 'AbortError';
+      const errorDescription = isTimeout
+        ? "انتهت مهلة الطلب. يرجى المحاولة مرة أخرى." // Specific timeout message
+        : "عذراً، المساعد غير متوفر حالياً. حاول اعادة السؤال مرة اخرى لطفاً"; // Generic error
+
       toast({
         title: "حدث خطأ",
-        description: "عذراً، المساعد غير متوفر حالياً. حاول اعادة السؤال مرة اخرى لطفاً",
+        description: errorDescription,
         variant: "destructive",
       });
-      
-      setMessages(prev => [...prev, { 
-        text: 'عذراً، المساعد غير متوفر حاليا. يرجى المحاولة مرة أخرى.', 
-        sender: 'bot' 
+
+      setMessages(prev => [...prev, {
+        text: 'عذراً، المساعد غير متوفر حاليا. يرجى المحاولة مرة أخرى.', // Keep generic message in chat
+        sender: 'bot'
       }]);
     } finally {
       setIsLoading(false);
-      // Focus the input after sending
+      // Focus the input after sending or error
       setTimeout(() => {
         inputRef.current?.focus();
       }, 100);
