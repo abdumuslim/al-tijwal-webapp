@@ -198,7 +198,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
         {/* Header */}
         <div className="flex items-center justify-between p-4 bg-tijwal-orange text-white rounded-t-2xl">
           <div className="flex items-center gap-2">
-            <img src={eyeImg} alt="Icon" className="h-10 w-10" />
+            <img src={eyeImg} alt="Icon" className="h-20 w-20 -mt-14" />
             <h3 className="font-bold text-lg">مساعد التجوال</h3>
           </div>
           <div className="flex items-center gap-1"> {/* Reduced gap slightly */}
