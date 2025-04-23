@@ -49,28 +49,32 @@ const Footer = () => {
               نحن رواد الإعلان المتنقل في العراق، نجمع بين الابتكار والتكنولوجيا لتقديم تجربة إعلانية فريدة وفعالة.
             </p>
             <div className="flex space-x-4 rtl:space-x-reverse">
-              <a 
-                href="https://www.facebook.com/Altijwal" 
+              <a
+                href="https://www.facebook.com/Altijwal"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-orange transition-colors duration-300"
+                aria-label="زيارة صفحتنا على فيسبوك"
               >
                 <Facebook className="h-5 w-5" />
               </a>
-              <a 
-                href="https://www.instagram.com/al.tijwal/" 
+              <a
+                href="https://www.instagram.com/al.tijwal/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-orange transition-colors duration-300"
+                aria-label="زيارة صفحتنا على انستغرام"
               >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a 
-                href="http://wa.me/9647849567837" 
+              <a
+                href="http://wa.me/9647849567837"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-orange transition-colors duration-300"
+                aria-label="التواصل معنا عبر واتساب"
               >
+                {/* WhatsApp Icon */}
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
                   <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
                   <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Zm0 0a5 5 0 0 0 5 5" />

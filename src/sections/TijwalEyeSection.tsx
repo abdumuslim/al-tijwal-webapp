@@ -108,10 +108,11 @@ const TijwalEyeSection = () => {
           <div className={`order-1 lg:order-2 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'}`} style={{ transitionDelay: '200ms' }}>
             <div className="relative">
               <div className="relative glass-card p-1 rounded-2xl shadow-xl transform transition-all duration-500 hover:scale-[1.02]">
-                <img 
-                  src="/lovable-uploads/51fb4261-5cde-4486-a976-0b3ec174ce35.webp" 
-                  alt="تقنية عين التجوال في العمل" 
+                <img
+                  src="/lovable-uploads/51fb4261-5cde-4486-a976-0b3ec174ce35.webp"
+                  alt="تقنية عين التجوال في العمل"
                   className="w-full h-auto rounded-xl"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl"></div>
               </div>

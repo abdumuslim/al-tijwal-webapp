@@ -75,7 +75,12 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden text-tijwal-dark" onClick={toggleMenu}>
+          <button
+            className="md:hidden text-tijwal-dark"
+            onClick={toggleMenu}
+            aria-label={isMenuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+            aria-expanded={isMenuOpen}
+          >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>

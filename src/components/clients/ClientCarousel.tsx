@@ -75,7 +75,7 @@ const ClientCarousel = ({ clients }: ClientCarouselProps) => {
           <button
             key={index}
             onClick={() => setActiveIndex(index)}
-            className={`w-2 h-2 rounded-full ${index === activeIndex ? 'bg-tijwal-orange' : 'bg-gray-300'}`}
+            className={`w-2 h-2 rounded-full ${index === activeIndex ? 'bg-tijwal-orange' : 'bg-gray-300'} p-2`} // Added p-2 for larger tap target
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}

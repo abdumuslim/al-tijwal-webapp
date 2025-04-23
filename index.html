@@ -8,7 +8,11 @@
     <meta name="description" content="التجوال: شركة إعلانية مبتكرة تقدم خدمات الإعلان المتنقل في العراق مع تقنية عين التجوال للقياس الدقيق للأداء" />
     <meta name="author" content="التجوال" />
     <meta property="og:image" content="/lovable-uploads/c7ecb791-6f0b-49db-baf0-2f7610d5a376.webp" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css" />
+    <!-- Preload LCP Image -->
+    <link rel="preload" fetchpriority="high" as="image" href="/lovable-uploads/54847be8-3e6a-44a9-aca6-3337e7204f12.webp" type="image/webp">
+    <!-- Load Font Awesome asynchronously -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css"></noscript>
     <link rel="canonical" href="https://al-tijwal.com/">
 
     <!-- Google Analytics -->
@@ -19,7 +23,10 @@
       gtag('js', new Date());
       gtag('config', 'G-90DMMHP3XN');
     </script>
+    <!--
     <style>
+      /* Commenting out Aljazeera fonts due to 404 errors - investigate correct URLs or if loaded elsewhere */
+      /*
       @font-face {
         font-family: 'Al-Jazeera';
         src: url('https://cdn.jsdelivr.net/gh/Aljazeera-Site/fontsArabic@main/AlJazeera-Arabic-Regular.woff2') format('woff2');
@@ -34,7 +41,9 @@
         font-style: normal;
         font-display: swap;
       }
+      */
     </style>
+    -->
   </head>
 
   <body>
