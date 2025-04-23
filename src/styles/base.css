@@ -133,3 +133,10 @@ button, input, select, textarea, optgroup {
     font-family: 'Al-Jazeera', sans-serif !important;
   }
 }
+
+@layer utilities {
+  .safe-bottom {
+    /* lifts panel when virtual keyboard is open */
+    bottom: calc(env(keyboard-inset, 0px) + 1.75rem);
+  }
+}

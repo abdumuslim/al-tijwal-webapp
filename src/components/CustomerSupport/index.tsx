@@ -1,7 +1,8 @@
 
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import ChatButton from './ChatButton';
-import ChatWindow from './ChatWindow';
+// Dynamically import ChatWindow
+const LazyChatWindow = lazy(() => import('./ChatWindow'));
 import { logEvent } from '@/lib/analytics';
 
 const CustomerSupport = () => {
@@ -21,7 +22,10 @@ const CustomerSupport = () => {
   return (
     <>
       <ChatButton onClick={toggleChat} isOpen={isChatOpen} />
-      <ChatWindow isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      {/* Use Suspense to handle loading state */}
+      <Suspense fallback={null}>
+        {isChatOpen && <LazyChatWindow isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />}
+      </Suspense>
     </>
   );
 };
