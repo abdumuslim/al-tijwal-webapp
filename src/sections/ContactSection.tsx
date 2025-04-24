@@ -132,7 +132,7 @@ const ContactSection = () => {
                   </a>
                   <a
                     href="tel:+9647849567837"
-                    className="flex-1 bg-secondary text-secondary-foreground px-4 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors duration-300 text-center flex items-center justify-center gap-2" // Use secondary
+                    className="flex-1 bg-secondary text-white px-4 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors duration-300 text-center flex items-center justify-center gap-2" // Use secondary
                   >
                     <Phone className="h-5 w-5" />
                     اتصال

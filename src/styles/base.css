@@ -135,6 +135,8 @@ button, input, select, textarea, optgroup {
   body {
     @apply bg-background text-foreground;
     width: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     font-family: 'Al-Jazeera', sans-serif !important;
   }

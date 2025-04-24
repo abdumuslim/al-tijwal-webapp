@@ -14,7 +14,7 @@ export function ThemeToggle() {
 
   // Track (the pill) classes
   const trackCls = cn(
-    'group relative flex items-center h-10 w-20 rounded-full p-1 transition-colors',
+    'group relative flex items-center h-8 w-16 rounded-full p-1 transition-colors', // Reduced height and width
     isDark
       ? 'bg-tijwal-blue/20 hover:bg-tijwal-blue/30'
       : 'bg-tijwal-orange/20 hover:bg-tijwal-orange/30'
@@ -22,10 +22,10 @@ export function ThemeToggle() {
 
   // Thumb (the circle) classes
   const thumbCls = cn(
-    'absolute inset-y-1 left-1 h-8 w-8 rounded-full bg-white shadow-lg',
+    'absolute inset-y-1 left-1 h-6 w-6 rounded-full bg-white shadow-lg', // Reduced thumb size
     'transform transition-transform duration-300 ease-in-out',
     'group-hover:scale-105 group-active:scale-95',
-    isDark && 'translate-x-10'
+    isDark && 'translate-x-8' // Reduced translation distance
   );
 
   return (
@@ -39,13 +39,13 @@ export function ThemeToggle() {
       {/* Icons on either side */}
       <Sun
         className={cn(
-          'h-5 w-5 transition-colors',
+          'h-4 w-4 transition-colors', // Reduced icon size
           isDark ? 'text-muted-foreground' : 'text-tijwal-orange'
         )}
       />
       <Moon
         className={cn(
-          'h-5 w-5 transition-colors',
+          'h-4 w-4 transition-colors', // Reduced icon size
           isDark ? 'text-tijwal-blue' : 'text-muted-foreground'
         )}
       />

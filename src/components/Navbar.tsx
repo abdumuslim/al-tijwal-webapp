@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react'; // Import useRef
 import { Menu, X, ArrowUp } from 'lucide-react';
 import TijwalButton from './TijwalButton';
 import { ThemeToggle } from './ThemeToggle'; // Import ThemeToggle
@@ -8,6 +8,9 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const touchStartX = useRef(0); // For swipe gesture
+  const touchEndX = useRef(0); // For swipe gesture
+  const menuRef = useRef<HTMLDivElement>(null); // Ref for menu element
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,6 +44,34 @@ const Navbar = () => {
       setIsMenuOpen(false);
     }
   };
+
+  // --- Swipe Gesture Handlers ---
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+    touchEndX.current = e.targetTouches[0].clientX; // Reset endX on new touch
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!menuRef.current) return;
+
+    const swipeThreshold = 50; // Minimum pixels to swipe
+    const swipeDistance = touchEndX.current - touchStartX.current;
+
+    // Check if swiping left (closing the menu)
+    if (swipeDistance < -swipeThreshold) { // Check for negative distance (swipe left)
+      toggleMenu();
+    }
+
+    // Reset touch points
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
+  // --- End Swipe Gesture Handlers ---
+
 
   return (
     <>
@@ -76,43 +107,74 @@ const Navbar = () => {
             <ThemeToggle /> {/* Add ThemeToggle here */}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-foreground" // Use text-foreground
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? "إغلاق القائمة" : "فتح القائمة"}
-            aria-expanded={isMenuOpen}
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          {/* Mobile Controls */}
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle /> {/* Add ThemeToggle here for mobile */}
+            <button
+              className="text-foreground" // Removed md:hidden as the parent div handles it
+              onClick={toggleMenu}
+              aria-label={isMenuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+              aria-expanded={isMenuOpen}
+            >
+              <Menu className="h-6 w-6" />
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
         <div
-          className={`fixed inset-0 bg-white dark:bg-card z-40 pt-20 px-4 transition-transform duration-300 ease-in-out ${ // Add dark:bg-card
-            isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          ref={menuRef} // Add ref
+          className={`fixed inset-y-0 left-0 bg-white dark:bg-card z-40 pt-5 px-4 transition-transform duration-300 ease-in-out transform ${ // Changed right-0 to left-0
+            isMenuOpen ? 'translate-x-0' : '-translate-x-full' // Changed translate-x-full to -translate-x-full
           } md:hidden`}
-          style={{ 
-            height: '100vh',
-            position: 'fixed',
-            top: 0,
-            overflow: 'auto'
+          style={{
+            height: '100vh', // Use 100dvh for better mobile compatibility if needed
+            // position: 'fixed', // Already fixed via className
+            // top: 0, // Already fixed via className
+            // left: 0, // Added via className
+            width: '80%', // Optional: make it not full width
+            maxWidth: '300px', // Optional: max width
+            overflowY: 'auto', // Changed to Y axis only
+            boxShadow: '5px 0 15px rgba(0,0,0,0.1)', // Changed shadow direction
           }}
+          onTouchStart={handleTouchStart} // Add touch handler
+          onTouchMove={handleTouchMove}   // Add touch handler
+          onTouchEnd={handleTouchEnd}     // Add touch handler
         >
+          {/* Close Button Inside Menu */}
+          <button
+            className="absolute top-5 left-5 text-foreground md:hidden z-50 p-2" // Changed right-5 to left-5
+            onClick={toggleMenu}
+            aria-label="إغلاق القائمة"
+          >
+            <X className="h-6 w-6" />
+          </button>
+
+          {/* Logo Inside Menu */}
+          <div className="flex justify-center mb-8 mt-4"> {/* Adjusted margins */}
+             <a href="#" onClick={(e) => { e.preventDefault(); scrollToTop(); toggleMenu(); }}>
+               <img
+                 src="/lovable-uploads/f5296d76-7e51-4c9f-8151-7e8785243d39.webp"
+                 alt="التجوال"
+                 className="h-12" // Slightly smaller logo for mobile menu
+               />
+             </a>
+          </div>
+
           <div className="flex flex-col items-center gap-6 text-lg">
-            <a href="#about" className="nav-link dark:text-foreground" onClick={toggleMenu}>المميزات</a> {/* Add dark:text-foreground */}
-            <a href="#locations" className="nav-link dark:text-foreground" onClick={toggleMenu}>الأماكن</a> {/* Add dark:text-foreground */}
-            <a href="#clients" className="nav-link dark:text-foreground" onClick={toggleMenu}>عملاؤنا</a> {/* Add dark:text-foreground */}
-            <a href="#pricing" className="nav-link dark:text-foreground" onClick={toggleMenu}>الباقات</a> {/* Add dark:text-foreground */}
-            <a href="#faq" className="nav-link dark:text-foreground" onClick={toggleMenu}>الأسئلة الشائعة</a> {/* Add dark:text-foreground */}
+             {/* Links will now close the menu via toggleMenu (already updated) */}
+            <a href="#about" className="nav-link dark:text-foreground" onClick={toggleMenu}>المميزات</a>
+            <a href="#locations" className="nav-link dark:text-foreground" onClick={toggleMenu}>الأماكن</a>
+            <a href="#clients" className="nav-link dark:text-foreground" onClick={toggleMenu}>عملاؤنا</a>
+            <a href="#pricing" className="nav-link dark:text-foreground" onClick={toggleMenu}>الباقات</a>
+            <a href="#faq" className="nav-link dark:text-foreground" onClick={toggleMenu}>الأسئلة الشائعة</a>
             <div className="mt-6">
+              {/* handleContactClick already closes the menu */}
               <TijwalButton variant="primary" onClick={handleContactClick}>
                 تواصل معنا
               </TijwalButton>
             </div>
-            <div className="mt-4"> {/* Add ThemeToggle in mobile menu */}
-              <ThemeToggle />
-            </div>
+            {/* ThemeToggle removed from here */}
           </div>
         </div>
       </nav>
