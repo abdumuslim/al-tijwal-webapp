@@ -3,7 +3,7 @@ import { Facebook, Instagram, Twitter } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-tijwal-dark text-white pt-12 pb-8">
+    <footer className="bg-gray-900 text-gray-200 dark:bg-card dark:text-card-foreground pt-12 pb-8"> {/* Refined dark bg to card */}
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -14,7 +14,8 @@ const Footer = () => {
                 className="h-16 w-16"
               />
             </div>
-            <p className="text-gray-300 mb-6">
+            {/* Use card-foreground for better contrast on card background */}
+            <p className="text-gray-300 dark:text-card-foreground/80 mb-6">
               نبتكر في عالم الإعلان بدمج أحدث التقنيات في شاشاتنا المتنقلة المحمولة لتحقيق نتائج استثنائية وقابلة للقياس لعملائنا.
             </p>
           </div>
@@ -23,29 +24,29 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-6">روابط سريعة</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#about" className="text-gray-300 hover:text-white transition-colors duration-300">من نحن</a>
+                <a href="#about" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">من نحن</a>
               </li>
               <li>
-                <a href="#tijwal-eye" className="text-gray-300 hover:text-white transition-colors duration-300">تقنية عين التجوال</a>
+                <a href="#tijwal-eye" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">تقنية عين التجوال</a>
               </li>
               <li>
-                <a href="#locations" className="text-gray-300 hover:text-white transition-colors duration-300">مناطق الخدمة</a>
+                <a href="#locations" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">مناطق الخدمة</a>
               </li>
               <li>
-                <a href="#pricing" className="text-gray-300 hover:text-white transition-colors duration-300">باقات العروض</a>
+                <a href="#pricing" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">باقات العروض</a>
               </li>
               <li>
-                <a href="#faq" className="text-gray-300 hover:text-white transition-colors duration-300">الأسئلة الشائعة</a>
+                <a href="#faq" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">الأسئلة الشائعة</a>
               </li>
               <li>
-                <a href="#contact" className="text-gray-300 hover:text-white transition-colors duration-300">تواصل معنا</a>
+                <a href="#contact" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">تواصل معنا</a>
               </li>
             </ul>
           </div>
 
           <div>
             <h3 className="text-xl font-bold mb-6">التجوال</h3>
-            <p className="text-gray-300 mb-6">
+            <p className="text-gray-300 dark:text-card-foreground/80 mb-6"> {/* Use card-foreground */}
               نحن رواد الإعلان المتنقل في العراق، نجمع بين الابتكار والتكنولوجيا لتقديم تجربة إعلانية فريدة وفعالة.
             </p>
             <div className="flex space-x-4 rtl:space-x-reverse">
@@ -53,7 +54,7 @@ const Footer = () => {
                 href="https://www.facebook.com/Altijwal"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-orange transition-colors duration-300"
+                className="w-10 h-10 rounded-full bg-white/10 dark:bg-background/50 flex items-center justify-center hover:bg-primary transition-colors duration-300" // Use background/50 and primary hover
                 aria-label="زيارة صفحتنا على فيسبوك"
               >
                 <Facebook className="h-5 w-5" />
@@ -62,7 +63,7 @@ const Footer = () => {
                 href="https://www.instagram.com/al.tijwal/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-orange transition-colors duration-300"
+                className="w-10 h-10 rounded-full bg-white/10 dark:bg-background/50 flex items-center justify-center hover:bg-primary transition-colors duration-300" // Use background/50 and primary hover
                 aria-label="زيارة صفحتنا على انستغرام"
               >
                 <Instagram className="h-5 w-5" />
@@ -71,7 +72,7 @@ const Footer = () => {
                 href="http://wa.me/9647849567837"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-tijwal-orange transition-colors duration-300"
+                className="w-10 h-10 rounded-full bg-white/10 dark:bg-background/50 flex items-center justify-center hover:bg-primary transition-colors duration-300" // Use background/50 and primary hover
                 aria-label="التواصل معنا عبر واتساب"
               >
                 {/* WhatsApp Icon */}
@@ -85,9 +86,9 @@ const Footer = () => {
           </div>
         </div>
 
-        <hr className="border-white/10 my-8" />
+        <hr className="border-white/10 dark:border-border my-8" /> {/* Use border-border */}
 
-        <div className="text-center text-gray-400 text-sm">
+        <div className="text-center text-gray-400 dark:text-muted-foreground text-sm"> {/* Use muted-foreground */}
           <p>جميع الحقوق محفوظة © {new Date().getFullYear()} التجوال</p>
         </div>
       </div>

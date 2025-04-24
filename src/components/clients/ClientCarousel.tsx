@@ -32,11 +32,11 @@ const ClientCarousel = ({ clients }: ClientCarouselProps) => {
       {/* Current slide */}
       <div className="relative">
         {clients.map((client, index) => (
-          <div 
+          <div
             key={client.name}
-            className={`relative flex items-center justify-center h-40 rounded-xl shadow-sm border border-gray-100 ${client.className || 'bg-white'} ${index === activeIndex ? 'block' : 'hidden'}`}
+            className={`relative flex items-center justify-center h-40 rounded-xl shadow-sm border border-border ${client.className || 'bg-card'} ${index === activeIndex ? 'block' : 'hidden'}`} // Use border-border, bg-card as default
           >
-            <div className="absolute inset-0" style={{ 
+            <div className="absolute inset-0" style={{
               backgroundColor: extractBgColor(client.className)
             }}></div>
             <img 
@@ -50,18 +50,18 @@ const ClientCarousel = ({ clients }: ClientCarouselProps) => {
       </div>
       
       {/* Navigation buttons */}
-      <button 
+      <button
         onClick={goToPrev}
-        className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-200 text-tijwal-dark z-10"
+        className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card flex items-center justify-center shadow-sm border border-border text-foreground z-10" // Use card/border/foreground
         aria-label="Previous client"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="m15 18-6-6 6-6" />
         </svg>
       </button>
-      <button 
+      <button
         onClick={goToNext}
-        className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-200 text-tijwal-dark z-10"
+        className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card flex items-center justify-center shadow-sm border border-border text-foreground z-10" // Use card/border/foreground
         aria-label="Next client"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -75,7 +75,7 @@ const ClientCarousel = ({ clients }: ClientCarouselProps) => {
           <button
             key={index}
             onClick={() => setActiveIndex(index)}
-            className={`w-2 h-2 rounded-full ${index === activeIndex ? 'bg-tijwal-orange' : 'bg-gray-300'} p-2`} // Added p-2 for larger tap target
+            className={`w-2 h-2 rounded-full ${index === activeIndex ? 'bg-primary' : 'bg-muted'} p-2`} // Use primary/muted
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}

@@ -44,16 +44,16 @@ const FlippableClientCard = ({ client, delay = 0 }: FlippableClientCardProps) =>
     <div 
       ref={cardRef}
       className={`
-        flip-card h-40 rounded-xl shadow-sm border border-gray-100 
+        flip-card h-40 rounded-xl shadow-sm border border-border
         hover:shadow-md transition-all duration-500
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
       `}
     >
       <div className="flip-card-inner">
         {/* Front of card */}
-        <div className={`flip-card-front flex items-center justify-center ${client.className || 'bg-white'}`}>
-          <div className="absolute inset-0" style={{ 
-            backgroundColor: extractBgColor(client.className)
+        <div className={`flip-card-front flex items-center justify-center ${client.className || 'bg-card'}`}> {/* Use bg-card as default */}
+          <div className="absolute inset-0" style={{
+            backgroundColor: extractBgColor(client.className) // This might override bg-card, which is fine
           }}></div>
           <img 
             src={client.src} 
@@ -63,9 +63,9 @@ const FlippableClientCard = ({ client, delay = 0 }: FlippableClientCardProps) =>
         </div>
         
         {/* Back of card */}
-        <div className="flip-card-back bg-white">
-          <img 
-            src={client.flipImage} 
+        <div className="flip-card-back bg-card"> {/* Use bg-card */}
+          <img
+            src={client.flipImage}
             alt={`${client.alt} in action`}
             className="w-full h-full object-cover"
           />

@@ -65,14 +65,14 @@ const PricingSection = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="pricing" className="py-20 bg-tijwal-light">
+    <section ref={sectionRef} id="pricing" className="py-20 bg-muted/50 dark:bg-[hsl(var(--card))]/30"> {/* Use explicit CSS variable */}
       <div className="container mx-auto px-4">
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <span className="inline-block bg-tijwal-orange/10 text-tijwal-orange px-4 py-1 rounded-full text-sm font-medium mb-4">
+          <span className="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-medium mb-4"> {/* Use primary */}
             باقاتنا وعروضنا
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">اختر العرض المناسب لاحتياجاتك</h2>
-          <p className="text-tijwal-gray max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">اختر العرض المناسب لاحتياجاتك</h2> {/* Use text-foreground */}
+          <p className="text-muted-foreground max-w-2xl mx-auto"> {/* Use text-muted-foreground */}
             نوفر باقات متنوعة تلبي احتياجات مختلف العملاء، سواء للميزانيات المحدودة أو للحملات الشاملة عالية التأثير
           </p>
         </div>
@@ -81,29 +81,34 @@ const PricingSection = () => {
           {pricingPlans.map((plan, index) => (
             <div 
               key={index}
-              className={`rounded-2xl shadow-lg overflow-hidden transition-all duration-700 ${plan.color} border ${plan.isPopular ? 'border-tijwal-orange' : 'border-gray-100'} ${isVisible ? 'opacity-100 translate-y-0 hover:shadow-xl transform hover:-translate-y-2' : 'opacity-0 translate-y-10'}`}
+              // Apply bg-card for the non-popular plan, and a gradient for the popular one, with dark mode variants
+              className={`rounded-2xl shadow-lg overflow-hidden transition-all duration-700 border ${
+                plan.isPopular
+                  ? 'bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 border-primary'
+                  : 'bg-card dark:bg-muted/30 border-border' // Refined dark bg for non-popular plan
+              } ${isVisible ? 'opacity-100 translate-y-0 hover:shadow-xl transform hover:-translate-y-2' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: `${index * 200}ms` }}
             >
               {plan.isPopular && (
-                <div className="absolute top-0 right-0 left-0 bg-tijwal-orange text-white py-1 text-center text-sm font-medium">
+                <div className="absolute top-0 right-0 left-0 bg-primary text-primary-foreground py-1 text-center text-sm font-medium"> {/* Use primary */}
                   الأكثر طلباً
                 </div>
               )}
-              <div className="p-8">
-                <h3 className="text-2xl font-bold mb-2 text-center">{plan.name}</h3>
-                <p className="text-center text-tijwal-gray mb-6">{plan.description}</p>
+              <div className="p-8 pt-12"> {/* Added pt-12 to account for the banner */}
+                <h3 className="text-2xl font-bold mb-2 text-center text-foreground">{plan.name}</h3> {/* Use text-foreground */}
+                <p className="text-center text-muted-foreground mb-6">{plan.description}</p> {/* Use text-muted-foreground */}
                 <ul className="space-y-4 mb-8">
                   {plan.features.map((feature, fIndex) => (
-                    <li key={fIndex} className={`flex items-start transition-all duration-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-5'}`} 
+                    <li key={fIndex} className={`flex items-start transition-all duration-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-5'}`}
                         style={{ transitionDelay: `${(index * 200) + (fIndex * 100)}ms` }}>
                       <div className="mt-1 flex-shrink-0">
-                        <span className={`flex h-5 w-5 items-center justify-center rounded-full bg-tijwal-orange/10 ${isVisible ? 'animate-scale-in' : 'opacity-0 scale-0'}`}
+                        <span className={`flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 ${isVisible ? 'animate-scale-in' : 'opacity-0 scale-0'}`}
                               style={{ animationDelay: `${(index * 200) + (fIndex * 150)}ms` }}>
-                          <Check className={`h-3 w-3 text-tijwal-orange ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} 
+                          <Check className={`h-3 w-3 text-primary ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                                  style={{ animationDelay: `${(index * 200) + (fIndex * 150) + 100}ms` }} />
                         </span>
                       </div>
-                      <span className="mr-3 text-tijwal-gray text-sm">{feature}</span>
+                      <span className="mr-3 text-muted-foreground text-sm">{feature}</span> {/* Use text-muted-foreground */}
                     </li>
                   ))}
                 </ul>
@@ -128,24 +133,25 @@ const PricingSection = () => {
         </div>
 
         {/* Special Discounts Section */}
-        <div className={`mt-12 max-w-6xl mx-auto bg-tijwal-blue/5 rounded-xl p-6 border border-tijwal-blue/20 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '500ms' }}>
-          <h3 className="text-xl font-bold mb-4 text-center">خصومات خاصة</h3>
-          <p className="text-center mb-6">نقدم خصومات تصاعدية بناءً على مدة الحملة الإعلانية:</p>
-          <div className={`flex items-center justify-center p-4 bg-white rounded-lg shadow-sm max-w-xl mx-auto transition-all duration-500 delay-700 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-            <div className={`mr-3 h-10 w-10 flex items-center justify-center bg-tijwal-orange/10 rounded-full text-tijwal-orange font-bold ${isVisible ? 'animate-pulse-soft' : ''}`}>%</div>
+        <div className={`mt-12 max-w-6xl mx-auto bg-secondary/5 dark:bg-secondary/10 rounded-xl p-6 border border-secondary/20 dark:border-secondary/30 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '500ms' }}> {/* Use secondary */}
+          <h3 className="text-xl font-bold mb-4 text-center text-foreground">خصومات خاصة</h3> {/* Use text-foreground */}
+          <p className="text-center mb-6 text-muted-foreground">نقدم خصومات تصاعدية بناءً على مدة الحملة الإعلانية:</p> {/* Use text-muted-foreground */}
+          <div className={`flex items-center justify-center p-4 bg-card rounded-lg shadow-sm max-w-xl mx-auto transition-all duration-500 delay-700 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}> {/* Use bg-card */}
+            <div className={`mr-3 h-10 w-10 flex items-center justify-center bg-primary/10 rounded-full text-primary font-bold ${isVisible ? 'animate-pulse-soft' : ''}`}>%</div> {/* Use primary */}
             <div>
-              <h4 className="font-bold mb-1">خصم تصاعدي على الحملات</h4>
-              <p className="text-sm text-tijwal-gray">تزداد نسبة الخصم تدريجياً كلما زادت مدة الحملة، بدءاً من حملات الأسبوع الواحد</p>
+              <h4 className="font-bold mb-1 text-foreground">خصم تصاعدي على الحملات</h4> {/* Use text-foreground */}
+              <p className="text-sm text-muted-foreground">تزداد نسبة الخصم تدريجياً كلما زادت مدة الحملة، بدءاً من حملات الأسبوع الواحد</p> {/* Use text-muted-foreground */}
             </div>
           </div>
         </div>
 
         {/* FAQ Teaser */}
         <div className={`mt-16 text-center transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '700ms' }}>
-          <p className="text-tijwal-gray mb-4">لديك أسئلة حول خدماتنا وعروضنا؟</p>
-          <a href="#faq" className="text-tijwal-orange hover:underline font-medium">تعرف على المزيد من خلال الأسئلة الشائعة</a>
+          <p className="text-muted-foreground mb-4">لديك أسئلة حول خدماتنا وعروضنا؟</p> {/* Use text-muted-foreground */}
+          <a href="#faq" className="text-primary hover:underline font-medium">تعرف على المزيد من خلال الأسئلة الشائعة</a> {/* Use primary */}
         </div>
       </div>
+
     </section>
   );
 };

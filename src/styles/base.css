@@ -37,33 +37,48 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Softer dark background */
+    --background: 220 15% 10%;
+    /* Brighter foreground */
+    --foreground: 210 40% 98%; /* Back to brighter */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    /* Card slightly lighter than background */
+    --card: 220 15% 15%;
+    --card-foreground: 210 40% 98%; /* Match foreground */
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    /* Popover similar to card */
+    --popover: 220 15% 12%;
+    --popover-foreground: 210 40% 98%; /* Match foreground */
 
+    /* Keep primary orange */
     --primary: 30 100% 50%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Light foreground for contrast on primary */
+    --primary-foreground: 30 100% 98%;
 
+    /* Keep secondary blue */
     --secondary: 214 100% 48%;
+    /* Light foreground for contrast on secondary */
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    /* Lighter muted background */
+    --muted: 220 15% 25%;
+    /* Much brighter muted text */
+    --muted-foreground: 215 20% 85%; /* Increased lightness further */
 
+    /* Keep accent same as secondary */
     --accent: 214 100% 48%;
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    /* Brighter destructive red */
+    --destructive: 0 70% 50%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    /* Subtle border */
+    --border: 220 15% 20%;
+    /* Input same as border */
+    --input: 220 15% 20%;
+    /* Ring uses primary color */
+    --ring: 30 100% 60%;
   }
 }
 

@@ -98,14 +98,14 @@ const ChatButton = ({ onClick, isOpen }: ChatButtonProps) => {
       <Tooltip>
         <div className="fixed bottom-6 left-6 z-50 flex items-end">
           {/* Speech bubble with improved design */}
-          <div 
+          <div
             className={cn(
-              "absolute mb-16 bg-white rounded-full px-4 py-2 shadow-md",
+              "absolute mb-16 bg-card dark:bg-card rounded-full px-4 py-2 shadow-md", // Explicitly add dark:bg-card
               "speech-bubble", // custom CSS class for the styled speech bubble
               showSpeechBubble ? "animate-bubble-appear" : "animate-bubble-disappear opacity-0 scale-0 pointer-events-none",
             )}
           >
-            <span className="font-bold text-tijwal-orange">اسألني</span>
+            <span className="font-bold text-primary">اسألني</span> {/* Use text-primary */}
           </div>
           
           <TooltipTrigger asChild>
@@ -124,7 +124,7 @@ const ChatButton = ({ onClick, isOpen }: ChatButtonProps) => {
               <img src={currentEyeImage} alt="Chatbot Icon" className="h-20 w-20 animate-float" /> {/* Increased size to 5rem and added float animation */}
             </button>
           </TooltipTrigger>
-          <TooltipContent side="right" className="bg-white text-tijwal-dark">
+          <TooltipContent side="right" className="bg-popover text-popover-foreground"> {/* Use popover colors */}
             <p>التحدث مع مساعد التجوال</p>
           </TooltipContent>
         </div>

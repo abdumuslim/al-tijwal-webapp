@@ -30,15 +30,20 @@ const TijwalButton = ({
   const getVariantClass = (): string => {
     switch (variant) {
       case 'primary':
-        return 'bg-tijwal-orange text-white hover:bg-tijwal-orange/90';
+        // Maps to primary theme color
+        return 'bg-primary text-primary-foreground hover:bg-primary/90';
       case 'secondary':
-        return 'bg-white text-tijwal-blue border border-tijwal-blue hover:bg-tijwal-blue/5';
+        // Maps to secondary theme color (outline style)
+        return 'bg-card text-secondary border border-secondary hover:bg-secondary/10 dark:hover:bg-secondary/20';
       case 'accent':
-        return 'bg-tijwal-blue text-white hover:bg-tijwal-blue/90';
+         // Maps to secondary theme color (filled style)
+        return 'bg-secondary text-secondary-foreground hover:bg-secondary/90';
       case 'gradient':
+        // Keep gradient class, but update inner span below
         return 'animated-gradient-btn';
       default:
-        return 'bg-tijwal-orange text-white hover:bg-tijwal-orange/90';
+        // Default to primary
+        return 'bg-primary text-primary-foreground hover:bg-primary/90';
     }
   };
 
@@ -70,7 +75,8 @@ const TijwalButton = ({
       style={style}
     >
       {variant === 'gradient' ? (
-        <span className="flex items-center justify-center w-full h-full px-5 py-2.5 bg-white rounded-lg text-tijwal-orange font-medium">
+        // Update inner span for gradient button to use theme colors
+        <span className="flex items-center justify-center w-full h-full px-5 py-2.5 bg-card rounded-lg text-primary font-medium">
           {children}
         </span>
       ) : (

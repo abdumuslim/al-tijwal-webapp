@@ -9,14 +9,14 @@ const ClientsSection = () => {
   const carouselRef = useRef(null);
 
   return (
-    <section id="clients" className="py-16 bg-white">
+    <section id="clients" className="py-16 bg-background dark:bg-[hsl(var(--background))]"> {/* Explicit dark background */}
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-tijwal-dark">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground"> {/* Use text-foreground */}
             عملاء يثقون بنا
-            <span className="text-tijwal-orange">.</span>
+            <span className="text-primary">.</span> {/* Use text-primary */}
           </h2>
-          <p className="text-tijwal-gray max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto"> {/* Use text-muted-foreground */}
             نفتخر بثقة العديد من الشركات الرائدة في العراق والمنطقة. هذه بعض العلامات التجارية التي اختارت التعاون معنا
           </p>
         </div>
@@ -38,11 +38,12 @@ const ClientsSection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-tijwal-gray font-medium">
+          <p className="text-muted-foreground font-medium"> {/* Use text-muted-foreground */}
             انضم إلى قائمة عملائنا المميزين وحقق أهدافك الإعلانية معنا
           </p>
         </div>
       </div>
+
     </section>
   );
 };

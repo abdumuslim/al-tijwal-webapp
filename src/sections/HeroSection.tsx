@@ -36,28 +36,28 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-tijwal-light via-white to-tijwal-light overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:bg-gradient-to-br dark:from-[hsl(var(--background))] dark:via-[hsl(var(--card))] dark:to-[hsl(var(--background))] overflow-hidden"> {/* Dark mode gradient */}
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/3 -right-20 w-80 h-80 bg-tijwal-orange/10 rounded-full blur-3xl animate-pulse-soft"></div>
-        <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-tijwal-blue/10 rounded-full blur-3xl animate-pulse-soft"></div>
-        <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-tijwal-blue/10 rounded-full blur-3xl animate-pulse-soft"></div>
+        <div className="absolute top-1/3 -right-20 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse-soft"></div> {/* Use primary color */}
+        <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse-soft"></div> {/* Use secondary color */}
+        <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-secondary/10 rounded-full blur-3xl animate-pulse-soft"></div> {/* Use secondary color */}
       </div>
 
       {/* Content */}
       <div className="container mx-auto px-4 z-10 text-center py-20">
         <div className="inline-block mb-6 animate-fade-in-right">
-          <span className="bg-tijwal-orange/10 text-tijwal-orange px-4 py-1 rounded-full text-sm font-medium">
+          <span className="bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-medium"> {/* Use primary color */}
             #ثورة_الإعلان_في_العراق
           </span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-tijwal-dark animate-fade-in">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-foreground animate-fade-in"> {/* Use text-foreground */}
           مرحباً بك في
-          <span className="text-tijwal-orange block mt-2">التجوال</span>
+          <span className="text-primary block mt-2">التجوال</span> {/* Use text-primary */}
         </h1>
 
-        <p className="max-w-2xl mx-auto text-lg md:text-xl text-tijwal-gray mb-10 animate-fade-in">
+        <p className="max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground mb-10 animate-fade-in"> {/* Use text-muted-foreground */}
           نبتكر في عالم الإعلان بدمج أحدث التقنيات في شاشاتنا المتنقلة مع التواجد الذكي والتواصل المباشر، لتصل إلى جمهورك في كل مكان وبأنسب الأسعار
         </p>
 
@@ -87,9 +87,10 @@ const HeroSection = () => {
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer animate-bounce"
           onClick={scrollToNextSection}
         >
-          <ChevronDown className="h-10 w-10 text-tijwal-orange opacity-80" />
+          <ChevronDown className="h-10 w-10 text-primary" /> {/* Use text-primary, removed opacity */}
         </div>
       </div>
+
     </section>
   );
 };

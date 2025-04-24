@@ -73,23 +73,23 @@ const FaqSection = () => {
   };
 
   return (
-    <section ref={sectionRef} id="faq" className="py-20 bg-tijwal-light">
+    <section ref={sectionRef} id="faq" className="py-20 bg-muted/50 dark:bg-[hsl(var(--card))]/30"> {/* Explicit dark background */}
       <div className="container mx-auto px-4">
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <span className="inline-block bg-tijwal-blue/10 text-tijwal-blue px-4 py-1 rounded-full text-sm font-medium mb-4">
+          <span className="inline-block bg-secondary/10 text-secondary px-4 py-1 rounded-full text-sm font-medium mb-4"> {/* Use secondary */}
             الأسئلة الشائعة
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">كل ما تحتاج معرفته</h2>
-          <p className="text-tijwal-gray max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">كل ما تحتاج معرفته</h2> {/* Use text-foreground */}
+          <p className="text-muted-foreground max-w-2xl mx-auto"> {/* Use text-muted-foreground */}
             إليك أجوبة لأكثر الأسئلة شيوعاً حول خدماتنا. إذا لم تجد إجابة لسؤالك، لا تتردد في التواصل معنا
           </p>
         </div>
 
         <div className="max-w-3xl mx-auto">
           {faqs.map((faq, index) => (
-            <div 
-              key={index} 
-              className={`border-b border-gray-200 last:border-0 transition-all duration-300 ${
+            <div
+              key={index}
+              className={`border-b border-border last:border-0 transition-all duration-300 ${ // Use border-border
                 openIndex === index ? 'pb-6' : 'pb-0'
               } ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
               style={{ 
@@ -101,12 +101,12 @@ const FaqSection = () => {
                 className="flex justify-between items-center w-full py-6 text-right"
                 onClick={() => toggleFaq(index)}
               >
-                <h3 className="text-xl font-semibold text-tijwal-dark">{faq.question}</h3>
+                <h3 className="text-xl font-semibold text-foreground">{faq.question}</h3> {/* Use text-foreground */}
                 <span className="flex-shrink-0 ml-4">
                   {openIndex === index ? (
-                    <ChevronUp className="h-6 w-6 text-tijwal-blue" />
+                    <ChevronUp className="h-6 w-6 text-secondary" /> // Use text-secondary
                   ) : (
-                    <ChevronDown className="h-6 w-6 text-tijwal-gray" />
+                    <ChevronDown className="h-6 w-6 text-muted-foreground" /> // Use text-muted-foreground
                   )}
                 </span>
               </button>
@@ -115,12 +115,13 @@ const FaqSection = () => {
                   openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
-                <p className="text-tijwal-gray pb-4">{faq.answer}</p>
+                <p className="text-foreground/90 pb-4">{faq.answer}</p> {/* Use text-foreground/90 for slightly softer but readable text */}
               </div>
             </div>
           ))}
         </div>
       </div>
+
     </section>
   );
 };

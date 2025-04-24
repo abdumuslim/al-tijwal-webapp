@@ -180,7 +180,7 @@
   left: -1px;
   width: 16px;
   height: 16px;
-  background: white;
+  background: hsl(var(--card));
   border-right: 1px solid #FF7F00;
   border-bottom: 1px solid #FF7F00;
   transform: rotate(90deg);

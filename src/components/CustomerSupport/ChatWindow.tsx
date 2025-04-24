@@ -192,11 +192,11 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
       <div onClick={(e) => e.stopPropagation()}>
         {/* Chat panel */}
         <div className={cn(
-          'fixed left-4 right-4 sm:left-6 sm:right-auto z-50 w-auto sm:w-[330px] md:w-[480px] max-w-md rounded-2xl shadow-xl bg-white border border-gray-200 flex flex-col safe-bottom',
+          'fixed left-4 right-4 sm:left-6 sm:right-auto z-50 w-auto sm:w-[330px] md:w-[480px] max-w-md rounded-2xl shadow-xl bg-card border border-border flex flex-col safe-bottom', // Use card/border
           'max-h-[90vh]'
         )}>
         {/* Header */}
-        <div className="flex items-center justify-between p-4 bg-tijwal-orange text-white rounded-t-2xl">
+        <div className="flex items-center justify-between p-4 bg-primary text-primary-foreground rounded-t-2xl"> {/* Use primary */}
           <div className="flex items-center gap-2">
             <img src={eyeImg} alt="Icon" className="h-20 w-20 -mt-14" />
             <h3 className="font-bold text-lg">مساعد التجوال</h3>
@@ -204,22 +204,22 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
           <div className="flex items-center gap-1"> {/* Reduced gap slightly */}
             <DropdownMenu modal={false}> {/* Set modal to false */}
               <DropdownMenuTrigger asChild>
-                <button aria-label="Chat options" className="p-1 rounded hover:bg-white/20">
+                <button aria-label="Chat options" className="p-1 rounded hover:bg-primary-foreground/20"> {/* Adjusted hover */}
                   <MoreVertical className="h-5 w-5" />
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="text-gray-800"> {/* Ensure text color is readable */}
-                <DropdownMenuItem onClick={() => setMuted(m => !m)} className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 focus:bg-gray-100">
+              <DropdownMenuContent align="end" className="text-foreground bg-card border-border"> {/* Adjusted dropdown content */}
+                <DropdownMenuItem onClick={() => setMuted(m => !m)} className="flex items-center gap-2 cursor-pointer hover:bg-muted focus:bg-muted"> {/* Adjusted item hover/focus */}
                   {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
                   <span>{muted ? 'تفعيل الصوت' : 'كتم الصوت'}</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={clearHistory} className="flex items-center gap-2 cursor-pointer text-red-600 hover:!text-red-600 focus:!text-red-600 hover:bg-gray-100 focus:bg-gray-100">
+                <DropdownMenuItem onClick={clearHistory} className="flex items-center gap-2 cursor-pointer text-destructive hover:!text-destructive focus:!text-destructive hover:bg-muted focus:bg-muted"> {/* Use destructive, adjusted hover/focus */}
                   <Trash2 className="h-4 w-4" />
                   <span>مسح المحادثة</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <button onClick={onClose} aria-label="Close chat" className="p-1 rounded hover:bg-white/20">
+            <button onClick={onClose} aria-label="Close chat" className="p-1 rounded hover:bg-primary-foreground/20"> {/* Adjusted hover */}
               <X className="h-5 w-5" />
             </button>
           </div>
@@ -233,25 +233,25 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
                 'flex w-full items-end gap-2 animate-fade-in',
                 m.sender === 'bot' ? 'justify-end' : 'justify-start'
               )}>
-                {m.sender === 'user' && <User className="h-6 w-6 text-gray-400" />}                
+                {m.sender === 'user' && <User className="h-6 w-6 text-muted-foreground" />} {/* Use muted-foreground */}
                 <div className={cn(
-                  'max-w-[80%] p-3 rounded-lg prose prose-sm',
+                  'max-w-[80%] p-3 rounded-lg prose prose-sm dark:prose-invert', // Added dark:prose-invert
                   m.sender === 'bot'
-                    ? 'bg-tijwal-light text-tijwal-dark rounded-bl-none'
-                    : 'bg-tijwal-blue text-white rounded-br-none'
+                    ? 'bg-muted dark:bg-gray-700 text-muted-foreground rounded-bl-none' // Refined dark bot bubble
+                    : 'bg-primary text-primary-foreground rounded-br-none' // Use primary
                 )}>
                   <ReactMarkdown>{m.text}</ReactMarkdown>
                 </div>
-                {m.sender === 'bot' && <img src={eye1} alt="Bot" className="h-6 w-6 rounded-full" />}              
+                {m.sender === 'bot' && <img src={eye1} alt="Bot" className="h-6 w-6 rounded-full" />}
               </div>
             ))}
             {isLoading && (
               <div className="flex w-full items-end gap-2 justify-end">
-                <div className="bg-tijwal-light text-tijwal-dark rounded-lg rounded-bl-none max-w-[80%] p-3">
+                <div className="bg-muted dark:bg-gray-700 text-muted-foreground rounded-lg rounded-bl-none max-w-[80%] p-3"> {/* Refined dark bot bubble */}
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-tijwal-blue rounded-full animate-pulse" />
-                    <span className="w-2 h-2 bg-tijwal-blue rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
-                    <span className="w-2 h-2 bg-tijwal-blue rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
+                    <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                    <span className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} /> {/* Use primary */}
+                    <span className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} /> {/* Use primary */}
                   </div>
                 </div>
                 <img src={eye1} alt="Bot" className="h-6 w-6 rounded-full" />
@@ -262,7 +262,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
         </div>
 
         {/* Input */}
-        <div className="p-4 border-t border-gray-200">
+        <div className="p-4 border-t border-border"> {/* Use border-border */}
           <div className="flex gap-2">
             <textarea
               ref={inputRef}
@@ -272,14 +272,14 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
               onKeyDown={handleKeyDown}
               placeholder="اكتب رسالتك هنا..."
               disabled={isLoading}
-              className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-tijwal-orange resize-none overflow-hidden"
+              className="flex-1 p-2 border border-border bg-input dark:bg-background text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none overflow-hidden" // Refined dark input bg
               style={{ maxHeight: '120px' }}
             />
             <button
               onClick={handleSendMessage}
               disabled={isLoading || !inputValue.trim()}
               className={cn(
-                'p-2 rounded-lg bg-tijwal-orange text-white flex items-center justify-center',
+                'p-2 rounded-lg bg-primary text-primary-foreground flex items-center justify-center', // Use primary
                 (isLoading || !inputValue.trim()) && 'opacity-50 cursor-not-allowed'
               )}
               aria-label="Send message"

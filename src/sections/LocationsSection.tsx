@@ -63,49 +63,49 @@ const LocationsSection = () => {
   }, [selectedFilters]);
 
   return (
-    <section id="locations" className="py-20 bg-white">
+    <section id="locations" className="py-20 bg-background dark:bg-[hsl(var(--card))]/30"> {/* Explicit dark background */}
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <span className="inline-block bg-tijwal-orange/10 text-tijwal-orange px-4 py-1 rounded-full text-sm font-medium mb-4">
+          <span className="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-medium mb-4"> {/* Use primary */}
             مناطق خدماتنا
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">استهداف استراتيجي في بغداد</h2>
-          <p className="text-tijwal-gray max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">استهداف استراتيجي في بغداد</h2> {/* Use text-foreground */}
+          <p className="text-muted-foreground max-w-2xl mx-auto"> {/* Use text-muted-foreground */}
             نوفر خدمة الإعلان المتنقل في مناطق مختارة بعناية في بغداد، مع التركيز على المناطق ذات الكثافة السكانية العالية والمراكز التجارية والترفيهية
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-16">
           <div className="col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-20">
-              <h3 className="text-xl font-bold mb-6 text-tijwal-dark">تصفية المواقع</h3>
+            <div className="bg-card rounded-xl shadow-lg p-6 sticky top-20"> {/* Use bg-card */}
+              <h3 className="text-xl font-bold mb-6 text-foreground">تصفية المواقع</h3> {/* Use text-foreground */}
 
-              <div className="glass-card p-6 mb-8">
-                <h3 className="text-xl font-bold mb-4 text-tijwal-dark">استراتيجية اختيار المواقع</h3>
-                <p className="text-tijwal-gray mb-4">
+              <div className="glass-card p-6 mb-8 bg-muted/50 dark:bg-muted/20 dark:backdrop-blur-lg rounded-lg"> {/* Added dark:backdrop-blur */}
+                <h3 className="text-xl font-bold mb-4 text-foreground">استراتيجية اختيار المواقع</h3> {/* Use text-foreground */}
+                <p className="text-muted-foreground mb-4"> {/* Use text-muted-foreground */}
                   نختار مواقعنا بعناية بناءً على معايير محددة لضمان أقصى تأثير للحملات الإعلانية:
                 </p>
-                <ul className="space-y-2">
+                <ul className="space-y-2 text-muted-foreground"> {/* Use text-muted-foreground */}
                   <li className="flex items-start">
                     <div className="mt-1 ml-2 flex-shrink-0">
-                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-tijwal-orange/20">
-                        <Check className="h-3 w-3 text-tijwal-orange" />
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-primary/10"> {/* Use primary */}
+                        <Check className="h-3 w-3 text-primary" /> {/* Use primary */}
                       </span>
                     </div>
                     <span>المناطق التجارية: المنصور، الكرادة، وشوارع التسوق الرئيسية</span>
                   </li>
                   <li className="flex items-start">
                     <div className="mt-1 ml-2 flex-shrink-0">
-                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-tijwal-orange/20">
-                        <Check className="h-3 w-3 text-tijwal-orange" />
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-primary/10"> {/* Use primary */}
+                        <Check className="h-3 w-3 text-primary" /> {/* Use primary */}
                       </span>
                     </div>
                     <span>أماكن التجمعات: بالقرب من مراكز التسوق والمطاعم والمقاهي الشهيرة</span>
                   </li>
                   <li className="flex items-start">
                     <div className="mt-1 ml-2 flex-shrink-0">
-                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-tijwal-orange/20">
-                        <Check className="h-3 w-3 text-tijwal-orange" />
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-primary/10"> {/* Use primary */}
+                        <Check className="h-3 w-3 text-primary" /> {/* Use primary */}
                       </span>
                     </div>
                     <span>المناسبات الخاصة: بالقرب من الفعاليات والمهرجانات والحفلات</span>
@@ -119,14 +119,14 @@ const LocationsSection = () => {
                     <input
                       type="checkbox"
                       id={`filter-${filter.id}`}
-                      className="h-5 w-5 rounded border-gray-300 text-tijwal-orange focus:ring-tijwal-orange/25 location-filter-checkbox"
+                      className="h-5 w-5 rounded border-border text-primary focus:ring-primary/25 dark:accent-primary location-filter-checkbox" // Use theme colors, add dark:accent
                       checked={selectedFilters.includes(filter.id)}
                       onChange={() => handleFilterChange(filter.id)}
                     />
-                    <label 
-                      htmlFor={`filter-${filter.id}`} 
+                    <label
+                      htmlFor={`filter-${filter.id}`}
                       className={`mr-3 transition-all duration-300 border-b-2 border-transparent pb-1 ${
-                        selectedFilters.includes(filter.id) ? 'text-tijwal-orange border-tijwal-orange' : 'text-tijwal-gray'
+                        selectedFilters.includes(filter.id) ? 'text-primary border-primary' : 'text-muted-foreground' // Use theme colors
                       }`}
                     >
                       {filter.name}
@@ -135,8 +135,8 @@ const LocationsSection = () => {
                 ))}
               </div>
 
-              <h3 className="text-xl font-bold mb-4 text-tijwal-dark">احتاج مساعدة في اختيار المواقع المناسبة</h3>
-              <p className="text-tijwal-gray mb-6 text-sm">
+              <h3 className="text-xl font-bold mb-4 text-foreground">احتاج مساعدة في اختيار المواقع المناسبة</h3> {/* Use text-foreground */}
+              <p className="text-muted-foreground mb-6 text-sm"> {/* Use text-muted-foreground */}
                 فريقنا المتخصص يساعدك في اختيار المواقع المناسبة لنشاطك التجاري وجمهورك المستهدف
               </p>
               <TijwalButton 
@@ -150,9 +150,9 @@ const LocationsSection = () => {
           </div>
           
           <div className="col-span-1 md:col-span-2">
-            <div className="glass-card p-1 rounded-2xl shadow-xl mb-8">
+            <div className="glass-card p-1 rounded-2xl shadow-xl mb-8 dark:bg-card/60 dark:backdrop-blur-lg"> {/* Added dark glass effect */}
               <div className="relative rounded-xl overflow-hidden">
-                <iframe 
+                <iframe
                   src="https://www.google.com/maps/d/u/0/embed?mid=1ktBrIpaMmmRgekTrYzKKfAQhdZPMv8o&ehbc=2E312F&noprof=1" 
                   width="100%" 
                   height="450"
@@ -164,32 +164,32 @@ const LocationsSection = () => {
               </div>
             </div>
 
-            <h3 className="text-xl font-bold mb-6 text-tijwal-dark">المواقع المتاحة</h3>
+            <h3 className="text-xl font-bold mb-6 text-foreground">المواقع المتاحة</h3> {/* Use text-foreground */}
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {allLocations.map((location) => {
                 const isVisible = animatingItems.includes(location.id) && filteredLocations.some(loc => loc.id === location.id);
                 const animationDelay = `${(Array.from(animatingItems).indexOf(location.id) * 0.05)}s`;
                 
                 return (
-                  <div 
-                    key={location.id} 
-                    className={`bg-white rounded-lg border border-gray-100 p-4 shadow-sm hover:shadow-md transition-all duration-300 location-item ${isVisible ? '' : 'location-item-hidden'}`}
+                  <div
+                    key={location.id}
+                    className={`bg-card rounded-lg border border-border p-4 shadow-sm hover:shadow-md transition-all duration-300 location-item ${isVisible ? '' : 'location-item-hidden'}`}
                     style={{ animationDelay }}
                   >
                     <div className="flex items-start mb-2">
-                      <MapPin className="h-5 w-5 text-tijwal-orange mt-1 ml-2" />
+                      <MapPin className="h-5 w-5 text-primary mt-1 ml-2" /> {/* Use primary */}
                       <div>
-                        <h4 className="font-bold text-tijwal-dark">{location.name}</h4>
+                        <h4 className="font-bold text-foreground">{location.name}</h4> {/* Use text-foreground */}
                       </div>
                     </div>
                     <div className="flex justify-between items-center mt-3">
-                      <span className="text-xs text-tijwal-gray">شعبية:</span>
+                      <span className="text-xs text-muted-foreground">شعبية:</span> {/* Use text-muted-foreground */}
                       <span className={`text-xs px-2 py-1 rounded-full ${
-                        location.popularity === "عالية جداً" 
-                          ? "bg-tijwal-orange/10 text-tijwal-orange" 
+                        location.popularity === "عالية جداً"
+                          ? "bg-primary/10 text-primary" // Use primary
                           : location.popularity === "عالية"
-                          ? "bg-tijwal-blue/10 text-tijwal-blue" 
-                          : "bg-emerald-400/10 text-emerald-600"
+                          ? "bg-secondary/10 text-secondary" // Use secondary
+                          : "bg-emerald-400/10 text-emerald-600 dark:bg-emerald-600/20 dark:text-emerald-400" // Keep emerald, add dark variant
                       }`}>
                         {location.popularity}
                       </span>
@@ -200,8 +200,8 @@ const LocationsSection = () => {
             </div>
             
             <div className="mt-8 text-center">
-              <p className="text-tijwal-gray mb-4">هذه قائمة بالمواقع المتاحة في بغداد. يمكننا أيضًا تخصيص مسارات محددة وفقًا لاحتياجات عملك.</p>
-              <TijwalButton 
+              <p className="text-muted-foreground mb-4">هذه قائمة بالمواقع المتاحة في بغداد. يمكننا أيضًا تخصيص مسارات محددة وفقًا لاحتياجات عملك.</p> {/* Use text-muted-foreground */}
+              <TijwalButton
                 variant="secondary"
                 onClick={handleContactClick}
               >
@@ -211,6 +211,7 @@ const LocationsSection = () => {
           </div>
         </div>
       </div>
+
     </section>
   );
 };
