@@ -5,9 +5,11 @@
   # Set base directory if your app is in a subdirectory (optional, uncomment if needed)
   # RewriteBase /your-subdirectory/
 
-  # Redirect HTTP to HTTPS (optional, uncomment if needed and SSL is configured)
-  # RewriteCond %{HTTPS} off
-  # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # Force HTTPS and non-WWW
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
   # Serve existing files directly
   RewriteCond %{REQUEST_FILENAME} -f [OR]
