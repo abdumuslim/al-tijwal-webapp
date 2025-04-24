@@ -34,14 +34,21 @@
   transform: rotateY(180deg);
 }
 
+/* Remove rule for previous auto-flip */
+/* .flip-card.is-auto-flipped .flip-card-inner {
+  transform: rotateY(180deg);
+} */
+
 .flip-card-front, .flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
-  border-radius: 0.75rem;
-  overflow: hidden;
+  border-radius: 0.75rem; /* Match parent card rounding */
+  overflow: hidden; /* Ensure content within faces is clipped */
+  transform: translateZ(0); /* Promote to own layer to potentially reduce flicker */
+  will-change: transform; /* Hint browser about upcoming transforms */
 }
 
 .flip-card-back {
@@ -109,3 +116,31 @@
   /* Removed explicit hover override - animation should take precedence */
 }
 /* --- End Mobile Auto-Flip Animation --- */
+
+/* --- Desktop Sequential Flip-and-Back Animation --- */
+@keyframes flipAndBack {
+  0%, 100% { /* Start and end state */
+    transform: rotateY(0deg);
+  }
+  /* Flip over during the first part (matches base transition time of 0.8s / 4s total = 20%) */
+  20%, 80% { /* Stay flipped during the middle part */
+    transform: rotateY(180deg);
+  }
+  /* 80% to 100% flips back */
+}
+
+/* Apply animation only when active and on desktop */
+@media (min-width: 768px) {
+  .flip-card.is-active-flip .flip-card-inner {
+    /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+    /* Use ease-in-out for smoother start/end, match total cycle time from component */
+    animation: flipAndBack 4s ease-in-out 0s 1 normal forwards;
+    /* Override the base transition during animation to prevent conflict */
+    transition: none !important; /* Use important to ensure override */
+  }
+
+  /* Ensure hover still works when NOT active */
+  /* The base .flip-card:hover .flip-card-inner rule should handle this */
+  /* No need for the :not selector as the animation's transition:none applies only when active */
+}
+/* --- End Desktop Animation --- */

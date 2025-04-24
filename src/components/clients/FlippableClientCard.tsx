@@ -7,9 +7,10 @@ import { extractBgColor } from '@/data/clients';
 interface FlippableClientCardProps {
   client: ClientLogo;
   delay?: number;
+  isActive?: boolean; // Changed prop name
 }
 
-const FlippableClientCard = ({ client, delay = 0 }: FlippableClientCardProps) => {
+const FlippableClientCard = ({ client, delay = 0, isActive = false }: FlippableClientCardProps) => {
   const [isVisible, setIsVisible] = useState(false); // Keep for initial fade-in
   // No longer need isFlipped state
   const cardRef = useRef<HTMLDivElement>(null);
@@ -56,9 +57,12 @@ const FlippableClientCard = ({ client, delay = 0 }: FlippableClientCardProps) =>
       // Removed is-flipped class logic, hover is handled by CSS, mobile flip is handled by CSS animation
       className={`
         flip-card h-40 rounded-xl shadow-sm border border-border
-        hover:shadow-md transition-all duration-500
+        hover:shadow-md transition-all duration-500 /* Keep hover shadow effect */
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+        ${isActive ? 'is-active-flip' : ''} // Add new class conditionally
       `}
+      // Note: The base transition on flip-card-inner handles the hover flip.
+      // The animation will handle the active flip.
     >
       {/* No inline style needed */}
       <div className="flip-card-inner">
