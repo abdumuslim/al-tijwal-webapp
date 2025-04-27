@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { Send, X, User, MoreVertical, Trash2, Volume2, VolumeX } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
@@ -9,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { encryptMessage, decryptMessage, checkRateLimit } from '@/utils/chatSecurity';
+import { encryptMessage, decryptMessage, checkRateLimit, isOverCharLimit, getMaxCharLimit } from '@/utils/chatSecurity';
 import rehypeRaw from 'rehype-raw';
 
 // Import the sound asset directly so bundler includes it
@@ -32,8 +33,20 @@ interface ChatWindowProps {
   onClose: () => void;
 }
 
+// Simple function to convert markdown to HTML for browsers that don't support ReactMarkdown well
+const simpleMarkdownToHtml = (text: string): string => {
+  // Handle bold text
+  let html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  // Handle italic text
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  // Handle line breaks
+  html = html.replace(/\n/g, '<br />');
+  return html;
+};
+
 const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   const { toast } = useToast();
+  const maxCharLimit = getMaxCharLimit();
 
   // 1) sessionId persistence
   const sessionId = useMemo(() => {
@@ -116,7 +129,15 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
 
   // 7) input handling & resize
   const [inputValue, setInputValue] = useState('');
-const isOverCharLimit = inputValue.length > 600;
+  const [useSimpleMarkdown, setUseSimpleMarkdown] = useState(false);
+  
+  // Check if browser needs simple markdown (Safari detection)
+  useEffect(() => {
+    const ua = navigator.userAgent;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+    setUseSimpleMarkdown(isSafari);
+  }, []);
+
   const resizeTextarea = () => {
     if (!inputRef.current) return;
     inputRef.current.style.height = 'auto';
@@ -162,6 +183,16 @@ const isOverCharLimit = inputValue.length > 600;
   const handleSendMessage = async () => {
     const msg = inputValue.trim();
     if (!msg) return;
+    
+    // Check character limit
+    if (isOverCharLimit(msg)) {
+      toast({
+        title: 'تم تجاوز حد الأحرف',
+        description: `يرجى تقصير رسالتك. الحد الأقصى هو ${maxCharLimit} حرف`,
+        variant: 'destructive'
+      });
+      return;
+    }
 
     // Check rate limit
     const rateLimitCheck = checkRateLimit();
@@ -270,17 +301,22 @@ const isOverCharLimit = inputValue.length > 600;
                       ? 'bg-muted dark:bg-gray-700 text-muted-foreground rounded-bl-none'
                       : 'bg-primary text-primary-foreground rounded-br-none'
                   )}>
-                    <ReactMarkdown
-                      rehypePlugins={[rehypeRaw]}
-                      components={{
-                        p: ({ children }) => <p className="m-0">{children}</p>,
-                        strong: ({ children }) => <span className="font-bold">{children}</span>,
-                        em: ({ children }) => <span className="italic">{children}</span>,
-                        code: ({ children }) => <code className="bg-muted px-1 py-0.5 rounded">{children}</code>,
-                      }}
-                    >
-                      {m.text}
-                    </ReactMarkdown>
+                    {useSimpleMarkdown ? (
+                      <div dangerouslySetInnerHTML={{ __html: simpleMarkdownToHtml(m.text) }} />
+                    ) : (
+                      <ReactMarkdown
+                        rehypePlugins={[rehypeRaw]}
+                        components={{
+                          p: ({ children }) => <p className="m-0">{children}</p>,
+                          strong: ({ children }) => <span className="font-bold">{children}</span>,
+                          em: ({ children }) => <span className="italic">{children}</span>,
+                          code: ({ children }) => <code className="bg-muted px-1 py-0.5 rounded">{children}</code>,
+                          br: () => <br />,
+                        }}
+                      >
+                        {m.text}
+                      </ReactMarkdown>
+                    )}
                   </div>
                   {m.sender === 'bot' && <img src={eye1} alt="Bot" className="h-6 w-6 rounded-full" />}
                 </div>
@@ -313,19 +349,19 @@ const isOverCharLimit = inputValue.length > 600;
                   onKeyDown={handleKeyDown}
                   placeholder="اكتب رسالتك هنا..."
                   disabled={isLoading}
-                  maxLength={600}
+                  maxLength={maxCharLimit}
                   className={cn(
                     "flex-1 p-2 border border-border bg-input dark:bg-background text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none overflow-hidden",
-                    isOverCharLimit && "border-destructive focus:ring-destructive"
+                    isOverCharLimit(inputValue) && "border-destructive focus:ring-destructive"
                   )}
                   style={{ maxHeight: '120px' }}
                 />
                 <button
                   onClick={handleSendMessage}
-                  disabled={isLoading || !inputValue.trim() || isOverCharLimit}
+                  disabled={isLoading || !inputValue.trim() || isOverCharLimit(inputValue)}
                   className={cn(
                     'p-2 rounded-lg bg-primary text-primary-foreground flex items-center justify-center',
-                    (isLoading || !inputValue.trim() || isOverCharLimit) && 'opacity-50 cursor-not-allowed'
+                    (isLoading || !inputValue.trim() || isOverCharLimit(inputValue)) && 'opacity-50 cursor-not-allowed'
                   )}
                   aria-label="Send message"
                 >
@@ -333,8 +369,8 @@ const isOverCharLimit = inputValue.length > 600;
                 </button>
               </div>
               <div className="flex justify-between text-xs text-muted-foreground">
-                <span>{inputValue.length}/600</span>
-                {isOverCharLimit && <span className="text-destructive">تم تجاوز الحد الأقصى للأحرف</span>}
+                <span>{inputValue.length}/{maxCharLimit}</span>
+                {isOverCharLimit(inputValue) && <span className="text-destructive">تم تجاوز الحد الأقصى للأحرف</span>}
               </div>
             </div>
           </div>

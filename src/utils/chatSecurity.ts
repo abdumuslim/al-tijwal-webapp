@@ -5,6 +5,7 @@ const ENCRYPTION_KEY = 'tijwal-chat-key-2025'; // Simple key for demo purposes
 const RATE_LIMIT_KEY = 'tijwal-chat-rate-limit';
 const MAX_MESSAGES = 3;
 const TIME_WINDOW = 60 * 1000; // 1 minute in milliseconds
+const MAX_CHAR_LENGTH = 600;
 
 // Message encryption/decryption
 export const encryptMessage = (text: string): string => {
@@ -36,3 +37,12 @@ export const checkRateLimit = (): { allowed: boolean; remainingTime?: number } =
   return { allowed: true };
 };
 
+// Character limit validator
+export const isOverCharLimit = (text: string): boolean => {
+  return text.length > MAX_CHAR_LENGTH;
+};
+
+// Get the maximum character limit
+export const getMaxCharLimit = (): number => {
+  return MAX_CHAR_LENGTH;
+};
