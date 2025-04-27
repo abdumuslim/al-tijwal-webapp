@@ -47,7 +47,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
 
   // 2) message state with persistence
   const initialGreeting = {
-    text: 'مرحباً! اني مساعد التجوال الذكي. شلون اكدر اساعدك اليوم؟',
+    text: 'مرحباً! اني مساعد التجوال الذكي. شلون اكدر اساعدك اليوم؟\n\n**محادثاتنا مسجلة لأغراض قياس الجودة.**',
     sender: 'bot' as const
   };
   const [messages, setMessages] = useState<Array<{ text: string; sender: 'user' | 'bot' }>>(() => {
@@ -116,6 +116,7 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
 
   // 7) input handling & resize
   const [inputValue, setInputValue] = useState('');
+const isOverCharLimit = inputValue.length > 600;
   const resizeTextarea = () => {
     if (!inputRef.current) return;
     inputRef.current.style.height = 'auto';
