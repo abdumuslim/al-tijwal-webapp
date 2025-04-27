@@ -9,6 +9,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { encryptMessage, decryptMessage, checkRateLimit } from '@/utils/chatSecurity';
+import rehypeRaw from 'rehype-raw';
 
 // Import the sound asset directly so bundler includes it
 import soundSrc from '@/assets/public/sounds/message.mp3';
@@ -51,12 +53,24 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
   const [messages, setMessages] = useState<Array<{ text: string; sender: 'user' | 'bot' }>>(() => {
     const stored = localStorage.getItem('tijwalChat.messages');
     if (stored) {
-      try { return JSON.parse(stored); } catch {}
+      try {
+        const parsed = JSON.parse(stored);
+        return parsed.map((m: { text: string; sender: 'user' | 'bot' }) => ({
+          text: m.sender === 'user' ? decryptMessage(m.text) : m.text,
+          sender: m.sender
+        }));
+      } catch {
+        return [initialGreeting];
+      }
     }
     return [initialGreeting];
   });
   useEffect(() => {
-    localStorage.setItem('tijwalChat.messages', JSON.stringify(messages));
+    const toStore = messages.map(m => ({
+      text: m.sender === 'user' ? encryptMessage(m.text) : m.text,
+      sender: m.sender
+    }));
+    localStorage.setItem('tijwalChat.messages', JSON.stringify(toStore));
   }, [messages]);
 
   // 3) loading state & refs
@@ -145,10 +159,25 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
 
   // 9) main send
   const handleSendMessage = async () => {
-    const msg = inputValue.trim(); if (!msg) return;
-    setInputValue(''); resizeTextarea();
+    const msg = inputValue.trim();
+    if (!msg) return;
+
+    // Check rate limit
+    const rateLimitCheck = checkRateLimit();
+    if (!rateLimitCheck.allowed) {
+      toast({
+        title: 'تم تجاوز حد الرسائل',
+        description: `يرجى الانتظار ${rateLimitCheck.remainingTime} ثانية قبل إرسال رسالة جديدة`,
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    setInputValue('');
+    resizeTextarea();
     setMessages(m => [...m, { text: msg, sender: 'user' }]);
     setIsLoading(true);
+
     try {
       const opts: RequestInit = {
         method: 'POST',
@@ -192,102 +221,122 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
       <div onClick={(e) => e.stopPropagation()}>
         {/* Chat panel */}
         <div className={cn(
-          'fixed left-4 right-4 sm:left-6 sm:right-auto z-50 w-auto sm:w-[330px] md:w-[480px] max-w-md rounded-2xl shadow-xl bg-card border border-border flex flex-col safe-bottom', // Use card/border
+          'fixed left-4 right-4 sm:left-6 sm:right-auto z-50 w-auto sm:w-[330px] md:w-[480px] max-w-md rounded-2xl shadow-xl bg-card border border-border flex flex-col safe-bottom',
           'max-h-[90vh]'
         )}>
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 bg-primary text-primary-foreground rounded-t-2xl"> {/* Use primary */}
-          <div className="flex items-center gap-2">
-            <img src={eyeImg} alt="Icon" className="h-20 w-20 -mt-14" />
-            <h3 className="font-bold text-lg">مساعد التجوال</h3>
+          {/* Header */}
+          <div className="flex items-center justify-between p-4 bg-primary text-primary-foreground rounded-t-2xl">
+            <div className="flex items-center gap-2">
+              <img src={eyeImg} alt="Icon" className="h-20 w-20 -mt-14" />
+              <h3 className="font-bold text-lg">مساعد التجوال</h3>
+            </div>
+            <div className="flex items-center gap-1">
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <button aria-label="Chat options" className="p-1 rounded hover:bg-primary-foreground/20">
+                    <MoreVertical className="h-5 w-5" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="text-foreground bg-card border-border">
+                  <DropdownMenuItem onClick={() => setMuted(m => !m)} className="flex items-center gap-2 cursor-pointer hover:bg-muted focus:bg-muted">
+                    {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                    <span>{muted ? 'تفعيل الصوت' : 'كتم الصوت'}</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={clearHistory} className="flex items-center gap-2 cursor-pointer text-destructive hover:!text-destructive focus:!text-destructive hover:bg-muted focus:bg-muted">
+                    <Trash2 className="h-4 w-4" />
+                    <span>مسح المحادثة</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <button onClick={onClose} aria-label="Close chat" className="p-1 rounded hover:bg-primary-foreground/20">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
           </div>
-          <div className="flex items-center gap-1"> {/* Reduced gap slightly */}
-            <DropdownMenu modal={false}> {/* Set modal to false */}
-              <DropdownMenuTrigger asChild>
-                <button aria-label="Chat options" className="p-1 rounded hover:bg-primary-foreground/20"> {/* Adjusted hover */}
-                  <MoreVertical className="h-5 w-5" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="text-foreground bg-card border-border"> {/* Adjusted dropdown content */}
-                <DropdownMenuItem onClick={() => setMuted(m => !m)} className="flex items-center gap-2 cursor-pointer hover:bg-muted focus:bg-muted"> {/* Adjusted item hover/focus */}
-                  {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-                  <span>{muted ? 'تفعيل الصوت' : 'كتم الصوت'}</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={clearHistory} className="flex items-center gap-2 cursor-pointer text-destructive hover:!text-destructive focus:!text-destructive hover:bg-muted focus:bg-muted"> {/* Use destructive, adjusted hover/focus */}
-                  <Trash2 className="h-4 w-4" />
-                  <span>مسح المحادثة</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <button onClick={onClose} aria-label="Close chat" className="p-1 rounded hover:bg-primary-foreground/20"> {/* Adjusted hover */}
-              <X className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
 
-        {/* Messages */}
-        <div className="p-4 flex-1 overflow-y-auto overscroll-contain">
-          <div className="flex flex-col gap-3">
-            {messages.map((m, i) => (
-              <div key={i} className={cn(
-                'flex w-full items-end gap-2 animate-fade-in',
-                m.sender === 'bot' ? 'justify-end' : 'justify-start'
-              )}>
-                {m.sender === 'user' && <User className="h-6 w-6 text-muted-foreground" />} {/* Use muted-foreground */}
-                <div className={cn(
-                  'max-w-[80%] p-3 rounded-lg prose prose-sm dark:prose-invert', // Added dark:prose-invert
-                  m.sender === 'bot'
-                    ? 'bg-muted dark:bg-gray-700 text-muted-foreground rounded-bl-none' // Refined dark bot bubble
-                    : 'bg-primary text-primary-foreground rounded-br-none' // Use primary
+          {/* Messages */}
+          <div className="p-4 flex-1 overflow-y-auto overscroll-contain">
+            <div className="flex flex-col gap-3">
+              {messages.map((m, i) => (
+                <div key={i} className={cn(
+                  'flex w-full items-end gap-2 animate-fade-in',
+                  m.sender === 'bot' ? 'justify-end' : 'justify-start'
                 )}>
-                  <ReactMarkdown>{m.text}</ReactMarkdown>
-                </div>
-                {m.sender === 'bot' && <img src={eye1} alt="Bot" className="h-6 w-6 rounded-full" />}
-              </div>
-            ))}
-            {isLoading && (
-              <div className="flex w-full items-end gap-2 justify-end">
-                <div className="bg-muted dark:bg-gray-700 text-muted-foreground rounded-lg rounded-bl-none max-w-[80%] p-3"> {/* Refined dark bot bubble */}
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                    <span className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} /> {/* Use primary */}
-                    <span className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} /> {/* Use primary */}
+                  {m.sender === 'user' && <User className="h-6 w-6 text-muted-foreground" />}
+                  <div className={cn(
+                    'max-w-[80%] p-3 rounded-lg prose prose-sm dark:prose-invert',
+                    m.sender === 'bot'
+                      ? 'bg-muted dark:bg-gray-700 text-muted-foreground rounded-bl-none'
+                      : 'bg-primary text-primary-foreground rounded-br-none'
+                  )}>
+                    <ReactMarkdown
+                      rehypePlugins={[rehypeRaw]}
+                      components={{
+                        p: ({ children }) => <p className="m-0">{children}</p>,
+                        strong: ({ children }) => <span className="font-bold">{children}</span>,
+                        em: ({ children }) => <span className="italic">{children}</span>,
+                        code: ({ children }) => <code className="bg-muted px-1 py-0.5 rounded">{children}</code>,
+                      }}
+                    >
+                      {m.text}
+                    </ReactMarkdown>
                   </div>
+                  {m.sender === 'bot' && <img src={eye1} alt="Bot" className="h-6 w-6 rounded-full" />}
                 </div>
-                <img src={eye1} alt="Bot" className="h-6 w-6 rounded-full" />
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-        </div>
-
-        {/* Input */}
-        <div className="p-4 border-t border-border"> {/* Use border-border */}
-          <div className="flex gap-2">
-            <textarea
-              ref={inputRef}
-              rows={1}
-              value={inputValue}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-              placeholder="اكتب رسالتك هنا..."
-              disabled={isLoading}
-              className="flex-1 p-2 border border-border bg-input dark:bg-background text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none overflow-hidden" // Refined dark input bg
-              style={{ maxHeight: '120px' }}
-            />
-            <button
-              onClick={handleSendMessage}
-              disabled={isLoading || !inputValue.trim()}
-              className={cn(
-                'p-2 rounded-lg bg-primary text-primary-foreground flex items-center justify-center', // Use primary
-                (isLoading || !inputValue.trim()) && 'opacity-50 cursor-not-allowed'
+              ))}
+              {isLoading && (
+                <div className="flex w-full items-end gap-2 justify-end">
+                  <div className="bg-muted dark:bg-gray-700 text-muted-foreground rounded-lg rounded-bl-none max-w-[80%] p-3">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                      <span className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
+                      <span className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
+                    </div>
+                  </div>
+                  <img src={eye1} alt="Bot" className="h-6 w-6 rounded-full" />
+                </div>
               )}
-              aria-label="Send message"
-            >
-              <Send className="h-5 w-5" />
-            </button>
+              <div ref={messagesEndRef} />
+            </div>
           </div>
-        </div>
+
+          {/* Input */}
+          <div className="p-4 border-t border-border">
+            <div className="flex flex-col gap-2">
+              <div className="flex gap-2">
+                <textarea
+                  ref={inputRef}
+                  rows={1}
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
+                  placeholder="اكتب رسالتك هنا..."
+                  disabled={isLoading}
+                  maxLength={600}
+                  className={cn(
+                    "flex-1 p-2 border border-border bg-input dark:bg-background text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none overflow-hidden",
+                    isOverCharLimit && "border-destructive focus:ring-destructive"
+                  )}
+                  style={{ maxHeight: '120px' }}
+                />
+                <button
+                  onClick={handleSendMessage}
+                  disabled={isLoading || !inputValue.trim() || isOverCharLimit}
+                  className={cn(
+                    'p-2 rounded-lg bg-primary text-primary-foreground flex items-center justify-center',
+                    (isLoading || !inputValue.trim() || isOverCharLimit) && 'opacity-50 cursor-not-allowed'
+                  )}
+                  aria-label="Send message"
+                >
+                  <Send className="h-5 w-5" />
+                </button>
+              </div>
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <span>{inputValue.length}/600</span>
+                {isOverCharLimit && <span className="text-destructive">تم تجاوز الحد الأقصى للأحرف</span>}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
