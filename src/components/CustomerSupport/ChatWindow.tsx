@@ -1,265 +1,286 @@
-
-import { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Send, X, User, MoreVertical, Trash2, Volume2, VolumeX } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+//import ReactMarkdown from 'react-markdown';
 import { cn } from '@/lib/utils';
-import { useToast } from '@/hooks/use-toast';
+// Removed useToast as it's handled in parent
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { encryptMessage, decryptMessage, checkRateLimit, isOverCharLimit, getMaxCharLimit } from '@/utils/chatSecurity';
-import rehypeRaw from 'rehype-raw';
+// Removed chatSecurity imports as logic is in parent
+//import rehypeRaw from 'rehype-raw';
+import { renderMarkdown } from '@/lib/markdown';
 
-// Import the sound asset directly so bundler includes it
-import soundSrc from '@/assets/public/sounds/message.mp3';
-
-// Blink images
+// Blink images (kept for UI)
 import eye1 from '@/assets/chatbot-blink/1.webp';
 import eye2 from '@/assets/chatbot-blink/2.webp';
 import eye3 from '@/assets/chatbot-blink/3.webp';
 import eye4 from '@/assets/chatbot-blink/4.webp';
 import eye5 from '@/assets/chatbot-blink/5.webp';
 
-// Static header auth (unchanged)
-const AUTH_HEADER_KEY   = 'tijwal-AI-bot';
-const AUTH_HEADER_VALUE = 'tijwal-secret-2025';
-const WEBHOOK_URL       = import.meta.env.VITE_N8N_WEBHOOK_URL!;
+// Moved ChatMessage interface to index.tsx
+// Re-importing here for prop definition clarity
+interface ChatMessage {
+  text: string;
+  sender: 'user' | 'bot';
+  timestamp: number; // epoch ms
+}
 
+// Updated Props Interface
 interface ChatWindowProps {
   isOpen: boolean;
   onClose: () => void;
+  messages: ChatMessage[];
+  isLoading: boolean;
+  inputValue: string;
+  onInputChange: (value: string) => void; // Changed to accept value directly
+  onSendMessage: () => void;
+  muted: boolean;
+  onToggleMute: () => void;
+  onClearHistory: () => void;
+  // onNewMessage is removed as parent handles it internally
 }
 
-// Simple function to convert markdown to HTML for browsers that don't support ReactMarkdown well
-const simpleMarkdownToHtml = (text: string): string => {
-  // Handle bold text
-  let html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  // Handle italic text
-  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-  // Handle line breaks
-  html = html.replace(/\n/g, '<br />');
-  return html;
-};
+/** Helper to format timestamps (kept for rendering) */
+const formatTime = (ts: number) =>
+  new Date(ts).toLocaleTimeString('ar-EG', { hour: 'numeric', minute: '2-digit' });
+const formatDate = (ts: number) =>
+  new Date(ts).toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' }); // Changed locale to Arabic
 
-const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
-  const { toast } = useToast();
-  const maxCharLimit = getMaxCharLimit();
+// Simple markdown converter (kept for rendering)
+// const simpleMarkdownToHtml = (text: string): string => {
+//   let html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+//   html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+//   html = html.replace(/\n/g, '<br />');
+//   return html;
+// };
 
-  // 1) sessionId persistence
-  const sessionId = useMemo(() => {
-    let sid = localStorage.getItem('tijwalChat.sid');
-    if (!sid) {
-      sid = `session_${Date.now()}_${Math.random().toString(36).substring(2,9)}`;
-      localStorage.setItem('tijwalChat.sid', sid);
-    }
-    return sid;
-  }, []);
+// Removed getMaxCharLimit as it's used in parent
+// const maxCharLimit = getMaxCharLimit(); // Now handled in parent
 
-  // 2) message state with persistence
-  const initialGreeting = {
-    text: 'مرحباً! اني مساعد التجوال الذكي. شلون اكدر اساعدك اليوم؟\n\n**محادثاتنا مسجلة لأغراض قياس الجودة.**',
-    sender: 'bot' as const
-  };
-  const [messages, setMessages] = useState<Array<{ text: string; sender: 'user' | 'bot' }>>(() => {
-    const stored = localStorage.getItem('tijwalChat.messages');
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        return parsed.map((m: { text: string; sender: 'user' | 'bot' }) => ({
-          text: m.sender === 'user' ? decryptMessage(m.text) : m.text,
-          sender: m.sender
-        }));
-      } catch {
-        return [initialGreeting];
-      }
-    }
-    return [initialGreeting];
-  });
-  useEffect(() => {
-    const toStore = messages.map(m => ({
-      text: m.sender === 'user' ? encryptMessage(m.text) : m.text,
-      sender: m.sender
-    }));
-    localStorage.setItem('tijwalChat.messages', JSON.stringify(toStore));
-  }, [messages]);
+const ChatWindow = ({
+  isOpen,
+  onClose,
+  messages,
+  isLoading,
+  inputValue,
+  onInputChange,
+  onSendMessage,
+  muted,
+  onToggleMute,
+  onClearHistory
+}: ChatWindowProps) => {
 
-  // 3) loading state & refs
-  const [isLoading, setIsLoading] = useState(false);
+  // Refs for UI elements (kept)
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef       = useRef<HTMLTextAreaElement>(null);
-  useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
 
-  // 4) blinking animation
+  // Scroll to bottom effect (kept)
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]); // Trigger scroll when messages change
+
+  // Blinking animation state and logic (kept for UI)
   const blinkSeq = [eye1, eye2, eye3, eye4, eye5, eye4, eye3, eye2, eye1];
   const [eyeImg, setEyeImg] = useState(eye1);
   useEffect(() => {
-    let t1: NodeJS.Timeout, t2: NodeJS.Timeout;
-    const doBlink = () => {
-      let idx = 0;
-      const iv = setInterval(() => {
-        setEyeImg(blinkSeq[idx++]);
-        if (idx >= blinkSeq.length) {
-          clearInterval(iv);
-          t2 = setTimeout(doBlink, Math.random() * 4000 + 2500);
+    let blinkInterval: NodeJS.Timeout | null = null;
+    let blinkTimeout: NodeJS.Timeout | null = null;
+    let sequenceIndex = 0;
+
+    const startBlinkSequence = () => {
+      sequenceIndex = 0;
+      blinkInterval = setInterval(() => {
+        setEyeImg(blinkSeq[sequenceIndex]);
+        sequenceIndex++;
+        if (sequenceIndex >= blinkSeq.length) {
+          clearInterval(blinkInterval!);
+          blinkInterval = null;
+          scheduleNextBlink();
         }
       }, 80);
     };
-    if (isOpen) t1 = setTimeout(doBlink, Math.random() * 4000 + 2500);
-    return () => { clearTimeout(t1); clearTimeout(t2); setEyeImg(eye1); };
-  }, [isOpen]);
 
-  // 5) sound + mute toggle
-  const audioRef = useRef(new Audio(soundSrc));
-  const [muted, setMuted] = useState(() => localStorage.getItem('tijwalChat.muted') === 'true');
-  useEffect(() => {
-    audioRef.current.muted = muted;
-    localStorage.setItem('tijwalChat.muted', muted.toString());
-  }, [muted]);
-  const playSound = () => { if (!muted) audioRef.current.play().catch(() => {}); };
+    const scheduleNextBlink = () => {
+      setEyeImg(eye1); // Ensure eye is open before scheduling
+      const randomDelay = Math.random() * 4000 + 2500;
+      blinkTimeout = setTimeout(startBlinkSequence, randomDelay);
+    };
 
-  // 6) clear history & reset ID
-  const clearHistory = () => {
-    localStorage.removeItem('tijwalChat.sid');
-    localStorage.removeItem('tijwalChat.messages');
-    window.location.reload();
-  };
+    if (isOpen) {
+      scheduleNextBlink(); // Start blinking when window opens
+    } else {
+      setEyeImg(eye1); // Reset eye when window closes
+    }
 
-  // 7) input handling & resize
-  const [inputValue, setInputValue] = useState('');
-  const [useSimpleMarkdown, setUseSimpleMarkdown] = useState(false);
-  
-  // Check if browser needs simple markdown (Safari detection)
-  useEffect(() => {
-    const ua = navigator.userAgent;
-    const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
-    setUseSimpleMarkdown(isSafari);
-  }, []);
+    return () => { // Cleanup
+      if (blinkTimeout) clearTimeout(blinkTimeout);
+      if (blinkInterval) clearInterval(blinkInterval);
+      setEyeImg(eye1);
+    };
+  }, [isOpen]); // Rerun effect when isOpen changes
 
+  // Simple markdown state (kept for rendering)
+  // const [useSimpleMarkdown, setUseSimpleMarkdown] = useState(false);
+  // useEffect(() => {
+  //   const ua = navigator.userAgent;
+  //   const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+  //   setUseSimpleMarkdown(isSafari);
+  // }, []);
+
+  // Input resize logic (kept for UI)
   const resizeTextarea = () => {
     if (!inputRef.current) return;
-    inputRef.current.style.height = 'auto';
-    const maxH = 120;
-    const sh = inputRef.current.scrollHeight;
-    inputRef.current.style.height = `${Math.min(sh, maxH)}px`;
-    inputRef.current.style.overflowY = sh > maxH ? 'auto' : 'hidden';
+    inputRef.current.style.height = 'auto'; // Reset height
+    const maxH = 120; // Max height in pixels
+    const scrollH = inputRef.current.scrollHeight;
+    inputRef.current.style.height = `${Math.min(scrollH, maxH)}px`;
+    inputRef.current.style.overflowY = scrollH > maxH ? 'auto' : 'hidden';
   };
+
+  // Call resize on input change and when inputValue prop changes externally (e.g., after send)
+  useEffect(() => {
+    resizeTextarea();
+  }, [inputValue]);
+
+  // Input change handler (calls prop function)
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputValue(e.target.value);
-    resizeTextarea();
+    onInputChange(e.target.value); // Pass the new value up
+    // resizeTextarea(); // Resize is now handled by useEffect watching inputValue
   };
+
+  // Keydown handler (calls prop function)
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey && !isLoading) { e.preventDefault(); handleSendMessage(); }
-  };
-
-  // 8) sendMessageWithRetry
-  const sendMessageWithRetry = async (
-    url: string,
-    options: RequestInit,
-    maxRetries = 3,
-    delay = 1000
-  ): Promise<Response> => {
-    for (let i = 0; i < maxRetries; i++) {
-      try {
-        const ctrl = new AbortController();
-        const tid = setTimeout(() => ctrl.abort(), 180000);
-        const res = await fetch(url, { ...options, signal: ctrl.signal });
-        clearTimeout(tid);
-        if (res.ok) return res;
-        if (res.status >= 500 && res.status < 600) throw new Error(`Server ${res.status}`);
-        return res;
-      } catch (err: any) {
-        if (err.name === 'AbortError') throw err;
-        if (i === maxRetries - 1) throw err;
-        await new Promise(r => setTimeout(r, delay));
-      }
-    }
-    throw new Error('Retries exhausted');
-  };
-
-  // 9) main send
-  const handleSendMessage = async () => {
-    const msg = inputValue.trim();
-    if (!msg) return;
-    
-    // Check character limit
-    if (isOverCharLimit(msg)) {
-      toast({
-        title: 'تم تجاوز حد الأحرف',
-        description: `يرجى تقصير رسالتك. الحد الأقصى هو ${maxCharLimit} حرف`,
-        variant: 'destructive'
-      });
-      return;
-    }
-
-    // Check rate limit
-    const rateLimitCheck = checkRateLimit();
-    if (!rateLimitCheck.allowed) {
-      toast({
-        title: 'تم تجاوز حد الرسائل',
-        description: `يرجى الانتظار ${rateLimitCheck.remainingTime} ثانية قبل إرسال رسالة جديدة`,
-        variant: 'destructive'
-      });
-      return;
-    }
-
-    setInputValue('');
-    resizeTextarea();
-    setMessages(m => [...m, { text: msg, sender: 'user' }]);
-    setIsLoading(true);
-
-    try {
-      const opts: RequestInit = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          [AUTH_HEADER_KEY]: AUTH_HEADER_VALUE,
-        },
-        body: JSON.stringify({ message: msg, sessionId }),
-      };
-      const res = await sendMessageWithRetry(WEBHOOK_URL, opts);
-      if (!res.ok) throw new Error(`Status ${res.status}`);
-      const data = await res.json();
-      let botText = '';
-      if (typeof data.output === 'string') botText = data.output;
-      else if (data.Response?.output) botText = data.Response.output;
-      else if (Array.isArray(data) && data[0]?.output) botText = data[0].output;
-      else botText = 'عذراً، لم أتمكن من فهم سؤالك. هل يمكنك إعادة صياغته؟';
-      setMessages(m => [...m, { text: botText, sender: 'bot' }]);
-      playSound();
-    } catch (err: any) {
-      console.error(err);
-      toast({ title: 'حدث خطأ', description: 'عذراً، المساعد غير متوفر حالياً.', variant: 'destructive' });
-      setMessages(m => [...m, { text: 'عذراً، المساعد غير متوفر حالياً.', sender: 'bot' }]);
-    } finally {
-      setIsLoading(false);
-      setTimeout(() => inputRef.current?.focus(), 100);
+    if (e.key === 'Enter' && !e.shiftKey && !isLoading) {
+      e.preventDefault();
+      onSendMessage(); // Call parent's send function
     }
   };
 
-  // 10) auto-focus
-  useEffect(() => { if (isOpen) setTimeout(() => inputRef.current?.focus(), 300); }, [isOpen]);
+  // Auto-focus logic (kept for UI)
+  useEffect(() => {
+    if (isOpen) {
+      // Delay focus slightly to ensure the element is fully rendered and transitions complete
+      const focusTimeout = setTimeout(() => {
+        inputRef.current?.focus();
+        resizeTextarea(); // Ensure correct size on focus
+      }, 300);
+      return () => clearTimeout(focusTimeout);
+    }
+  }, [isOpen]);
 
+  // ——— New: refocus input whenever loading finishes ———
+  useEffect(() => {
+    if (!isLoading) {
+      // slight delay to let React finish rendering the new message
+      const t = setTimeout(() => {
+        resizeTextarea();
+        inputRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(t);
+    }
+  }, [isLoading]);
+
+  // Character limit check moved to parent, but we still need maxCharLimit for display
+  // This could be passed as a prop if it's dynamic, or redefined if static
+  const maxCharLimit = 600; // Assuming a static limit for display purposes
+  const isInputOverLimit = inputValue.length > maxCharLimit;
+
+
+  // Render messages helper (kept for UI, uses props.messages)
+  const renderMessages = () => {
+    let lastDate = '';
+    return messages.map((m, i) => {
+      const dateStr = formatDate(m.timestamp);
+      const timeStr = formatTime(m.timestamp);
+      const showDateSeparator = dateStr !== lastDate;
+      lastDate = dateStr;
+
+      return (
+        <React.Fragment key={`msg-${m.timestamp}-${i}`}>
+          {showDateSeparator && (
+            <div key={`date-${i}`} className="flex justify-center my-2">
+              <span className="text-xs text-muted-foreground bg-muted/50 dark:bg-gray-700/50 px-3 py-1 rounded-full">
+                {dateStr}
+              </span>
+            </div>
+          )}
+          {/* Outer container for alignment */}
+          <div className={cn(
+            'flex w-full items-start gap-2 animate-fade-in', // Changed items-end to items-start for better alignment with timestamp below
+            m.sender === 'bot' ? 'justify-end' : 'justify-start'
+          )}>
+            {/* User Icon */}
+            {m.sender === 'user' && <User className="h-6 w-6 text-muted-foreground flex-shrink-0 mt-1" />} {/* Added flex-shrink-0 and margin */}
+
+            {/* Container for Bubble + Timestamp */}
+            <div className={cn(
+              'flex flex-col max-w-[85%]', // Increased max-width slightly
+              m.sender === 'bot' ? 'items-end' : 'items-start' // Align items within this column
+            )}>
+              {/* Message Bubble */}
+              <div
+                className={cn(
+                  'p-3 rounded-lg prose prose-sm dark:prose-invert break-words', // Keep prose classes
+                  // 'force-font-cairo', // Removed custom utility class
+                  m.sender === 'bot'
+                    ? 'bg-muted dark:bg-gray-700 text-muted-foreground rounded-br-none' // Bot style
+                    : 'bg-primary text-primary-foreground rounded-bl-none' // User style (text color handled below)
+                )}
+                // Removed inline style override
+              >
+                {/* single, unified markdown renderer */}
+                <div
+                  // Add text-white directly here for user messages
+                  className={cn(
+                    "prose prose-sm dark:prose-invert break-words", // Restored dark:prose-invert
+                    m.sender === 'user' && 'text-white' // Apply text-white only for user
+                  )}
+                  dangerouslySetInnerHTML={{ __html: renderMarkdown(m.text) }}
+                />
+              </div>
+              {/* Timestamp (Moved Outside Bubble) */}
+              <div className={cn(
+                "text-[0.65rem] mt-1 opacity-70 select-none px-1", // Added padding for spacing
+                m.sender === 'bot' ? 'text-right ml-auto' : 'text-left mr-auto' // Alignment handled by parent div now, but kept for clarity
+              )}>
+                {timeStr}
+              </div>
+            </div>
+
+            {/* Bot Icon */}
+            {m.sender === 'bot' && <img src={eyeImg} alt="Bot" className="h-6 w-6 rounded-full flex-shrink-0 self-end" />} {/* Added flex-shrink-0 and self-end */}
+          </div>
+        </React.Fragment>
+      );
+    });
+  };
+
+  // Component returns null if not open (no change)
   if (!isOpen) return null;
 
+  // Main component structure (mostly unchanged, uses props)
   return (
     <>
       {/* Backdrop */}
-      <div className="fixed inset-0 z-40" onClick={onClose} />
+      <div className="fixed inset-0 z-40 bg-black/10 backdrop-blur-sm" onClick={onClose} />
 
-      {/* Chat panel Wrapper to stop propagation */}
-      <div onClick={(e) => e.stopPropagation()}>
+      {/* Chat panel Wrapper */}
+      <div onClick={(e) => e.stopPropagation()}> {/* Removed id */}
         {/* Chat panel */}
         <div className={cn(
-          'fixed left-4 right-4 sm:left-6 sm:right-auto z-50 w-auto sm:w-[330px] md:w-[480px] max-w-md rounded-2xl shadow-xl bg-card border border-border flex flex-col safe-bottom',
-          'max-h-[90vh]'
+          'fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:bottom-20 z-50 w-auto sm:w-[330px] md:w-[480px] max-w-md rounded-2xl shadow-xl bg-card border border-border flex flex-col',
+          'max-h-[calc(100vh-6rem)] sm:max-h-[calc(100vh-8rem)]', // Adjusted max height
+          'transition-transform duration-300 ease-out', // Added transition
+           isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0 pointer-events-none' // Animate in/out
         )}>
           {/* Header */}
-          <div className="flex items-center justify-between p-4 bg-primary text-primary-foreground rounded-t-2xl">
+          <div className="flex items-center justify-between p-4 bg-primary text-primary-foreground rounded-t-2xl flex-shrink-0">
             <div className="flex items-center gap-2">
-              <img src={eyeImg} alt="Icon" className="h-20 w-20 -mt-14" />
+              {/* Static image in header, blinking is separate */}
+              <img src={eye1} alt="Icon" className="h-20 w-20 -mt-14" />
               <h3 className="font-bold text-lg">مساعد التجوال</h3>
             </div>
             <div className="flex items-center gap-1">
@@ -270,11 +291,13 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="text-foreground bg-card border-border">
-                  <DropdownMenuItem onClick={() => setMuted(m => !m)} className="flex items-center gap-2 cursor-pointer hover:bg-muted focus:bg-muted">
+                  {/* Use onToggleMute prop */}
+                  <DropdownMenuItem onClick={onToggleMute} className="flex items-center gap-2 cursor-pointer hover:bg-muted focus:bg-muted">
                     {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
                     <span>{muted ? 'تفعيل الصوت' : 'كتم الصوت'}</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={clearHistory} className="flex items-center gap-2 cursor-pointer text-destructive hover:!text-destructive focus:!text-destructive hover:bg-muted focus:bg-muted">
+                  {/* Use onClearHistory prop */}
+                  <DropdownMenuItem onClick={onClearHistory} className="flex items-center gap-2 cursor-pointer text-destructive hover:!text-destructive focus:!text-destructive hover:bg-muted focus:bg-muted">
                     <Trash2 className="h-4 w-4" />
                     <span>مسح المحادثة</span>
                   </DropdownMenuItem>
@@ -287,42 +310,12 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
           </div>
 
           {/* Messages */}
-          <div className="p-4 flex-1 overflow-y-auto overscroll-contain">
+          <div className={cn("p-4 flex-1 overflow-y-auto overscroll-contain", "chat-messages-scrollbar")}>
             <div className="flex flex-col gap-3">
-              {messages.map((m, i) => (
-                <div key={i} className={cn(
-                  'flex w-full items-end gap-2 animate-fade-in',
-                  m.sender === 'bot' ? 'justify-end' : 'justify-start'
-                )}>
-                  {m.sender === 'user' && <User className="h-6 w-6 text-muted-foreground" />}
-                  <div className={cn(
-                    'max-w-[80%] p-3 rounded-lg prose prose-sm dark:prose-invert',
-                    m.sender === 'bot'
-                      ? 'bg-muted dark:bg-gray-700 text-muted-foreground rounded-bl-none'
-                      : 'bg-primary text-primary-foreground rounded-br-none'
-                  )}>
-                    {useSimpleMarkdown ? (
-                      <div dangerouslySetInnerHTML={{ __html: simpleMarkdownToHtml(m.text) }} />
-                    ) : (
-                      <ReactMarkdown
-                        rehypePlugins={[rehypeRaw]}
-                        components={{
-                          p: ({ children }) => <p className="m-0">{children}</p>,
-                          strong: ({ children }) => <span className="font-bold">{children}</span>,
-                          em: ({ children }) => <span className="italic">{children}</span>,
-                          code: ({ children }) => <code className="bg-muted px-1 py-0.5 rounded">{children}</code>,
-                          br: () => <br />,
-                        }}
-                      >
-                        {m.text}
-                      </ReactMarkdown>
-                    )}
-                  </div>
-                  {m.sender === 'bot' && <img src={eye1} alt="Bot" className="h-6 w-6 rounded-full" />}
-                </div>
-              ))}
+              {renderMessages()}
+              {/* Loading indicator uses isLoading prop */}
               {isLoading && (
-                <div className="flex w-full items-end gap-2 justify-end">
+                <div className="flex w-full items-end gap-2 justify-end animate-fade-in">
                   <div className="bg-muted dark:bg-gray-700 text-muted-foreground rounded-lg rounded-bl-none max-w-[80%] p-3">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
@@ -338,30 +331,31 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-border">
+          <div className="p-4 border-t border-border flex-shrink-0">
             <div className="flex flex-col gap-2">
               <div className="flex gap-2">
                 <textarea
                   ref={inputRef}
                   rows={1}
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onKeyDown={handleKeyDown}
+                  value={inputValue} // Use inputValue prop
+                  onChange={handleInputChange} // Use handler that calls prop
+                  onKeyDown={handleKeyDown} // Use handler that calls prop
                   placeholder="اكتب رسالتك هنا..."
-                  disabled={isLoading}
-                  maxLength={maxCharLimit}
+                  disabled={isLoading} // Use isLoading prop
+                  maxLength={maxCharLimit} // Use defined limit
                   className={cn(
                     "flex-1 p-2 border border-border bg-input dark:bg-background text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none overflow-hidden",
-                    isOverCharLimit(inputValue) && "border-destructive focus:ring-destructive"
+                    isInputOverLimit && "border-destructive focus:ring-destructive" // Use local check for display
                   )}
-                  style={{ maxHeight: '120px' }}
+                  style={{ maxHeight: '120px' }} // Keep max height style
                 />
                 <button
-                  onClick={handleSendMessage}
-                  disabled={isLoading || !inputValue.trim() || isOverCharLimit(inputValue)}
+                  onClick={onSendMessage} // Use onSendMessage prop
+                  // Disable based on props and local input check
+                  disabled={isLoading || !inputValue.trim() || isInputOverLimit}
                   className={cn(
-                    'p-2 rounded-lg bg-primary text-primary-foreground flex items-center justify-center',
-                    (isLoading || !inputValue.trim() || isOverCharLimit(inputValue)) && 'opacity-50 cursor-not-allowed'
+                    'p-2 rounded-lg bg-primary text-primary-foreground flex items-center justify-center transition-opacity',
+                    (isLoading || !inputValue.trim() || isInputOverLimit) && 'opacity-50 cursor-not-allowed'
                   )}
                   aria-label="Send message"
                 >
@@ -369,8 +363,9 @@ const ChatWindow = ({ isOpen, onClose }: ChatWindowProps) => {
                 </button>
               </div>
               <div className="flex justify-between text-xs text-muted-foreground">
+                {/* Display character count */}
                 <span>{inputValue.length}/{maxCharLimit}</span>
-                {isOverCharLimit(inputValue) && <span className="text-destructive">تم تجاوز الحد الأقصى للأحرف</span>}
+                {isInputOverLimit && <span className="text-destructive">تم تجاوز الحد الأقصى للأحرف</span>}
               </div>
             </div>
           </div>

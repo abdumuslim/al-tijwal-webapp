@@ -15,9 +15,10 @@ import eye5 from '@/assets/chatbot-blink/5.webp';
 interface ChatButtonProps {
   onClick: () => void;
   isOpen: boolean;
+  unreadCount: number; // Add unreadCount prop
 }
 
-const ChatButton = ({ onClick, isOpen }: ChatButtonProps) => {
+const ChatButton = ({ onClick, isOpen, unreadCount }: ChatButtonProps) => { // Destructure unreadCount
   const [showSpeechBubble, setShowSpeechBubble] = useState(false);
 
   // --- Start Blinking Animation Logic ---
@@ -109,20 +110,29 @@ const ChatButton = ({ onClick, isOpen }: ChatButtonProps) => {
           </div>
           
           <TooltipTrigger asChild>
-            <button
-              onClick={() => {
-                onClick();
-                setShowSpeechBubble(false);
-              }}
-              className={cn(
-                "transition-all duration-300", // Removed background, padding, shadow, etc.
-                isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100" // Hide when chat is open
+            {/* Add relative positioning to the button container */}
+            <div className="relative">
+              <button
+                onClick={() => {
+                  onClick();
+                  setShowSpeechBubble(false);
+                }}
+                className={cn(
+                  "transition-all duration-300", // Removed background, padding, shadow, etc.
+                  isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100" // Hide when chat is open
+                )}
+                aria-label="فتح نافذة المحادثة"
+              >
+                {/* Replace AnimatedRobot with blinking image */}
+                <img src={currentEyeImage} alt="Chatbot Icon" className="h-20 w-20 animate-float" /> {/* Increased size to 5rem and added float animation */}
+              </button>
+              {/* Unread message badge */}
+              {unreadCount > 0 && (
+                <span className="absolute top-0 right-0 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white transform translate-x-1/4 -translate-y-1/4">
+                  {unreadCount}
+                </span>
               )}
-              aria-label="فتح نافذة المحادثة"
-            >
-              {/* Replace AnimatedRobot with blinking image */}
-              <img src={currentEyeImage} alt="Chatbot Icon" className="h-20 w-20 animate-float" /> {/* Increased size to 5rem and added float animation */}
-            </button>
+            </div>
           </TooltipTrigger>
           <TooltipContent side="right" className="bg-popover text-popover-foreground"> {/* Use popover colors */}
             <p>التحدث مع مساعد التجوال</p>

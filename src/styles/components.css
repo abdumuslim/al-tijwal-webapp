@@ -51,3 +51,29 @@
     @apply relative inline-flex items-center justify-center overflow-hidden rounded-xl bg-tijwal-orange text-white p-0.5 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-tijwal-orange;
   }
 }
+
+/* Custom Scrollbar for Chat Window */
+.chat-messages-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.chat-messages-scrollbar::-webkit-scrollbar-track {
+  background: hsl(var(--muted)); /* Track color, using muted background */
+  border-radius: 10px;
+}
+
+.chat-messages-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary)); /* Thumb color, using primary color */
+  border-radius: 10px;
+}
+
+.chat-messages-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8); /* Slightly transparent primary on hover */
+}
+
+/* Firefox scrollbar styling (optional but good practice) */
+.chat-messages-scrollbar {
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: hsl(var(--primary)) hsl(var(--muted)); /* thumb and track color */
+}
+
