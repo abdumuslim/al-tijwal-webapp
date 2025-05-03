@@ -227,7 +227,7 @@ const ChatWindow = ({
                   // 'force-font-cairo', // Removed custom utility class
                   m.sender === 'bot'
                     ? 'bg-muted dark:bg-gray-700 text-muted-foreground rounded-br-none' // Bot style
-                    : 'bg-primary text-primary-foreground rounded-bl-none' // User style (text color handled below)
+                    : 'bg-secondary text-primary-foreground rounded-bl-none' // User style (text color handled below)
                 )}
                 // Removed inline style override
               >
