@@ -28,10 +28,11 @@ const CustomerSupport = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [muted, setMuted] = useState(() => localStorage.getItem('tijwalChat.muted') === 'true');
+  const [focusInputTrigger, setFocusInputTrigger] = useState(0); // New state for triggering focus
 
   // Session ID generation function
   const generateNewSessionId = (): string => {
-    const sid = `session_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+    const sid = crypto.randomUUID();
     localStorage.setItem('tijwalChat.sid', sid);
     return sid;
   };
@@ -142,6 +143,7 @@ const CustomerSupport = () => {
     setSessionId(newSid);
 
     toast({ title: 'تم مسح المحادثة بنجاح' });
+    setFocusInputTrigger(prev => prev + 1); // Trigger focus
     // Optionally close chat after clearing
     // closeChat();
   };
@@ -281,6 +283,7 @@ const CustomerSupport = () => {
             muted={muted}
             onToggleMute={toggleMute}
             onClearHistory={clearHistory}
+            focusInputTrigger={focusInputTrigger} // Pass trigger to ChatWindow
             // onNewMessage is no longer needed here as logic is internal
           />
         )}

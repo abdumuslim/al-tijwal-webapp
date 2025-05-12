@@ -40,6 +40,7 @@ interface ChatWindowProps {
   muted: boolean;
   onToggleMute: () => void;
   onClearHistory: () => void;
+  focusInputTrigger?: number; // Add the new prop
   // onNewMessage is removed as parent handles it internally
 }
 
@@ -70,7 +71,8 @@ const ChatWindow = ({
   onSendMessage,
   muted,
   onToggleMute,
-  onClearHistory
+  onClearHistory,
+  focusInputTrigger
 }: ChatWindowProps) => {
 
   // Refs for UI elements (kept)
@@ -182,6 +184,18 @@ const ChatWindow = ({
       return () => clearTimeout(t);
     }
   }, [isLoading]);
+
+  // ——— New: refocus input when focusInputTrigger changes (e.g., after history clear) ———
+  useEffect(() => {
+    if (focusInputTrigger && focusInputTrigger > 0 && isOpen) {
+      // slight delay to let React finish rendering and ensure input is visible
+      const t = setTimeout(() => {
+        resizeTextarea();
+        inputRef.current?.focus();
+      }, 100); // Adjusted delay slightly, can be 0 if transitions are not an issue
+      return () => clearTimeout(t);
+    }
+  }, [focusInputTrigger, isOpen]);
 
   // Character limit check moved to parent, but we still need maxCharLimit for display
   // This could be passed as a prop if it's dynamic, or redefined if static
