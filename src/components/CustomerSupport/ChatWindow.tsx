@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Send, X, User, MoreVertical, Trash2, Volume2, VolumeX } from 'lucide-react';
+import { Send, X, User, MoreVertical, Trash2, Volume2, VolumeX } from 'lucide-react'; // Removed Loader2, Brain, Activity
+import { Loader } from './Loader'; // Import the new Loader component
 //import ReactMarkdown from 'react-markdown';
 import { cn } from '@/lib/utils';
 // Removed useToast as it's handled in parent
@@ -284,7 +285,9 @@ const ChatWindow = ({
       {/* Chat panel Wrapper */}
       <div onClick={(e) => e.stopPropagation()}> {/* Removed id */}
         {/* Chat panel */}
-        <div className={cn(
+        <div
+          aria-busy={isLoading} // Added aria-busy
+          className={cn(
           'fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:bottom-20 z-50 w-auto sm:w-[330px] md:w-[480px] max-w-md rounded-2xl shadow-xl bg-card border border-border flex flex-col',
           'max-h-[calc(100vh-6rem)] sm:max-h-[calc(100vh-8rem)]', // Adjusted max height
           'transition-transform duration-300 ease-out', // Added transition
@@ -327,17 +330,12 @@ const ChatWindow = ({
           <div className={cn("p-4 flex-1 overflow-y-auto overscroll-contain", "chat-messages-scrollbar")}>
             <div className="flex flex-col gap-3">
               {renderMessages()}
-              {/* Loading indicator uses isLoading prop */}
               {isLoading && (
                 <div className="flex w-full items-end gap-2 justify-end animate-fade-in">
-                  <div className="bg-muted dark:bg-gray-700 text-muted-foreground rounded-lg rounded-bl-none max-w-[80%] p-3">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                      <span className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
-                      <span className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
-                    </div>
+                  <div className="bg-muted dark:bg-gray-700 text-muted-foreground rounded-lg rounded-br-none max-w-[80%] p-3 flex items-center justify-center h-10">
+                    <Loader variant="brain-glow" />
                   </div>
-                  <img src={eye1} alt="Bot" className="h-6 w-6 rounded-full" />
+                  <img src={eyeImg} alt="Bot thinking" className="h-6 w-6 rounded-full self-end" />
                 </div>
               )}
               <div ref={messagesEndRef} />

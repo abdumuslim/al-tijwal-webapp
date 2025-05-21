@@ -117,6 +117,31 @@ export default {
 					'0%': { backgroundPosition: '200% 0' },
 					'100%': { backgroundPosition: '-200% 0' },
 				},
+				    'throb-pulse': {
+				      '0%,100%': { transform: 'scale(1)', opacity: '1' },
+				      '50%':    { transform: 'scale(1.15)', opacity: '0.7' },
+				    },
+				    'opacity-pulse-strong': {
+				      '0%,100%': { opacity: '1' },
+				      '50%':     { opacity: '0.3' },
+				    },
+				    'dot-typing': {
+				      '0%,100%':            { opacity: '0.3' },
+				      'calc(var(--dot-delay)*1%)': { opacity: '1' },
+				    },
+				    'neural-scan': {
+				      '0%': { backgroundPosition: '-100% 0%' },
+				      '100%': { backgroundPosition: '100% 0%' },
+				    },
+				    'synapse-spark': {
+				      '0%, 100%': { transform: 'scale(0)', opacity: '0' },
+				      '50%': { transform: 'scale(1.2)', opacity: '1' },
+				      '75%': { transform: 'scale(0.8)', opacity: '0.5' },
+				    },
+				    'brain-glow-effect': {
+				      '0%, 100%': { 'box-shadow': '0 0 0px 0px hsla(var(--primary-hsl), 0.2)' },
+				      '50%':      { 'box-shadow': '0 0 8px 4px hsla(var(--primary-hsl), 0.4)' },
+				    },
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -128,6 +153,12 @@ export default {
 				'float': 'float 6s ease-in-out infinite',
 				'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
 				'background-shine': 'background-shine 8s linear infinite',
+				    'throb-pulse':          'throb-pulse var(--pulse-duration,1.5s) var(--pulse-ease,cubic-bezier(0.4,0,0.6,1)) infinite',
+				    'opacity-pulse-strong': 'opacity-pulse-strong var(--pulse-duration,1.5s) var(--pulse-ease,cubic-bezier(0.4,0,0.6,1)) infinite',
+				    'dot-typing':           'dot-typing var(--typing-duration,1.4s) var(--typing-ease,linear) infinite',
+				    'neural-scan':          'neural-scan var(--scan-duration, 1.5s) var(--scan-ease, linear) infinite',
+				    'synapse-spark':        'synapse-spark var(--spark-duration, 0.8s) var(--spark-ease, ease-out) infinite',
+				    'brain-glow':           'opacity-pulse-strong var(--pulse-duration, 1.5s) var(--pulse-ease, cubic-bezier(0.4,0,0.6,1)) infinite, brain-glow-effect var(--glow-duration, 1.5s) var(--glow-ease, ease-in-out) infinite',
 			}
 		}
 	},

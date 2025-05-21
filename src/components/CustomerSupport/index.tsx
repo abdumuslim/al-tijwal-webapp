@@ -39,7 +39,9 @@ const CustomerSupport = () => {
 
   // Session ID state
   const [sessionId, setSessionId] = useState<string>(() => {
-    return localStorage.getItem('tijwalChat.sid') || generateNewSessionId();
+    const storedSid = localStorage.getItem('tijwalChat.sid');
+    // Ensure a new ID is generated if storedSid is null, undefined, or an empty string
+    return storedSid ? storedSid : generateNewSessionId();
   });
 
   // Message state and persistence moved from ChatWindow

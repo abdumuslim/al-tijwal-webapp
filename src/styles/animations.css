@@ -1,3 +1,16 @@
+:root {
+  --pulse-duration: 1.5s;
+  --pulse-ease: cubic-bezier(0.4,0,0.6,1);
+  --typing-duration: 1.4s;
+  --typing-ease: linear;
+  --scan-duration: 1.5s;
+  --scan-ease: linear;
+  --spark-duration: 0.8s;
+  --spark-ease: ease-out;
+  --glow-duration: 1.5s;
+  --glow-ease: ease-in-out;
+}
+
 @layer components {
   .fade-in-section {
     @apply opacity-0 transform translate-y-10 transition duration-700;
@@ -199,3 +212,5 @@
 .speech-bubble {
   animation: pulse-glow 2s ease-in-out infinite, float 3s ease-in-out infinite;
 }
+
+/* In your global CSS file */
