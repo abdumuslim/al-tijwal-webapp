@@ -51,6 +51,6 @@ export const clients: ClientLogo[] = [
 // Helper function to extract background color from className
 export const extractBgColor = (className?: string): string => {
   if (!className || !className.includes('bg-[#')) return 'transparent';
-  const match = className.match(/bg-\[\#([0-9a-f]+)\]/);
+  const match = className.match(/bg-\[#([0-9a-f]+)\]/);
   return match?.[1] ? `#${match[1]}` : 'transparent';
 };

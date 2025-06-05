@@ -173,7 +173,7 @@ const CustomerSupport = () => {
         if (res.status >= 500 && res.status < 600) throw new Error(`Server Error: ${res.status}`);
         // Don't retry on client errors (4xx) or other issues
         return res;
-      } catch (err: any) {
+      } catch (err: unknown) {
         // Don't retry on AbortError
         if (err.name === 'AbortError') {
            console.error("Request timed out.");
@@ -255,7 +255,7 @@ const CustomerSupport = () => {
       const botMessage: ChatMessage = { text: botText, sender: 'bot', timestamp: Date.now() };
       handleNewBotMessage(botMessage); // Use the dedicated handler
 
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error sending message:", err);
       const errorMessage = 'عذراً، المساعد غير متوفر حالياً. يرجى المحاولة مرة أخرى لاحقاً.';
       toast({ title: 'حدث خطأ', description: errorMessage, variant: 'destructive' });
