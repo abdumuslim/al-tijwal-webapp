@@ -58,12 +58,12 @@ export function renderMarkdown(md: string): string {
 
   // 4) Headings (#–######)
   html = html
-    .replace(/^###### (.+)$/gm, "<h6>$1</h6>")
-    .replace(/^##### (.+)$/gm, "<h5>$1</h5>")
-    .replace(/^#### (.+)$/gm,  "<h4>$1</h4>")
-    .replace(/^### (.+)$/gm,   "<h3>$1</h3>")
-    .replace(/^## (.+)$/gm,    "<h2>$1</h2>")
-    .replace(/^# (.+)$/gm,     "<h1>$1</h1>");
+    .replace(/^###### (.+)$/gm, (_, txt) => `<h6>${escapeHtml(txt)}</h6>`)
+    .replace(/^##### (.+)$/gm, (_, txt) => `<h5>${escapeHtml(txt)}</h5>`)
+    .replace(/^#### (.+)$/gm,  (_, txt) => `<h4>${escapeHtml(txt)}</h4>`)
+    .replace(/^### (.+)$/gm,   (_, txt) => `<h3>${escapeHtml(txt)}</h3>`)
+    .replace(/^## (.+)$/gm,    (_, txt) => `<h2>${escapeHtml(txt)}</h2>`)
+    .replace(/^# (.+)$/gm,     (_, txt) => `<h1>${escapeHtml(txt)}</h1>`);
 
   // 5) Horizontal rules (---, ***, ___)
   html = html.replace(/^\s*(\-){3,}\s*$/gm, '<hr />')
@@ -71,7 +71,7 @@ export function renderMarkdown(md: string): string {
              .replace(/^\s*(_){3,}\s*$/gm, '<hr />');
 
   // 6) Blockquotes (> text)
-  html = html.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
+  html = html.replace(/^> (.+)$/gm, (_, txt) => `<blockquote>${escapeHtml(txt)}</blockquote>`);
 
   // 7) Bold, italics, strikethrough
   html = html
@@ -90,7 +90,7 @@ export function renderMarkdown(md: string): string {
     /(^|\n)(\d+\.\s[^\n]+(?:\n\d+\.\s[^\n]+)*)/g,
     (_, lead, block) => {
       const items = block.trim().split(/\n/).map(
-        line => `<li>${line.replace(/^\d+\.\s/, "").trim()}</li>`
+        line => `<li>${escapeHtml(line.replace(/^\d+\.\s/, "").trim())}</li>`
       ).join('');
       return `${lead}<ol>${items}</ol>`;
     }
@@ -101,7 +101,7 @@ export function renderMarkdown(md: string): string {
     /(^|\n)([\-\*\+]\s[^\n]+(?:\n[\-\*\+]\s[^\n]+)*)/g,
     (_, lead, block) => {
       const items = block.trim().split(/\n/).map(
-        line => `<li>${line.replace(/^[\-\*\+]\s/, "").trim()}</li>`
+        line => `<li>${escapeHtml(line.replace(/^[\-\*\+]\s/, "").trim())}</li>`
       ).join('');
       return `${lead}<ul>${items}</ul>`;
     }
@@ -112,7 +112,7 @@ export function renderMarkdown(md: string): string {
     const t = chunk.trim();
     return /^<(?:(h\d|ul|ol|li|pre|blockquote|hr|img|code))/i.test(t)
       ? t
-      : `<p>${t.replace(/\n/g, '<br />')}</p>`;
+      : `<p>${escapeHtml(t).replace(/\n/g, '<br />')}</p>`;
   }).join('');
 
   // 12) Any remaining single line-breaks → <br />
