@@ -8,6 +8,7 @@ import { initGA, logPageView } from "./lib/analytics";
 import { useEffect } from 'react';
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import FontPreloader from "./components/FontPreloader";
 import useHashScroll from "./hooks/useHashScroll";
 import RedirectHandler from "./components/RedirectHandler"; // Import RedirectHandler
@@ -48,6 +49,7 @@ const AppContent = () => {
         ))}
         {/* Existing routes */}
         <Route path="/" element={<Index />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

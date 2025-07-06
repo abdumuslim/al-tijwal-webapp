@@ -93,11 +93,11 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#about" className="nav-link">المميزات</a>
-            <a href="#locations" className="nav-link">الأماكن</a>
-            <a href="#clients" className="nav-link">عملاؤنا</a>
-            <a href="#pricing" className="nav-link">الباقات</a>
-            <a href="#faq" className="nav-link">الأسئلة الشائعة</a>
+            <a href="/#about" className="nav-link">المميزات</a>
+            <a href="/#locations" className="nav-link">الأماكن</a>
+            <a href="/#clients" className="nav-link">عملاؤنا</a>
+            <a href="/#pricing" className="nav-link">الباقات</a>
+            <a href="/#faq" className="nav-link">الأسئلة الشائعة</a>
           </div>
 
           <div className="hidden md:flex items-center gap-4"> {/* Changed md:block to md:flex */}
@@ -163,11 +163,11 @@ const Navbar = () => {
 
           <div className="flex flex-col items-center gap-6 text-lg">
              {/* Links will now close the menu via toggleMenu (already updated) */}
-            <a href="#about" className="nav-link dark:text-foreground" onClick={toggleMenu}>المميزات</a>
-            <a href="#locations" className="nav-link dark:text-foreground" onClick={toggleMenu}>الأماكن</a>
-            <a href="#clients" className="nav-link dark:text-foreground" onClick={toggleMenu}>عملاؤنا</a>
-            <a href="#pricing" className="nav-link dark:text-foreground" onClick={toggleMenu}>الباقات</a>
-            <a href="#faq" className="nav-link dark:text-foreground" onClick={toggleMenu}>الأسئلة الشائعة</a>
+            <a href="/#about" className="nav-link dark:text-foreground" onClick={toggleMenu}>المميزات</a>
+            <a href="/#locations" className="nav-link dark:text-foreground" onClick={toggleMenu}>الأماكن</a>
+            <a href="/#clients" className="nav-link dark:text-foreground" onClick={toggleMenu}>عملاؤنا</a>
+            <a href="/#pricing" className="nav-link dark:text-foreground" onClick={toggleMenu}>الباقات</a>
+            <a href="/#faq" className="nav-link dark:text-foreground" onClick={toggleMenu}>الأسئلة الشائعة</a>
             <div className="mt-6">
               {/* handleContactClick already closes the menu */}
               <TijwalButton variant="primary" onClick={handleContactClick}>

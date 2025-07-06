@@ -26,7 +26,7 @@ const HeroSection = () => {
   const handleTijwalEye = () => {
     // Track this event
     logEvent('Navigation', 'Click', 'Hero - Tijwal Eye Button');
-    
+    0
     // Scroll to Tijwal Eye section
     const tijwalEyeSection = document.getElementById('tijwal-eye');
     if (tijwalEyeSection) {

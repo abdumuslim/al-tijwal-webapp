@@ -24,22 +24,25 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-6">روابط سريعة</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#about" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">من نحن</a>
+                <a href="/#about" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">من نحن</a>
               </li>
               <li>
-                <a href="#tijwal-eye" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">تقنية عين التجوال</a>
+                <a href="/#tijwal-eye" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">تقنية عين التجوال</a>
               </li>
               <li>
-                <a href="#locations" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">مناطق الخدمة</a>
+                <a href="/#locations" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">مناطق الخدمة</a>
               </li>
               <li>
-                <a href="#pricing" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">باقات العروض</a>
+                <a href="/#pricing" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">باقات العروض</a>
               </li>
               <li>
-                <a href="#faq" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">الأسئلة الشائعة</a>
+                <a href="/#faq" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">الأسئلة الشائعة</a>
               </li>
               <li>
-                <a href="#contact" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">تواصل معنا</a>
+                <a href="/#contact" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">تواصل معنا</a>
+              </li>
+              <li>
+                <a href="/privacy-policy" className="text-gray-300 dark:text-card-foreground/80 hover:text-white dark:hover:text-card-foreground transition-colors duration-300">سياسة الخصوصية</a>
               </li>
             </ul>
           </div>
