@@ -46,6 +46,26 @@ export function renderMarkdown(md: string): string {
   // 1) Normalize escape sequences first
   let html = normalizeEscapes(md);
 
+  // 1.b) Decode common HTML entities first to restore any raw tags
+  const decodeHtmlEntities = (txt: string): string =>
+    txt
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&amp;/g, '&')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&#x([0-9A-Fa-f]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
+      .replace(/&#(\d+);/g, (_, dec) => String.fromCharCode(parseInt(dec, 10)));
+  html = decodeHtmlEntities(html);
+
+  // 1.a) If the content already contains HTML tags, trust and return as-is.
+  // This restores previous behavior where raw HTML like <strong>..</strong> renders directly.
+  // Note: Upstream usage controls the source of HTML. Use with care.
+  const containsHtmlTag = /<\/?[a-zA-Z][^>]*>/.test(html);
+  if (containsHtmlTag) {
+    return html;
+  }
+
   // 2) Code blocks (``` … ```)
   html = html.replace(/```([\s\S]*?)```/g, (_, code) =>
     `<pre><code>${escapeHtml(code)}</code></pre>`

@@ -29,6 +29,10 @@ const CustomerSupport = () => {
   const [inputValue, setInputValue] = useState('');
   const [muted, setMuted] = useState(() => localStorage.getItem('tijwalChat.muted') === 'true');
   const [focusInputTrigger, setFocusInputTrigger] = useState(0); // New state for triggering focus
+  const [deliveredUserTimestamps, setDeliveredUserTimestamps] = useState<number[]>([]); // Track delivered user messages
+  const pendingBotTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isTyping, setIsTyping] = useState(false);
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Session ID generation function
   const generateNewSessionId = (): string => {
@@ -139,6 +143,17 @@ const CustomerSupport = () => {
     // Reset message state
     setMessages([initialGreeting]);
     setUnreadCount(0);
+    setIsLoading(false);
+    setDeliveredUserTimestamps([]);
+    if (pendingBotTimeoutRef.current) {
+      clearTimeout(pendingBotTimeoutRef.current);
+      pendingBotTimeoutRef.current = null;
+    }
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+      typingTimeoutRef.current = null;
+    }
+    setIsTyping(false);
 
     // Generate and set a new session ID
     const newSid = generateNewSessionId();
@@ -252,8 +267,32 @@ const CustomerSupport = () => {
       // Decrypt if necessary (assuming bot response might also be encrypted)
       // botText = decryptMessage(botText); // Uncomment if bot responses are encrypted
 
-      const botMessage: ChatMessage = { text: botText, sender: 'bot', timestamp: Date.now() };
-      handleNewBotMessage(botMessage); // Use the dedicated handler
+      const userTs = userMessage.timestamp;
+      // Mark user's message as delivered immediately upon receiving response
+      setDeliveredUserTimestamps(prev => (prev.includes(userTs) ? prev : [...prev, userTs]));
+
+      // Start typing indicator after 1s from delivery
+      if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+      typingTimeoutRef.current = setTimeout(() => {
+        setIsTyping(true);
+      }, 1000);
+
+      const delay = Math.floor(3000 + Math.random() * 2000); // 3–5s delay before showing bot message
+      if (pendingBotTimeoutRef.current) {
+        clearTimeout(pendingBotTimeoutRef.current);
+      }
+      pendingBotTimeoutRef.current = setTimeout(() => {
+        const botMessage: ChatMessage = { text: botText, sender: 'bot', timestamp: Date.now() };
+        handleNewBotMessage(botMessage);
+        pendingBotTimeoutRef.current = null;
+        // Stop typing indicator and re-enable input
+        if (typingTimeoutRef.current) {
+          clearTimeout(typingTimeoutRef.current);
+          typingTimeoutRef.current = null;
+        }
+        setIsTyping(false);
+        setIsLoading(false); // Re-enable input after bot message shows
+      }, delay);
 
     } catch (err: unknown) {
       console.error("Error sending message:", err);
@@ -263,9 +302,23 @@ const CustomerSupport = () => {
       const errorBotMessage: ChatMessage = { text: errorMessage, sender: 'bot', timestamp: Date.now() };
       // Directly set message without sound/unread count for error
       setMessages(prev => [...prev, errorBotMessage]);
+      // Ensure typing state and delays are cleared on error
+      if (pendingBotTimeoutRef.current) {
+        clearTimeout(pendingBotTimeoutRef.current);
+        pendingBotTimeoutRef.current = null;
+      }
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+        typingTimeoutRef.current = null;
+      }
+      setIsTyping(false);
     } finally {
-      setIsLoading(false);
-      // Focus logic remains in ChatWindow as it needs the inputRef
+      // Do not reset isLoading here on success; it is reset after delayed bot message.
+      // On error path, catch block will set isLoading to false.
+      if (typeof window !== 'undefined' && !pendingBotTimeoutRef.current) {
+        // If no pending bot response (e.g., error), ensure input is enabled
+        setIsLoading(false);
+      }
     }
   };
 
@@ -279,6 +332,7 @@ const CustomerSupport = () => {
             onClose={closeChat}
             messages={messages}
             isLoading={isLoading}
+            isTyping={isTyping}
             inputValue={inputValue}
             onInputChange={setInputValue} // Pass setter directly
             onSendMessage={handleSendMessage}
@@ -286,6 +340,7 @@ const CustomerSupport = () => {
             onToggleMute={toggleMute}
             onClearHistory={clearHistory}
             focusInputTrigger={focusInputTrigger} // Pass trigger to ChatWindow
+            deliveredUserTimestamps={deliveredUserTimestamps}
             // onNewMessage is no longer needed here as logic is internal
           />
         )}

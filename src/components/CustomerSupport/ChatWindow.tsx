@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Send, X, User, MoreVertical, Trash2, Volume2, VolumeX } from 'lucide-react'; // Removed Loader2, Brain, Activity
-import { Loader } from './Loader'; // Import the new Loader component
-//import ReactMarkdown from 'react-markdown';
+import { Send, X, User, MoreVertical, Trash2, Volume2, VolumeX, Check, CheckCheck } from 'lucide-react'; // Removed Loader2, Brain, Activity
+// Removed Loader usage in favor of CheckCheck status
+import ReactMarkdown from 'react-markdown';
 import { cn } from '@/lib/utils';
 // Removed useToast as it's handled in parent
 import {
@@ -11,8 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 // Removed chatSecurity imports as logic is in parent
-//import rehypeRaw from 'rehype-raw';
-import { renderMarkdown } from '@/lib/markdown';
+import rehypeRaw from 'rehype-raw';
 
 // Blink images (kept for UI)
 import eye1 from '@/assets/chatbot-blink/1.webp';
@@ -35,6 +34,7 @@ interface ChatWindowProps {
   onClose: () => void;
   messages: ChatMessage[];
   isLoading: boolean;
+  isTyping?: boolean;
   inputValue: string;
   onInputChange: (value: string) => void; // Changed to accept value directly
   onSendMessage: () => void;
@@ -42,6 +42,7 @@ interface ChatWindowProps {
   onToggleMute: () => void;
   onClearHistory: () => void;
   focusInputTrigger?: number; // Add the new prop
+  deliveredUserTimestamps?: number[]; // timestamps of user messages marked delivered
   // onNewMessage is removed as parent handles it internally
 }
 
@@ -67,13 +68,15 @@ const ChatWindow = ({
   onClose,
   messages,
   isLoading,
+  isTyping,
   inputValue,
   onInputChange,
   onSendMessage,
   muted,
   onToggleMute,
   onClearHistory,
-  focusInputTrigger
+  focusInputTrigger,
+  deliveredUserTimestamps
 }: ChatWindowProps) => {
 
   // Refs for UI elements (kept)
@@ -203,6 +206,8 @@ const ChatWindow = ({
   const maxCharLimit = 600; // Assuming a static limit for display purposes
   const isInputOverLimit = inputValue.length > maxCharLimit;
 
+  // User message status is controlled by parent via deliveredUserTimestamps
+
 
   // Render messages helper (kept for UI, uses props.messages)
   const renderMessages = () => {
@@ -212,6 +217,10 @@ const ChatWindow = ({
       const timeStr = formatTime(m.timestamp);
       const showDateSeparator = dateStr !== lastDate;
       lastDate = dateStr;
+      const hasBotAfter = messages.slice(i + 1).some(msg => msg.sender === 'bot');
+      const isDelivered = m.sender === 'user' && (
+        hasBotAfter || (Array.isArray(deliveredUserTimestamps) && deliveredUserTimestamps.includes(m.timestamp))
+      );
 
       return (
         <React.Fragment key={`msg-${m.timestamp}-${i}`}>
@@ -246,22 +255,32 @@ const ChatWindow = ({
                 )}
                 // Removed inline style override
               >
-                {/* single, unified markdown renderer */}
+                {/* Render using ReactMarkdown with raw HTML support; wrapper holds classes */}
                 <div
-                  // Add text-white directly here for user messages
                   className={cn(
-                    "prose prose-sm dark:prose-invert break-words", // Restored dark:prose-invert
-                    m.sender === 'user' && 'text-white' // Apply text-white only for user
+                    "prose prose-sm dark:prose-invert break-words",
+                    m.sender === 'user' && 'text-white'
                   )}
-                  dangerouslySetInnerHTML={{ __html: renderMarkdown(m.text) }}
-                />
+                >
+                  <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                    {m.text}
+                  </ReactMarkdown>
+                </div>
               </div>
               {/* Timestamp (Moved Outside Bubble) */}
               <div className={cn(
-                "text-[0.65rem] mt-1 opacity-70 select-none px-1", // Added padding for spacing
-                m.sender === 'bot' ? 'text-right ml-auto' : 'text-left mr-auto' // Alignment handled by parent div now, but kept for clarity
+                "text-[0.65rem] mt-1 opacity-70 select-none px-1 flex items-center gap-1",
+                // Align time+checks to the far right for user, far left for bot
+                m.sender === 'user' ? 'justify-end text-right ml-auto' : 'justify-start text-left mr-auto'
               )}>
-                {timeStr}
+                {m.sender === 'user' && (
+                  isDelivered ? (
+                    <CheckCheck className="h-3.5 w-3.5 text-blue-500" aria-label="تم الاستلام" />
+                  ) : (
+                    <Check className="h-3.5 w-3.5 text-gray-400" aria-label="تم الإرسال" />
+                  )
+                )}
+                <span>{timeStr}</span>
               </div>
             </div>
 
@@ -330,12 +349,17 @@ const ChatWindow = ({
           <div className={cn("p-4 flex-1 overflow-y-auto overscroll-contain", "chat-messages-scrollbar")}>
             <div className="flex flex-col gap-3">
               {renderMessages()}
-              {isLoading && (
+              {/* Typing indicator: three animated orange dots, shows after 1s of blue checks and until bot message appears */}
+              {isTyping && (
                 <div className="flex w-full items-end gap-2 justify-end animate-fade-in">
                   <div className="bg-muted dark:bg-gray-700 text-muted-foreground rounded-lg rounded-br-none max-w-[80%] p-3 flex items-center justify-center h-10">
-                    <Loader variant="brain-glow" />
+                    <div className="flex items-center gap-1">
+                      <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" style={{ animationDelay: '0ms' }} />
+                      <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" style={{ animationDelay: '150ms' }} />
+                      <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" style={{ animationDelay: '300ms' }} />
+                    </div>
                   </div>
-                  <img src={eyeImg} alt="Bot thinking" className="h-6 w-6 rounded-full self-end" />
+                  <img src={eyeImg} alt="Bot typing" className="h-6 w-6 rounded-full self-end" />
                 </div>
               )}
               <div ref={messagesEndRef} />
