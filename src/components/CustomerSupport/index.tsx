@@ -14,8 +14,8 @@ interface ChatMessage {
 }
 
 // Constants moved from ChatWindow
-const AUTH_HEADER_KEY   = 'tijwal-AI-bot';
-const AUTH_HEADER_VALUE = 'tijwal-secret-2025';
+const AUTH_HEADER_KEY   = import.meta.env.VITE_AUTH_HEADER_KEY!;
+const AUTH_HEADER_VALUE = import.meta.env.VITE_AUTH_HEADER_VALUE!;
 const WEBHOOK_URL       = import.meta.env.VITE_N8N_WEBHOOK_URL!;
 
 const CustomerSupport = () => {
@@ -277,7 +277,9 @@ const CustomerSupport = () => {
         setIsTyping(true);
       }, 1000);
 
-      const delay = Math.floor(3000 + Math.random() * 2000); // 3–5s delay before showing bot message
+      // Dynamic delay based on message length: typing duration = len/50 seconds
+      const typingDurationMs = Math.max(0, Math.floor((botText?.length ?? 0) / 50 * 1000));
+      const delay = 1000 + typingDurationMs; // include the 1s before typing starts
       if (pendingBotTimeoutRef.current) {
         clearTimeout(pendingBotTimeoutRef.current);
       }
