@@ -128,6 +128,20 @@ const CustomerSupport = () => {
     logEvent('customer_support', newState ? 'open_chat' : 'close_chat');
   };
 
+  // Listen for global open chat events
+  useEffect(() => {
+    const handleOpenChat = () => {
+      if (!isChatOpen) {
+        setIsChatOpen(true);
+        setUnreadCount(0);
+        logEvent('customer_support', 'open_chat_external');
+      }
+    };
+
+    window.addEventListener('openChat', handleOpenChat);
+    return () => window.removeEventListener('openChat', handleOpenChat);
+  }, [isChatOpen]);
+
   // Close chat
   const closeChat = () => {
     setIsChatOpen(false);

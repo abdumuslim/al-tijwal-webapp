@@ -15,12 +15,9 @@ const HeroSection = () => {
     // Track this event
     logEvent('Navigation', 'Click', 'Hero - Free Consultation Button');
     
-    // Scroll to contact section
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-    console.log('Contact button clicked - redirecting to contact section');
+    // Open chatbot window
+    window.dispatchEvent(new CustomEvent('openChat'));
+    console.log('Contact button clicked - opening chatbot');
   };
 
   const handleTijwalEye = () => {
@@ -63,10 +60,7 @@ const HeroSection = () => {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in">
           <TijwalButton variant="primary" size="lg" onClick={handleFooterRedirect}>
-            احصل على استشارة مجانية
-          </TijwalButton>
-          <TijwalButton variant="secondary" size="lg" onClick={handleTijwalEye}>
-            تعرف على عين التجوال
+            احصل على استشارة مجانية فورية
           </TijwalButton>
         </div>
 
