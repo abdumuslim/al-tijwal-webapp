@@ -50,7 +50,7 @@ const CustomerSupport = () => {
 
   // Message state and persistence moved from ChatWindow
   const initialGreeting: ChatMessage = {
-    text: 'مرحباً! اني مساعد التجوال الذكي. شلون اكدر اساعدك اليوم؟\n\n**محادثاتنا مسجلة لأغراض قياس الجودة.**',
+    text: 'مرحباً! اني مساعد التجوال الذكي.\n\nشلون اكدر اساعدك اليوم؟',
     sender: 'bot',
     timestamp: Date.now(),
   };
