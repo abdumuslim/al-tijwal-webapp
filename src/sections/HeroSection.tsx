@@ -32,6 +32,13 @@ const HeroSection = () => {
     console.log('Tijwal Eye button clicked');
   };
 
+  const handleTijwalAI = () => {
+    // Track this event
+    logEvent('Navigation', 'Click', 'Hero - Tijwal AI Button');
+    // Open Tijwal AI service in a new tab
+    window.open('https://ai.al-tijwal.com', '_blank', 'noopener');
+  };
+
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:bg-gradient-to-br dark:from-[hsl(var(--background))] dark:via-[hsl(var(--card))] dark:to-[hsl(var(--background))] overflow-hidden"> {/* Dark mode gradient */}
       {/* Background Elements */}
